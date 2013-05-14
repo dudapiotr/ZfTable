@@ -36,7 +36,7 @@ class DecoratorFactory
      */
     public static function factoryRow($name, $options)
     {
-        $decorator = static::getPluginManager()->get(self::CELL_PREFIX . $name, $options);
+        $decorator = static::getPluginManager()->get(self::ROW_PREFIX . $name, $options);
         return $decorator;
     }
 
@@ -48,7 +48,7 @@ class DecoratorFactory
      */
     public static function factoryHeader($name, $options)
     {
-        $decorator = static::getPluginManager()->get(self::ROW_PREFIX . $name, $options);
+        $decorator = static::getPluginManager()->get(self::HEADER_PREFIX . $name, $options);
         return $decorator;
     }
 

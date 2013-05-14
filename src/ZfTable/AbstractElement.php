@@ -25,6 +25,11 @@ abstract class AbstractElement extends AbstractCommon
      */
     protected $decorators = array();
 
+    /**
+     * Add new class to element
+     * @param string $class
+     * @return \ZfTable\AbstractElement
+     */
     public function addClass($class)
     {
         if (!in_array($class, $this->class)) {
@@ -33,11 +38,17 @@ abstract class AbstractElement extends AbstractCommon
         return $this;
     }
 
+    /**
+     * Remove class from element
+     * @param string $class
+     @ return \ZfTable\AbstractElement
+     */
     public function removeClass($class)
     {
         if (($key = array_search($class, $this->class)) !== false) {
             unset($this->class[$key]);
         }
+        return $this;
     }
 
     /**
@@ -68,6 +79,7 @@ abstract class AbstractElement extends AbstractCommon
     }
 
     /**
+     * Get attributes as a string
      * @return NULL|string
      */
     public function getAttributes()
@@ -85,15 +97,6 @@ abstract class AbstractElement extends AbstractCommon
         return ' ' . implode(' ', $ret);
     }
 
-    /**
-     * Call before rendering element. If element hasn't got any class, there set a default class
-     */
-    protected function _initRender()
-    {
-        if (count($this->class) == 0) {
-            $this->class = $this->defaultClass;
-        }
-    }
 
     /**
      * Get collestions of decoratos

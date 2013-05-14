@@ -1,8 +1,8 @@
 <?php
 
-namespace ZfTable\Decorator\Cell;
+namespace ZfTable\Decorator\Row;
 
-class ClassDecorator extends AbstractCellDecorator
+class ClassDecorator extends AbstractRowDecorator
 {
 
     protected $class;
@@ -16,7 +16,7 @@ class ClassDecorator extends AbstractCellDecorator
     {
         if (count($this->class) > 0) {
             foreach ($this->class as $class) {
-                $this->getCell()->addClass($class);
+                $this->getRow()->addClass($class);
             }
         }
         return $context;

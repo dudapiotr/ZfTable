@@ -3,8 +3,80 @@
 namespace ZfTable\Decorator;
 
 use ZfTable\AbstractCommon;
+use ZfTable\Decorator\Condition\ConditionFactory;
 
 abstract class AbstractDecorator extends AbstractCommon implements DecoratorInterface
 {
+    
+    
+    /**
+     * Decorator is adding before cotext
+     */
+    CONST PRE_CONTEXT   = 'pre';
+    
+    
+    /**
+     * Decorator is adding after context
+     */
+    CONST POST_CONTEXT  = 'post';
+    
+    
+    /**
+     * Decorator reset cotext and return only new cotext
+     */
+    CONST RESET_CONTEXT = 'reset';
+    
+    
+     /**
+     * Colestions of conditions objects 
+     * @var array
+     */
+    protected $conditions = array();
+    
+    
+    /**
+     * Add new condition to decorator
+     * @param string $name
+     * @param array $options
+     * @return AbstractDecorator
+     */
+    public function addCondition($name, $options)
+    {
+        if($this instanceof \ZfTable\Decorator\DataAccessInterface){
+            $condition = ConditionFactory::factory($name, $options);
+            $condition->setDecorator($this);
+            $this->attachCondition($condition);
+            return $this; 
+        }
+        
+    }
+    
+    /**
+     * Attach new condition
+     * @param ZfTable\Decorator\Condition\AbstractCondition $condition
+     */
+    protected function attachCondition($condition)
+    {
+        $this->conditions[] = $condition;
+    }
+    
+    
+    
+    /**
+     * Check if all conditions are valid
+     * @return boolean
+     */
+    public function validConditions()
+    {
+        if(!count($this->conditions)){
+            return true;
+        }
+        foreach ($this->conditions as $condition) {
+            if(!$condition->isValid()){
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

@@ -8,8 +8,16 @@ use ZfTable\Decorator\DecoratorFactory;
 class Cell extends AbstractElement
 {
 
+    /**
+     * Header object
+     * @var Header
+     */
     protected $header;
 
+    /**
+     * 
+     * @param Header $header
+     */
     public function __construct($header)
     {
         $this->header = $header;
@@ -19,42 +27,66 @@ class Cell extends AbstractElement
      * 
      * @param type $name
      * @param type $options
-     * @return \ZfTable\Decorator\Cell\AbstractCell
+     * @return \ZfTable\Decorator\AbstractDecorator
      */
     public function addDecorator($name, $options)
     {
         $decorator = DecoratorFactory::factoryCell($name, $options);
-        $this->attachDecorator($decorator);
         $decorator->setCell($this);
+        $this->attachDecorator($decorator);
         return $decorator;
     }
 
+    /**
+     * Get header object
+     * @return Header
+     */
     public function getHeader()
     {
         return $this->header;
     }
 
+    /**
+     * Set header object
+     * @param Header $header
+     * @return \ZfTable\Cell
+     */
     public function setHeader($header)
     {
         $this->header = $header;
+        return $this;
     }
 
-    public function render()
+    /**
+     * Get actual row 
+     * @return array
+     */
+    public function getActualRow()
     {
+        return $this->getTable()->getRow()->getActualRow();
+    }
 
+    /**
+     * Rendering single cell
+     * @return string
+     */
+    public function render($type = 'html')
+    {
         $row = $this->getTable()->getRow()->getActualRow();
         $value = $row[$this->getHeader()->getName()];
 
         foreach ($this->decorators as $decorator) {
-            //if ($decorator->checkCondition()) {
-            $value = $decorator->render($value);
-            //}
+            if ($decorator->validConditions()) {
+                $value = $decorator->render($value);
+            }
         }
-
-
-
-        $render = sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
-        return $render;
+        if($type == 'html'){
+            return sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
+        }
+        else{
+            return $value;
+        }
+        
     }
 
 }

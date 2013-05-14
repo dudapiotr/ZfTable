@@ -14,14 +14,19 @@ class Render extends AbstractCommon
      */
     protected $renderer;
 
+    
+    /**
+     * 
+     * @param AbstractTable $table
+     */
     public function __construct($table)
     {
         $this->setTable($table);
     }
 
     /**
-     *  
-     * @return 
+     * Rendering paginator
+     * @return string
      */
     public function renderPaginator()
     {
@@ -30,7 +35,22 @@ class Render extends AbstractCommon
         $res = $this->getRenderer()->paginationControl($paginator, 'Sliding', 'paginator-slide');
         return $res;
     }
+    
+     /**
+     * Rentering table
+     * @return string 
+     */
+    public function renderTableJson()
+    {
 
+        $res = array();
+        $render = $this->getTable()->getRow()->renderRows('array');
+        $res['aaData'] = $render;
+        return json_encode($res);
+        
+    }
+    
+    
     /**
      * Rentering table
      * @return string 

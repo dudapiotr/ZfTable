@@ -7,6 +7,12 @@ class ClassDecorator extends AbstractCellDecorator
 
     protected $class;
 
+    
+    /**
+     * Constructor
+     * @param array $options
+     * @throws Exception\InvalidArgumentException
+     */
     public function __construct($options)
     {
         $this->setClass($options['class']);

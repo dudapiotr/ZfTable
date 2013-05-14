@@ -74,7 +74,10 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     private $tableInit = false;
     
     
-    
+    /**
+     * Check if table has benn initializable
+     * @return boolean
+     */
     public function isTableInit()
     {
         return $this->tableInit;
@@ -212,6 +215,18 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         return $this->getRender()->renderTable();
     }
     
+    /**
+     * Rendering table 
+     * @return string
+     */
+    public function renderJson()
+    {
+        if(!$this->isTableInit()){
+            $this->initializable();
+        }
+        return $this->getRender()->renderTableJson();
+    }
+    
     
     
     /**
@@ -234,7 +249,6 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     public function setHeaders(array $headers)
     {
         $this->headers = $headers;
-
         foreach ($headers as $name => $options) {
             $this->addHeader($name, $options);
         }
@@ -254,7 +268,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      * 
      * @param type $name
-     * @return \ZfTable\Header\Header | boolean
+     * @return Header | boolean
      * @throws LogicException
      */
     public function getHeader($name)

@@ -3,8 +3,10 @@
 namespace ZfTable\Decorator\Cell;
 
 use ZfTable\Decorator\AbstractDecorator;
+use ZfTable\Decorator\DataAccessInterface;
 
-abstract class AbstractCellDecorator extends AbstractDecorator
+abstract class AbstractCellDecorator extends AbstractDecorator implements DataAccessInterface
+
 {
 
     /**
@@ -33,5 +35,14 @@ abstract class AbstractCellDecorator extends AbstractDecorator
         return $this;
     }
 
+    
+    /**
+     * Actual row data
+     * @return array
+     */
+    public function getActualRow()
+    {
+        return $this->getCell()->getActualRow();
+    }
 }
 

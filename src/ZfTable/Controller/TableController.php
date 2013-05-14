@@ -69,6 +69,16 @@ class TableController extends AbstractActionController
          $response->setContent($table->render());
          return $response;
     
+         
+    }
+    
+     public function ajaxTable2Action(){
+         $table = $this->table();
+
+         $response = $this->getResponse();
+         $response->setStatusCode(200);
+         $response->setContent($table->renderJson());
+         return $response;
     
          
     }

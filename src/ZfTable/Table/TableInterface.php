@@ -9,5 +9,4 @@ interface TableInterface {
     public function render();
     
     
-    
 }

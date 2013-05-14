@@ -3,18 +3,23 @@
 namespace ZfTable;
 
 use ZfTable\AbstractElement;
+use ZfTable\Decorator\DecoratorFactory;
 
 class Row extends AbstractElement
 {
 
+    
     /**
      *
-     * @var array
+     * @var arary
      */
-    protected $defaultClass = array('row');
-    
     protected $actualRow;
 
+    
+    /**
+     * 
+     * @param AbstractTable $table
+     */
     public function __construct($table)
     {
         $this->table = $table;
@@ -34,36 +39,75 @@ class Row extends AbstractElement
         return $decorator;
     }
 
+    /**
+     * Get actaul row 
+     * @return array
+     */
     public function getActualRow()
     {
         return $this->actualRow;
     }
 
+    /**
+     * 
+     * @param array $actualRow
+     */
     public function setActualRow($actualRow)
     {
         $this->actualRow = $actualRow;
     }
 
-    public function renderRows()
+    /**
+     * Rendering all rows for table
+     * @param string $type html, json, array
+     * @return string | array
+     */
+    public function renderRows($type = 'html')
     {
+        if($type == 'html'){
+            return $this->renderRowHtml();
+        }
+        elseif($type == 'array'){
+            return $this->renderRowArray();
+        }
+    }
 
+    
+    private function renderRowArray(){
+        $data = $this->getTable()->getData();
+        $headers = $this->getTable()->getHeaders();
+        $render = array();
+        
+        foreach ($data as $rowData) {
+            $this->setActualRow($rowData);
+            $temp = array();
+            foreach ($headers as $name => $options) {
+                $temp[] =  $this->getTable()->getHeader($name)->getCell()->render('array');
+            }
+            $render[] = $temp;
+        }
+        return $render;
+    }
+    
+    
+    private function renderRowHtml(){
         $data = $this->getTable()->getData();
         $headers = $this->getTable()->getHeaders();
         $render = '';
-
+        
         foreach ($data as $rowData) {
             $this->setActualRow($rowData);
             $rowRender = '';
             foreach ($headers as $name => $options) {
-                $rowRender .= $this->getTable()->getHeader($name)->getCell()->render();
+                $rowRender .= $this->getTable()->getHeader($name)->getCell()->render('html');
             }
-//            foreach($this->_decorator as $decorator){
-//                $decorator->render('');
-//            } 
-
+            foreach ($this->decorators as $decorator) {
+                $decorator->render('');
+            }
             $render .= sprintf('<tr %s>%s</tr>', $this->getAttributes(), $rowRender);
         }
         return $render;
     }
-
+    
+    
 }

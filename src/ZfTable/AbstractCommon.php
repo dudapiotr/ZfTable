@@ -6,7 +6,7 @@ abstract class AbstractCommon
 {
 
     /**
-     *
+     * Table object
      * @var AbstractTable
      */
     protected $table;
@@ -20,6 +20,12 @@ abstract class AbstractCommon
         return $this->table;
     }
 
+    
+    /**
+     * 
+     * @param AbstractTable $table
+     * @return \ZfTable\AbstractCommon
+     */
     public function setTable($table)
     {
         $this->table = $table;

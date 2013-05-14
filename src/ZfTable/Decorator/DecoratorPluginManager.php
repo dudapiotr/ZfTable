@@ -13,7 +13,14 @@ class DecoratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
+        
         'cellclass' => '\ZfTable\Decorator\Cell\ClassDecorator',
+        'cellicon' => '\ZfTable\Decorator\Cell\Icon',
+        'cellmapper' => '\ZfTable\Decorator\Cell\Mapper',
+        'celllink' => '\ZfTable\Decorator\Cell\Link',
+        'celltemplate' => '\ZfTable\Decorator\Cell\Template',
+        
+        'rowclass' => '\ZfTable\Decorator\Row\ClassDecorator',
     );
 
     /**
@@ -23,18 +30,8 @@ class DecoratorPluginManager extends AbstractPluginManager
      */
     protected $shareByDefault = false;
 
-    /**
-     * 
-     * @param type $name
-     * @return \ZfTable\Decorator\AbstractDecorator
-     */
-    public function addCellDecorator($name, $options)
-    {
-
-        $decorator = $this->get('cell' . $name, $options);
-        return $decorator;
-    }
-
+    
+    
     public function validatePlugin($plugin)
     {
         if ($plugin instanceof AbstractDecorator) {
