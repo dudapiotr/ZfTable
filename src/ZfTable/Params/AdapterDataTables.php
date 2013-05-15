@@ -6,7 +6,9 @@ use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class AdapterDataTables extends AbstractAdapter implements AdapterInterface
+class AdapterDataTables extends AbstractAdapter implements 
+AdapterInterface,
+\Zend\Stdlib\InitializableInterface
 {
 
     /**
@@ -49,7 +51,7 @@ class AdapterDataTables extends AbstractAdapter implements AdapterInterface
     const DEFAULT_ORDER = 'asc';
     const DEFAULT_ITEM_COUNT_PER_PAGE = 2;
 
-    public function __construct($object, $options)
+    public function __construct($object)
     {
         if ($object instanceof \ArrayObject) {
             $this->object = $object;
@@ -58,21 +60,19 @@ class AdapterDataTables extends AbstractAdapter implements AdapterInterface
         } else {
             throw new Exception\InvalidArgumentException('parameter must be instance of ArrayObject');
         }
-        $this->setOptions($options);
-        $this->init();
     }
 
     /**
      * Init method
      */
-    private function init()
+    public function init()
     {
         $array = $this->object->toArray();
-        $this->page = (isset($array['zfTablePage'])) ? $array['zfTablePage'] : self::DEFAULT_PAGE;
+        $this->page = (isset($array['iDisplayStart'])) ? ($array['iDisplayStart'] / $array['iDisplayLength'] + 1) : self::DEFAULT_PAGE;
         $this->column = (isset($array['zfTableColumn'])) ? $array['zfTableColumn'] : null;
-        $this->order = (isset($array['zfTableOrder'])) ? $array['zfTableOrder'] : self::DEFAULT_ORDER;
-        $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getOptions()->getDefaultItemCountPerPage();
-        $this->quickSearch = (isset($array['zfTableQuickSearch'])) ? $array['zfTableQuickSearch'] : '';
+        $this->order = (isset($array['sSortDir_0'])) ? $array['sSortDir_0'] : self::DEFAULT_ORDER;
+        $this->itemCountPerPage = (isset($array['iDisplayLength'])) ? $array['iDisplayLength'] : 999;
+        $this->quickSearch = (isset($array['sSearch'])) ? $array['sSearch'] : '';
     }
 
     /**

@@ -130,10 +130,12 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         if ($params instanceof \ZfTable\Params\AdapterInterface) {
             $this->paramAdapter = $params;
         } elseif ($params instanceof \Zend\Stdlib\Parameters) {
-            $this->paramAdapter = new AdapterArrayObject($params, $this->getOptions());
+            $this->paramAdapter = new AdapterArrayObject($params);
         } else {
             throw new Excpetion\InvalidArgumentException('Parameter must be isntance of AdapterInterface or \Zend\Stdlib\Parameters');
         }
+        $this->paramAdapter->setTable($this);
+        $this->paramAdapter->init();
     }
 
     /**

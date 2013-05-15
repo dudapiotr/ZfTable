@@ -11,7 +11,20 @@ class ModuleOptions extends AbstractOptions implements TableOptionsInterface
     
     protected $defaultItemCountPerPage = 2;
     
+    protected $dataTablesMaxRows = 999;
     
+    
+    
+    public function getDataTablesMaxRows()
+    {
+        return $this->dataTablesMaxRows;
+    }
+
+    public function setDataTablesMaxRows($dataTablesMaxRows)
+    {
+        $this->dataTablesMaxRows = $dataTablesMaxRows;
+    }
+
     public function getDefaultItemCountPerPage()
     {
         return $this->defaultItemCountPerPage;

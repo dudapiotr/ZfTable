@@ -44,7 +44,10 @@ class Render extends AbstractCommon
     {
         $res = array();
         $render = $this->getTable()->getRow()->renderRows('array');
+        $res['sEcho'] = $render;
+        $res['iTotalDisplayRecords'] = 40;
         $res['aaData'] = $render;
+        
         return json_encode($res);
     }
     

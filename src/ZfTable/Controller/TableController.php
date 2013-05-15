@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use ZfTable\Example\TableExample;
 use Zend\View\Model\ViewModel;
 use Zend\Db\ResultSet\ResultSet;
+use ZfTable\Params\AdapterDataTables;
+
 
 class TableController extends AbstractActionController
 {
@@ -55,7 +57,7 @@ class TableController extends AbstractActionController
         $table = new TableExample\DataTable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
-                ->setParamAdapter($this->getRequest()->getPost())
+                ->setParamAdapter(new AdapterDataTables($this->getRequest()->getPost()))
         ;
         return $table;
     }

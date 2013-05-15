@@ -85,7 +85,6 @@ class SqlSelect extends AbstractSource
     public function getData()
     {
 
-
         $paginator = $this->getPaginator();
         return $paginator;
     }

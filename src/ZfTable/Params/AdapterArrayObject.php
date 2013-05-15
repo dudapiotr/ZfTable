@@ -6,7 +6,9 @@ use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class AdapterArrayObject extends AbstractAdapter implements AdapterInterface
+class AdapterArrayObject extends AbstractAdapter implements 
+AdapterInterface,
+\Zend\Stdlib\InitializableInterface
 {
 
     /**
@@ -49,7 +51,8 @@ class AdapterArrayObject extends AbstractAdapter implements AdapterInterface
     const DEFAULT_ORDER = 'asc';
     const DEFAULT_ITEM_COUNT_PER_PAGE = 2;
 
-    public function __construct($object, $options)
+    
+    public function __construct($object)
     {
         if ($object instanceof \ArrayObject) {
             $this->object = $object;
@@ -58,14 +61,12 @@ class AdapterArrayObject extends AbstractAdapter implements AdapterInterface
         } else {
             throw new Exception\InvalidArgumentException('parameter must be instance of ArrayObject');
         }
-        $this->setOptions($options);
-        $this->init();
     }
 
     /**
      * Init method
      */
-    private function init()
+    public function init()
     {
         $array = $this->object->toArray();
         $this->page = (isset($array['zfTablePage'])) ? $array['zfTablePage'] : self::DEFAULT_PAGE;

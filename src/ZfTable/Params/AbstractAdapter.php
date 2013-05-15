@@ -3,9 +3,9 @@
 namespace ZfTable\Params;
 
 use ZfTable\Options\ModuleOptions;
-use ZfTable\Table\Exception;
+use ZfTable\AbstractCommon;
 
-abstract class AbstractAdapter
+abstract class AbstractAdapter extends AbstractCommon
 {
 
     /**
@@ -14,21 +14,7 @@ abstract class AbstractAdapter
      */
     protected $options;
 
-    /**
-     * Set module options
-     *
-     * @param  array|Traversable|ModuleOptions $options
-     * @return AbstractTable
-     */
-    public function setOptions(ModuleOptions $options)
-    {
-        if (!$options instanceof ModuleOptions) {
-            throw new Exception\InvalidArgumentException;
-        }
-
-        $this->options = $options;
-        return $this;
-    }
+    
 
     /**
      * Get all module options
@@ -37,6 +23,9 @@ abstract class AbstractAdapter
      */
     public function getOptions()
     {
+        if(!$this->options){
+            $this->options = $this->getTable()->getOptions();
+        }
         return $this->options;
     }
 
