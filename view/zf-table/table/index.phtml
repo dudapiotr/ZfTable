@@ -3,32 +3,20 @@
 </div>
 
 <script>
-    $("#tableContainer").zfTable('/table/ajax-table');
-    
+    $("#tableContainer").zfTable('/table/ajax-base');
 </script>
+
  <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-        $('#example').dataTable({
-					"bProcessing": true,
-					"sAjaxSource": '/table/ajax-table2'
-				});
+        $('#zfDataTableExample').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod": "POST",
+            "sAjaxSource": '/table/ajax-data-table'
+        });
     });
 </script>
 
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
-	<thead>
-		<tr>
-			<th>artist</th>
-			<th>title</th>
-		</tr>
-	</thead>
-	<tbody>
-	</tbody>
-	<tfoot>
-		<tr>
-			<th>artist</th>
-			<th>title</th>
-		</tr>
-	</tfoot>
-</table>
-
+<?php
+    echo $this->tableDataTable->render('dataTableAjaxInit');
+?>

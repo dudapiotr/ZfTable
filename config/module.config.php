@@ -3,12 +3,8 @@
 return array(
     'view_manager' => array(
         'template_path_stack' => array(
-            'zff-table' => __DIR__ .  '/../view',
+            'zf-table' => __DIR__ .  '/../view',
         ),
-         'template_map' => array(
-            'paginator-slide2' => __DIR__ . '/../view/layout/slidePaginator.phtml',
-        ),
-       
         
     ),
     
@@ -18,9 +14,7 @@ return array(
         ),
     ),
     'service_manager' => array(
-        'aliases' => array(
-            'zfdb_adapter' => 'Zend\Db\Adapter\Adapter',
-        ),
+        
     ),
     
     // The following section is new and should be added to your file
