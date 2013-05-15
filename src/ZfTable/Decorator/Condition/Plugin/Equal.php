@@ -31,7 +31,7 @@ class Equal extends AbstractCondition
     }
     
     /**
-     * Check is valid
+     * Check if the condition is valid
      * @return boolean
      */
     public function isValid(){

@@ -31,7 +31,7 @@ class NotEqual extends AbstractCondition
     }
     
     /**
-     * 
+     * Check if the condition is valid
      * @return boolean
      */
     public function isValid(){

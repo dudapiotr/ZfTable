@@ -38,6 +38,11 @@ class Link extends AbstractCellDecorator
         }
     }
 
+    /**
+     * Rendering decorator
+     * @param string $context
+     * @return string
+     */
     public function render($context)
     {
         $values = array();

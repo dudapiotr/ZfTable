@@ -10,7 +10,7 @@ abstract class AbstractCellDecorator extends AbstractDecorator implements DataAc
 {
 
     /**
-     *
+     * Get cell object
      * @var ZfTable\Cell
      */
     protected $cell;

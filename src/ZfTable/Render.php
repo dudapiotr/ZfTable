@@ -9,7 +9,7 @@ class Render extends AbstractCommon
 {
 
     /**
-     *
+     * PhpRenderer object
      * @var PhpRenderer 
      */
     protected $renderer;
@@ -149,7 +149,7 @@ class Render extends AbstractCommon
             )
         ));
         $resolver->attach($map)
-                ->attach($stack);
+                 ->attach($stack);
 
         $renderer->setResolver($resolver);
         $this->renderer = $renderer;

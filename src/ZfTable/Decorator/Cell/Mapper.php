@@ -29,9 +29,9 @@ class Mapper extends AbstractCellDecorator
     }
     
     /**
-     * 
-     * @param type $context
-     * @return type
+     * Rendering decorator
+     * @param string $context
+     * @return string
      */
     public function render($context)
     {

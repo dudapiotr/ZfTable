@@ -19,13 +19,19 @@ class ConditionPluginManager extends AbstractPluginManager
     );
 
     /**
-     * Don't share header by default
+     * Don't share plugin by default
      *
      * @var bool
      */
     protected $shareByDefault = false;
     
     
+    /**
+     * See AbstractPluginManager
+     * @param \ZfTable\Decorator\Condition\AbstractCondition $plugin
+     * @return  
+     * @throws \DomainException
+     */
     public function validatePlugin($plugin)
     {
         if ($plugin instanceof AbstractCondition) {

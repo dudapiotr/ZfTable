@@ -4,7 +4,11 @@ namespace ZfTable\Decorator\Cell;
 
 class ClassDecorator extends AbstractCellDecorator
 {
-
+    
+    /**
+     * Class
+     * @var string
+     */
     protected $class;
 
     public function __construct($options)
@@ -12,6 +16,11 @@ class ClassDecorator extends AbstractCellDecorator
         $this->setClass($options['class']);
     }
 
+    /**
+     * Rendering decorator
+     * @param string $context
+     * @return string
+     */
     public function render($context)
     {
         if (count($this->class) > 0) {
@@ -22,12 +31,21 @@ class ClassDecorator extends AbstractCellDecorator
         return $context;
     }
 
+    /**
+     * Set class
+     * @param string $class
+     * @return \ZfTable\Decorator\Cell\ClassDecorator
+     */
     public function setClass($class)
     {
         $this->class = (is_array($class)) ? $class : explode(' ', $class);
         return $this;
     }
 
+    /**
+     * Get class
+     * @return string
+     */
     public function getClass()
     {
         return $this->class;

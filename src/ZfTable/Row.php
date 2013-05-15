@@ -10,7 +10,7 @@ class Row extends AbstractElement
 
     
     /**
-     *
+     * 
      * @var arary
      */
     protected $actualRow;

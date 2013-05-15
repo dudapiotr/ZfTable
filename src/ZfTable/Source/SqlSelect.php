@@ -31,12 +31,6 @@ class SqlSelect extends AbstractSource
 
     /**
      *
-     * @var \Zend\Db\Sql\Sql 
-     */
-    protected $sql;
-
-    /**
-     *
      * @var \ZfTable\Params\AdapterInterface 
      */
     protected $paramAdapter;
@@ -101,18 +95,6 @@ class SqlSelect extends AbstractSource
     }
 
     /**
-     * 
-     * @return \Zend\Db\Sql\Sql
-     */
-    public function getSql()
-    {
-        if (!$this->sql) {
-            $this->sql = new \Zend\Db\Sql\Sql($this->getTable()->getAdapter());
-        }
-        return $this->sql;
-    }
-
-    /**
      *  
      * @return \Zend\Paginator\Paginator
      */
@@ -157,6 +139,9 @@ class SqlSelect extends AbstractSource
         $this->paramAdapter = $paramAdapter;
     }
 
+    /**
+     * Init paginator
+     */
     protected function initPaginator()
     {
         $this->paginator->setItemCountPerPage($this->getParamAdapter()->getItemCountPerPage());

@@ -5,6 +5,10 @@ namespace ZfTable\Decorator\Row;
 class ClassDecorator extends AbstractRowDecorator
 {
 
+    /**
+     * Class
+     * @var string
+     */
     protected $class;
 
     public function __construct($options)
@@ -12,6 +16,11 @@ class ClassDecorator extends AbstractRowDecorator
         $this->setClass($options['class']);
     }
 
+    /**
+     * Rendering decorator
+     * @param string $context
+     * @return string
+     */
     public function render($context)
     {
         if (count($this->class) > 0) {
@@ -22,12 +31,21 @@ class ClassDecorator extends AbstractRowDecorator
         return $context;
     }
 
+    /**
+     * 
+     * @param string $class
+     * @return \ZfTable\Decorator\Row\ClassDecorator
+     */
     public function setClass($class)
     {
         $this->class = (is_array($class)) ? $class : explode(' ', $class);
         return $this;
     }
 
+    /**
+     * 
+     * @return string
+     */
     public function getClass()
     {
         return $this->class;

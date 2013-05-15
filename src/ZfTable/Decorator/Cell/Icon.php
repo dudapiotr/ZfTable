@@ -26,7 +26,11 @@ class Icon extends AbstractCellDecorator
     protected $place = null;
     
     
-    
+    /**
+     * 
+     * @param array $options
+     * @throws Exception\InvalidArgumentException
+     */
     public function __construct(array $options = array())
     {
         if(!isset($options['path'])){
@@ -37,7 +41,11 @@ class Icon extends AbstractCellDecorator
         $this->place = (isset($options['place'])) ? $options['place'] : null;
     }
     
-    
+    /**
+     * Rendering decorator
+     * @param string $context
+     * @return string
+     */
     public function render($context)
     {
         if($this->place || $this->place == self::RESET_CONTEXT){

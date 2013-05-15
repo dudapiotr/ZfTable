@@ -34,6 +34,10 @@ abstract class AbstractCondition implements ConditionInterface
     }
 
     
+    /**
+     * 
+     * @return type
+     */
     public function getActulRow(){
         return $this->decorator->getActualRow();
     }

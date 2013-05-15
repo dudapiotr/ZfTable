@@ -18,6 +18,11 @@ class ClassDecorator extends AbstractCellDecorator
         $this->setClass($options['class']);
     }
 
+    /**
+     * Rendering decorator
+     * @param string $context
+     * @return string
+     */
     public function render($context)
     {
         if (count($this->class) > 0) {

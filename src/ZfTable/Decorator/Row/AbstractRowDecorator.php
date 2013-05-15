@@ -9,7 +9,7 @@ abstract class AbstractRowDecorator extends AbstractDecorator implements DataAcc
 {
 
     /**
-     *
+     * Row object
      * @var ZfTable\Row
      */
     protected $row;

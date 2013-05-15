@@ -8,7 +8,7 @@ abstract class AbstractHeaderDecorator extends AbstractDecorator
 {
 
     /**
-     *
+     * Header object
      * @var ZfTable\Header
      */
     protected $header;
