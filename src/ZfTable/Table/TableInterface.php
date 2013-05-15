@@ -8,5 +8,6 @@ interface TableInterface {
     
     public function render();
     
+    public function initQuickSearch();
     
 }

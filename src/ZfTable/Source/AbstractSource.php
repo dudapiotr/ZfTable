@@ -11,4 +11,6 @@ abstract class AbstractSource extends AbstractCommon implements SourceInterface
     abstract protected function limit();
 
     abstract protected function order();
+    
+    abstract protected function quickSearch();
 }

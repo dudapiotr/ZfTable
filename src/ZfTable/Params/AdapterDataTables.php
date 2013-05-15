@@ -6,7 +6,7 @@ use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class AdapterArrayObject extends AbstractAdapter implements AdapterInterface
+class AdapterDataTables extends AbstractAdapter implements AdapterInterface
 {
 
     /**

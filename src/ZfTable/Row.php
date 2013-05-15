@@ -57,6 +57,7 @@ class Row extends AbstractElement
         $this->actualRow = $actualRow;
     }
 
+    
     /**
      * Rendering all rows for table
      * @param string $type html, json, array
@@ -72,7 +73,10 @@ class Row extends AbstractElement
         }
     }
 
-    
+    /**
+     * Rendering rows as array
+     * @return array
+     */
     private function renderRowArray(){
         $data = $this->getTable()->getData();
         $headers = $this->getTable()->getHeaders();
@@ -89,7 +93,10 @@ class Row extends AbstractElement
         return $render;
     }
     
-    
+    /**
+     * rendering row as a html
+     * @return string
+     */
     private function renderRowHtml(){
         $data = $this->getTable()->getData();
         $headers = $this->getTable()->getHeaders();

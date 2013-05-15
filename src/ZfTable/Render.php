@@ -37,25 +37,40 @@ class Render extends AbstractCommon
     }
     
      /**
-     * Rentering table
+     * Rentering json for dataTable
      * @return string 
      */
-    public function renderTableJson()
+    public function renderDataTableJson()
     {
-
         $res = array();
         $render = $this->getTable()->getRow()->renderRows('array');
         $res['aaData'] = $render;
         return json_encode($res);
-        
     }
     
+    
+    /**
+     * Rentering init view for dataTable
+     * @return string 
+     */
+    public function renderDataTableAjaxInit()
+    {
+        $renderedHeads = $this->renderHead();
+        
+        $view = new \Zend\View\Model\ViewModel();
+        $view->setTemplate('data-table-init');
+        $view->setVariable('headers', $renderedHeads);
+        $view->setVariable('attributes', $this->getTable()->getAttributes());
+        
+        return $this->getRenderer()->render($view);
+        
+    }
     
     /**
      * Rentering table
      * @return string 
      */
-    public function renderTable()
+    public function renderTableAsHtml()
     {
 
         $render = '';
@@ -122,7 +137,8 @@ class Render extends AbstractCommon
         $map = new Resolver\TemplateMapResolver(array(
             'paginator-slide' => __DIR__ . '/../../view/templates/slide-paginator.phtml',
             'default-params' => __DIR__ . '/../../view/templates/default-params.phtml',
-            'container' => __DIR__ . '/../../view/templates/container.phtml'
+            'container' => __DIR__ . '/../../view/templates/container.phtml',
+            'data-table-init' => __DIR__ . '/../../view/templates/data-table-init.phtml',
         ));
         $stack = new Resolver\TemplatePathStack(array(
             'script_paths' => array(

@@ -66,14 +66,12 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      */
     protected $options;
 
-    
     /**
      * Flag to know if table has been initializable
      * @var boolean
      */
     private $tableInit = false;
-    
-    
+
     /**
      * Check if table has benn initializable
      * @return boolean
@@ -206,41 +204,35 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      * Rendering table 
      * @return string
+     * @param string (html | dataTableAjaxInit | dataTableJson)
      */
-    public function render()
+    public function render($type = 'html')
     {
-        if(!$this->isTableInit()){
+        if (!$this->isTableInit()) {
             $this->initializable();
         }
-        return $this->getRender()->renderTable();
-    }
-    
-    /**
-     * Rendering table 
-     * @return string
-     */
-    public function renderJson()
-    {
-        if(!$this->isTableInit()){
-            $this->initializable();
+        if ($type == 'html') {
+            return $this->getRender()->renderTableAsHtml();
+        } elseif ($type == 'dataTableAjaxInit') {
+            return $this->getRender()->renderDataTableAjaxInit();
+        } elseif ($type == 'dataTableJson') {
+            return $this->getRender()->renderDataTableJson();
         }
-        return $this->getRender()->renderTableJson();
     }
-    
-    
-    
+
     /**
      * Init configuration like setting header, decorators, filters and others (call in render method as well)
      */
-    public function initializable(){
+    public function initializable()
+    {
         $this->init = true;
-        if(count($this->headers)){
+        if (count($this->headers)) {
             $this->setHeaders($this->headers);
         }
         $this->init();
+        $this->initQuickSearch();
     }
-    
-    
+
     /**
      * 
      * @param array $headers
@@ -338,8 +330,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         $this->render = $render;
     }
-    
-    
+
     /**
      * Rendering tablae
      */
@@ -347,4 +338,5 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->render();
     }
+
 }
