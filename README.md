@@ -1,6 +1,7 @@
 ZfTable
 =======
 Version 0.0.2 Created by Piotr Duda
+
 ZfTable is part of [ZfCRM](https://github.com/dudapiotr/ZfCRM)
 
 Introduction
