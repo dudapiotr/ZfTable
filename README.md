@@ -29,6 +29,7 @@ Goals (future Version)
 
 - More decorators and conditions
 - Adapter for Doctrine 2 and Arrays
+- Adapter for JGrid
 
 
 Installation
