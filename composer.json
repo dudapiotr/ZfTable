@@ -1,0 +1,13 @@
+{
+    "name": "dudapiotr/zftable",
+    "description": "Flexible tool to generate table",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zftable",
+        "table",
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": ">2.1.3"
+    }
+}
