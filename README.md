@@ -1,4 +1,4 @@
-ZfTable
+ZfTable (as part of the ZfCRM)
 =======
 Version 0.0.2 Created by Piotr Duda
 
