@@ -1,4 +1,4 @@
-ZfcUser
+ZfTable
 =======
 Version 0.0.1 Created by Piotr Duda
 
