@@ -10,7 +10,7 @@ $settings = array(
      * Value to specify items per page (pagination)
      * @var array
      */
-    //values_of_item_per_page => array(1, 2, 10, 20),
+    //'values_of_item_per_page' => array(1, 2, 10, 20),
     
     
     /**

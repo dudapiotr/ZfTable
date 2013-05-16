@@ -53,6 +53,7 @@ class TableController extends AbstractActionController
         $table = new TableExample\Base();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
+                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $table;
@@ -119,7 +120,7 @@ class TableController extends AbstractActionController
         if (!$this->moduleOptions) {
             $sm = $this->getServiceLocator();
             $config = $sm->get('Config');
-            dbs($config);
+            $this->moduleOptions =  new ModuleOptions(isset($config['zftable']) ? $config['zftable'] : array());
         }
         return $this->moduleOptions;
     }
