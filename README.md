@@ -24,12 +24,13 @@ Features
 - Pagination, QuickSearch, Sorting and Items per page
 
 
-Goals (future Version)
+Goals
 ----------------
 
 - More decorators and conditions
 - Adapter for Doctrine 2 and Arrays
 - Adapter for JGrid
+- Exporter (PDF, CSV)
 
 
 Installation
