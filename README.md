@@ -6,7 +6,7 @@ Introduction
 ------------
 Flexible table generator with headers decorating , rows and cells. 
 It Uses own engine to communication by ajax (Pagination, QuickSearch, Sorting and Items per page), 
-but  simply can be integrated with dataTables as well. 
+but  simply can be integrated with [dataTables](http://www.datatables.net/) as well. 
 
 
 Requirements
