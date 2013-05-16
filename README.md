@@ -1,6 +1,6 @@
 ZfTable
 =======
-Version 0.0.1 Created by Piotr Duda
+Version 0.0.2 Created by Piotr Duda
 
 Introduction
 ------------
