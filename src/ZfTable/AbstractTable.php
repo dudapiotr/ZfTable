@@ -5,7 +5,7 @@ namespace ZfTable;
 use ZfTable\Table\TableInterface;
 use ZfTable\Params\AdapterInterface as ParamAdapterInterface;
 use ZfTable\Params\AdapterArrayObject;
-use ZfTable\Table\Excpetion;
+use ZfTable\Table\Exception;
 use ZfTable\Options\ModuleOptions;
 
 abstract class AbstractTable extends AbstractElement implements TableInterface
@@ -148,7 +148,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         if (!$this->data) {
             $source = $this->getSource();
             if (!$source) {
-                throw new Excpetion\LogicException('Source data is required');
+                throw new Exception\LogicException('Source data is required');
             }
             return $source->getData();
         }
@@ -223,10 +223,18 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Init configuration like setting header, decorators, filters and others (call in render method as well)
+     * Init configuration like setting header, decorators, filters and others 
+     * (call in render method as well)
      */
     public function initializable()
     {
+        if(!$this->getParamAdapter()){
+            throw new Exception\LogicException('Param Adapter is required');
+        }
+        if(!$this->getSource()){
+            throw new Exception\LogicException('Source data is required');
+        }
+        
         $this->init = true;
         if (count($this->headers)) {
             $this->setHeaders($this->headers);

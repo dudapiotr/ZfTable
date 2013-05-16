@@ -7,7 +7,7 @@ use ZfTable\Example\TableExample;
 use Zend\View\Model\ViewModel;
 use Zend\Db\ResultSet\ResultSet;
 use ZfTable\Params\AdapterDataTables;
-
+use ZfTable\Options\ModuleOptions;
 
 class TableController extends AbstractActionController
 {
@@ -31,6 +31,12 @@ class TableController extends AbstractActionController
 
     
     /**
+     *
+     * @var ModuleOptions
+     */
+    protected $moduleOptions;
+    
+    /**
      * 
      * @return type
      */
@@ -42,6 +48,8 @@ class TableController extends AbstractActionController
     {
         $source = $this->getSource();
 
+        $this->getModuleOptions();
+        
         $table = new TableExample\Base();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
@@ -50,10 +58,15 @@ class TableController extends AbstractActionController
         return $table;
     }
     
+    /**
+     * Data table (look at setParamAdapter)
+     * 
+     * @return \ZfTable\Example\TableExample\DataTable
+     */
     private function tableDataTable()
     {
         $source = $this->getSource();
-
+        
         $table = new TableExample\DataTable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
@@ -64,6 +77,7 @@ class TableController extends AbstractActionController
 
     public function indexAction()
     {
+        
         $tableDataTable = $this->tableDataTable();
         
         return new ViewModel(array(
@@ -101,6 +115,15 @@ class TableController extends AbstractActionController
         return $this->albumTable;
     }
 
+    public function getModuleOptions(){
+        if (!$this->moduleOptions) {
+            $sm = $this->getServiceLocator();
+            $config = $sm->get('Config');
+            dbs($config);
+        }
+        return $this->moduleOptions;
+    }
+    
     /**
      * 
      * @return Zend\Db\Adapter\Adapter

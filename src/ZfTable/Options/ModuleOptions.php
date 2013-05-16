@@ -36,6 +36,40 @@ PaginatorInterface
     
     
     /**
+     * Template Map
+     * @var array
+     */
+    protected $templateMap = array();
+    
+    
+    
+    /**
+     * Set template map
+     * @param array $templateMap
+     */
+    public function setTemplateMap($templateMap)
+    {
+        $this->templateMap = $templateMap;
+    }
+
+    
+    /**
+     * Set template map
+     * @return array
+     */
+    public function getTemplateMap(){
+        if(!count($this->templateMap)){
+            $this->templateMap = array(
+                'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
+                'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
+                'container' => __DIR__ . '/../../../view/templates/container.phtml',
+                'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
+            );
+        }
+        return $this->templateMap;
+    }
+    
+    /**
      * Get maximal rows to returning 
      * 
      * @return int

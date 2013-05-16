@@ -4,6 +4,7 @@ namespace ZfTable;
 
 use Zend\View\Resolver;
 use Zend\View\Renderer\PhpRenderer;
+use ZfTable\Options\ModuleOptions;
 
 class Render extends AbstractCommon
 {
@@ -14,6 +15,13 @@ class Render extends AbstractCommon
      */
     protected $renderer;
 
+    
+    /**
+     *
+     * @var ModuleOptions
+     */
+    protected $options;
+    
     
     /**
      * 
@@ -45,7 +53,7 @@ class Render extends AbstractCommon
         $res = array();
         $render = $this->getTable()->getRow()->renderRows('array');
         $res['sEcho'] = $render;
-        $res['iTotalDisplayRecords'] = 40;
+        $res['iTotalDisplayRecords'] = $this->getTable()->getSource()->getPaginator()->getTotalItemCount();
         $res['aaData'] = $render;
         
         return json_encode($res);
@@ -137,19 +145,8 @@ class Render extends AbstractCommon
         $renderer = new PhpRenderer();
         $resolver = new Resolver\AggregateResolver();
 
-        $map = new Resolver\TemplateMapResolver(array(
-            'paginator-slide' => __DIR__ . '/../../view/templates/slide-paginator.phtml',
-            'default-params' => __DIR__ . '/../../view/templates/default-params.phtml',
-            'container' => __DIR__ . '/../../view/templates/container.phtml',
-            'data-table-init' => __DIR__ . '/../../view/templates/data-table-init.phtml',
-        ));
-        $stack = new Resolver\TemplatePathStack(array(
-            'script_paths' => array(
-                __DIR__ . '/../../view'
-            )
-        ));
-        $resolver->attach($map)
-                 ->attach($stack);
+        $map = new Resolver\TemplateMapResolver($this->getOptions()->getTemplateMap());
+        $resolver->attach($map);
 
         $renderer->setResolver($resolver);
         $this->renderer = $renderer;
@@ -176,5 +173,16 @@ class Render extends AbstractCommon
         $this->renderer = $renderer;
     }
 
+    /**
+     * 
+     * @return ModuleOptions
+     */
+    public function getOptions(){
+        if(!$this->options){
+            $this->options = $this->getTable()->getOptions();
+        }
+        return $this->options;
+    }
+    
 }
 

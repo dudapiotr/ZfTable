@@ -9,6 +9,7 @@ class Base extends AbstractTable
 
     //Definition of headers
     protected $headers = array(
+        'id' => array('title' => 'Id', 'width' => '50'),
         'artist' => array('title' => 'Artist'),
         'title' => array('title' => 'Title')
     );

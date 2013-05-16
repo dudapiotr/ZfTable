@@ -76,6 +76,8 @@ class Header extends AbstractElement
         $this->title = (isset($options['title'])) ? $options['title'] : '';
         $this->width = (isset($options['width'])) ? $options['width'] : '';
         $this->order = (isset($options['order'])) ? $options['order'] : true;
+        
+        
         return $this;
     }
 
@@ -167,15 +169,19 @@ class Header extends AbstractElement
     }
 
     /**
-     * Init ordering (like asc, desc, column name )
+     * Init header (like asc, desc, column name )
      */
-    protected function initOrdering()
+    protected function initRendering()
     {
         $paramColumn = $this->getTable()->getParamAdapter()->getColumn();
         $paramOrder = $this->getTable()->getParamAdapter()->getOrder();
         $order = ($paramColumn == $this->getName()) ? static::$orderReverse[$paramOrder] : 'asc';
         $this->addAttr('data-order', $order);
         $this->addAttr('data-column', $this->getName());
+        
+        if($this->width){
+            $this->addAttr('width', $this->width);
+        }
     }
 
     
@@ -185,7 +191,7 @@ class Header extends AbstractElement
      */
     public function render()
     {
-        $this->initOrdering();
+        $this->initRendering();
         $render = $this->getTitle();
         
         foreach ($this->decorators as $decorator) {
