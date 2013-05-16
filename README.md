@@ -4,9 +4,9 @@ Version 0.0.1 Created by Piotr Duda
 
 Introduction
 ------------
-Flexible table generator with decorating headers, rows and cells. Use own engine 
-to communication by ajax (Pagination, QuickSearch, Sorting and Items per page), 
-but simply can be integrated with dataTables as well. 
+Flexible table generator with headers decorating , rows and cells. 
+It Uses own engine to communication by ajax (Pagination, QuickSearch, Sorting and Items per page), 
+but  simply can be integrated with dataTables as well. 
 
 
 Requirements
@@ -81,4 +81,5 @@ All files are optional (zf-table.js is need to use own engine, but also can use 
 
 Examples
 -------
-In folder Example there is a couple of examples how use decorators and generate table 
+In Example directory there is a couple of examples how use decorators and generate table. After added js and css file
+to your layout view, in controller there are a table calls(based on datas from ZF2 tutorial - album ).
