@@ -1,6 +1,6 @@
-ZfTable
+ZfTable [See on live](http://zfcrm.laohost.net/table/base)
 =======
-Version 0.0.2 Created by Piotr Duda
+Version 0.0.3 Created by Piotr Duda
 
 ZfTable is part of [ZfCRM](https://github.com/dudapiotr/ZfCRM)
 
@@ -82,7 +82,7 @@ All files are optional (zf-table.js is need to use own engine, but also can use 
 
 
 
-Examples
+Examples [See on live](http://zfcrm.laohost.net/table/base)
 -------
 In Example directory there is a couple of examples how use decorators and generate table. After added js and css file
 to your layout view, in controller there are a table calls(based on datas from ZF2 tutorial - album ).
