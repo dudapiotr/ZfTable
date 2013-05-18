@@ -20,6 +20,7 @@ class Advance extends AbstractTable
     public function init()
     {
         
+        
     }
 
     /**
