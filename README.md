@@ -1,6 +1,6 @@
-ZfTable
+ZfTable [See on live](http://zfcrm.laohost.net/table/base)
 =======
-Version 0.0.2 Created by Piotr Duda
+Version 0.0.3 Created by Piotr Duda
 
 ZfTable is part of [ZfCRM](https://github.com/dudapiotr/ZfCRM)
 
