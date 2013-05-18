@@ -15,6 +15,7 @@ class Attr extends AbstractTable
         'street' => array('title' => 'Street'),
         'city' => array('title' => 'City'),
         'active' => array('title' => 'Active'),
+        
     );
 
     public function init()
