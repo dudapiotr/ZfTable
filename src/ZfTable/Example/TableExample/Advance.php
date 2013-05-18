@@ -4,13 +4,17 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class AttrAndClass extends AbstractTable
+class Advance extends AbstractTable
 {
 
     //Definition of headers
     protected $headers = array(
-        'artist' => array('title' => 'Artist'),
-        'title' => array('title' => 'Title')
+        'idcustomer' => array('title' => 'Id', 'width' => '50'),
+        'name' => array('title' => 'Name'),
+        'surname' => array('title' => 'Surname'),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City'),
+        'active' => array('title' => 'Active'),
     );
 
     public function init()
@@ -20,16 +24,16 @@ class AttrAndClass extends AbstractTable
         $this->addAttr('tableAttr', 'tableAttrValue');
         
          //Attr and class for header
-        $this->getHeader('artist')->addAttr('attr', 'example');
-        $this->getHeader('artist')->addClass('new-class');
+        $this->getHeader('name')->addAttr('attr', 'example');
+        $this->getHeader('name')->addClass('new-class');
         
          //Attr and class for row
         $this->getRow()->addAttr('test', 'newattr');
         $this->getRow()->addClass('class', 'nowaklasa1');
         
          //Attr and class for cell
-        $this->getHeader('artist')->getCell()->addAttr('cellAttr', 'cellAttrValue');
-        $this->getHeader('artist')->getCell()->addDecorator('class', array('class' => 'sss'));
+        $this->getHeader('surname')->getCell()->addAttr('cellAttr', 'cellAttrValue');
+        $this->getHeader('surname')->getCell()->addDecorator('class', array('class' => 'sss'));
 
     }
 

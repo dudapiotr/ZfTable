@@ -7,9 +7,14 @@ use ZfTable\AbstractTable;
 class DataTable extends AbstractTable
 {
 
+    //Definition of headers
     protected $headers = array(
-        'artist' => array('title' => 'Artist'),
-        'title' => array('title' => 'Title')
+        'idcustomer' => array('title' => 'Id', 'width' => '50'),
+        'name' => array('title' => 'Name'),
+        'surname' => array('title' => 'Surname'),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City'),
+        'active' => array('title' => 'Active'),
     );
 
     public function init()
@@ -29,7 +34,7 @@ class DataTable extends AbstractTable
 
         if (strlen($quickSearchValue)) {
             //Unsecure query (without quote)
-            $quickSearchQuery->where('artist like "%'.$quickSearchValue.'%"');
+            $quickSearchQuery->where('name like "%' . $quickSearchValue . '%"');
             $this->getSource()->setQuickSearchQuery($quickSearchQuery);
         }
     }

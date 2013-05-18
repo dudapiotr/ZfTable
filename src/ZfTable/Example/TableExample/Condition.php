@@ -4,10 +4,10 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class Base extends AbstractTable
+class Condition extends AbstractTable
 {
 
-    //Definition of headers
+     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50'),
         'name' => array('title' => 'Name'),
@@ -17,10 +17,19 @@ class Base extends AbstractTable
         'active' => array('title' => 'Active'),
     );
 
+    
     public function init()
     {
+        $this->getHeader('name')->getCell()->addDecorator('link', array(
+            'url' => '/table/link/id/%s',
+            'vars' => array('idcustomer')
+        ))->addCondition('equal', array('column' => 'name', 'values' => 'Jan'));
+        
+         $this->getHeader('city')->getCell()->addDecorator('link', array(
+            'url' => '/table/link/id/%s',
+            'vars' => array('idcustomer')
+        ))->addCondition('equal', array('column' => 'city', 'values' => 'Warszawa'));
 
-       
     }
 
     /**
@@ -28,15 +37,7 @@ class Base extends AbstractTable
      */
     public function initQuickSearch()
     {
-        $quickSearchValue = $this->getParamAdapter()->getQuickSearch();
-        $quickSearchQuery = new \Zend\Db\Sql\Select();
-
-        if (strlen($quickSearchValue)) {
-            //Unsecure query (without quote)
-            $quickSearchQuery->where('name like "%'.$quickSearchValue.'%"')
-                             ->where('surname like "%'.$quickSearchValue.'%"');
-            $this->getSource()->setQuickSearchQuery($quickSearchQuery);
-        }
+       
     }
 
 }

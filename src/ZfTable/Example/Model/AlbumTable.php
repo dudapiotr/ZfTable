@@ -10,8 +10,10 @@ use Zend\Db\Sql\Sql;
 
 class AlbumTable extends AbstractTableGateway {
 
+    
     protected $table = 'album';
 
+    
     public function __construct(Adapter $adapter) {
         $this->adapter = $adapter;
         $this->resultSetPrototype = new ResultSet();

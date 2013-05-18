@@ -31,7 +31,7 @@ class Template extends AbstractCellDecorator
         }
         $this->template = $options['template'];
         $this->vars = is_array($options['vars']) ? $options['vars'] : array($options['vars']);
-        $this->place = (isset($options['place'])) ? $options['place'] : self::POST_CONTEXT;
+        $this->place = (isset($options['place'])) ? $options['place'] : self::RESET_CONTEXT;
     }
     
     /**

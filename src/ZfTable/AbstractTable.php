@@ -72,6 +72,9 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      */
     private $tableInit = false;
 
+    
+    protected $class = array('table', 'table-bordered', 'table-condensed', 'table-hover', 'table-striped', 'dataTable');
+    
     /**
      * Check if table has benn initializable
      * @return boolean
@@ -208,7 +211,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      * @return string
      * @param string (html | dataTableAjaxInit | dataTableJson)
      */
-    public function render($type = 'html')
+    public function render($type = 'html', $template = null)
     {
         if (!$this->isTableInit()) {
             $this->initializable();
@@ -219,7 +222,10 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             return $this->getRender()->renderDataTableAjaxInit();
         } elseif ($type == 'dataTableJson') {
             return $this->getRender()->renderDataTableJson();
+        } elseif ($type == 'custom') {
+            return $this->getRender()->renderCustom($template);
         }
+        
     }
 
     /**

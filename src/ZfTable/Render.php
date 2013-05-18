@@ -77,6 +77,24 @@ class Render extends AbstractCommon
         
     }
     
+    
+    public function renderCustom($template){
+        
+        $rowsArray = $this->getTable()->getRow()->renderRows('array_assc');
+        
+        $view = new \Zend\View\Model\ViewModel();
+        $view->setTemplate($template);
+
+        $view->setVariable('rows', $rowsArray);
+        $view->setVariable('paginator', $this->renderPaginator());
+        $view->setVariable('paramsWrap', $this->renderParamsWrap());
+        $view->setVariable('itemCountPerPageValues', $this->getTable()->getOptions()->getValuesOfItemPerPage());
+        $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
+        $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+
+        return $this->getRenderer()->render($view);
+    }
+    
     /**
      * Rentering table
      * @return string 
@@ -86,8 +104,9 @@ class Render extends AbstractCommon
 
         $render = '';
         $render .= $this->renderHead();
+        $render  = sprintf('<thead>%s</thead>',$render);
         $render .= $this->getTable()->getRow()->renderRows();
-        $table = sprintf('<table %s >%s</table>', $this->getTable()->getAttributes(), $render);
+        $table = sprintf('<table %s>%s</table>', $this->getTable()->getAttributes(), $render);
 
         $view = new \Zend\View\Model\ViewModel();
         $view->setTemplate('container');
@@ -113,7 +132,9 @@ class Render extends AbstractCommon
         foreach ($headers as $name => $title) {
             $render .= $this->getTable()->getHeader($name)->render();
         }
+        
         $render = sprintf('<tr>%s</tr>', $render);
+        
 
         return $render;
     }

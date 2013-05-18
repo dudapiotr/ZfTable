@@ -176,6 +176,8 @@ class Header extends AbstractElement
         $paramColumn = $this->getTable()->getParamAdapter()->getColumn();
         $paramOrder = $this->getTable()->getParamAdapter()->getOrder();
         $order = ($paramColumn == $this->getName()) ? static::$orderReverse[$paramOrder] : 'asc';
+        $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . static::$orderReverse[$paramOrder] : 'sorting';
+        $this->addClass($classSorting);
         $this->addAttr('data-order', $order);
         $this->addAttr('data-column', $this->getName());
         

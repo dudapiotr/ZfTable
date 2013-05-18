@@ -71,13 +71,17 @@ class Row extends AbstractElement
         elseif($type == 'array'){
             return $this->renderRowArray();
         }
+        elseif($type == 'array_assc'){
+            return $this->renderRowArray('assc');
+        }
+        
     }
 
     /**
      * Rendering rows as array
      * @return array
      */
-    private function renderRowArray(){
+    private function renderRowArray($type = 'normal'){
         $data = $this->getTable()->getData();
         $headers = $this->getTable()->getHeaders();
         $render = array();
@@ -86,7 +90,13 @@ class Row extends AbstractElement
             $this->setActualRow($rowData);
             $temp = array();
             foreach ($headers as $name => $options) {
-                $temp[] =  $this->getTable()->getHeader($name)->getCell()->render('array');
+                if($type == 'assc'){
+                    $temp[$name] =  $this->getTable()->getHeader($name)->getCell()->render('array');
+                }
+                else{
+                     $temp[] =  $this->getTable()->getHeader($name)->getCell()->render('array');
+                }
+                
             }
             $render[] = $temp;
         }

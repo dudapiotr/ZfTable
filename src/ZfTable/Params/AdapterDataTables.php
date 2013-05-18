@@ -69,7 +69,12 @@ AdapterInterface,
     {
         $array = $this->object->toArray();
         $this->page = (isset($array['iDisplayStart'])) ? ($array['iDisplayStart'] / $array['iDisplayLength'] + 1) : self::DEFAULT_PAGE;
-        $this->column = (isset($array['zfTableColumn'])) ? $array['zfTableColumn'] : null;
+        
+        if(isset($array['iSortCol_0'])){
+            $headers = $this->getTable()->getHeaders();
+            $slice = array_slice($headers, $array['iSortCol_0'], 1);
+            $this->column = key($slice);
+        }
         $this->order = (isset($array['sSortDir_0'])) ? $array['sSortDir_0'] : self::DEFAULT_ORDER;
         $this->itemCountPerPage = (isset($array['iDisplayLength'])) ? $array['iDisplayLength'] : 999;
         $this->quickSearch = (isset($array['sSearch'])) ? $array['sSearch'] : '';

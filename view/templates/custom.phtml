@@ -16,7 +16,25 @@
         </div>
         
     </div>
-        <?php echo $this->table;?>
+    <div class="content">
+        <?php foreach($this->rows as $row):?>
+        <div class="row-fluid" style="margin-bottom: 10px;">
+            <div class="span2">
+                <div class="logo">
+                    <img src="/assets/img/elfinder/logo.png" width="50%"/>
+                </div>
+            </div>
+            <div class="span8">
+                Box /article title - Mr <?php echo $row['surname']?> <br />
+                <?php echo $row['surname']?> <br />
+                <?php echo $row['idcustomer']?> <br />
+            </div>
+            <div class="span2">
+                City - <?php echo $row['city']?>
+            </div>
+        </div>
+        <?php endforeach;?>
+    </div>
     <div class="row-fluid">
         <div class="span6">
             <div class="dataTables_filter" id="dataTable_filter">

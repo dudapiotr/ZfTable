@@ -1,7 +1,7 @@
 <?php
 namespace ZfTable;
 
-use ZfTable\Example\Model\AlbumTable;
+use ZfTable\Example\Model\CustomerTable;
 
 class Module
 {
@@ -23,9 +23,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'ZfTable\Example\Model\AlbumTable' =>  function($sm) {
+                'ZfTable\Example\Model\CustomerTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table = new AlbumTable($dbAdapter);
+                    $table = new CustomerTable($dbAdapter);
                     return $table;
                 },
             ),

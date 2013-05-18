@@ -4,7 +4,7 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class Base extends AbstractTable
+class Mapper extends AbstractTable
 {
 
     //Definition of headers
@@ -19,7 +19,10 @@ class Base extends AbstractTable
 
     public function init()
     {
-
+        $this->getHeader('active')->getCell()->addDecorator('mapper', array(
+            '0' => 'NO',
+            '1' => 'YES'
+        ));
        
     }
 
@@ -28,15 +31,7 @@ class Base extends AbstractTable
      */
     public function initQuickSearch()
     {
-        $quickSearchValue = $this->getParamAdapter()->getQuickSearch();
-        $quickSearchQuery = new \Zend\Db\Sql\Select();
-
-        if (strlen($quickSearchValue)) {
-            //Unsecure query (without quote)
-            $quickSearchQuery->where('name like "%'.$quickSearchValue.'%"')
-                             ->where('surname like "%'.$quickSearchValue.'%"');
-            $this->getSource()->setQuickSearchQuery($quickSearchQuery);
-        }
+       
     }
 
 }

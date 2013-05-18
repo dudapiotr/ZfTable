@@ -64,6 +64,7 @@ PaginatorInterface
                 'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
                 'container' => __DIR__ . '/../../../view/templates/container.phtml',
                 'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
+                'custom' => __DIR__ . '/../../../view/templates/custom.phtml',
             );
         }
         return $this->templateMap;
