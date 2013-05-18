@@ -1,0 +1,16 @@
+
+.processing {
+  background: url("../img/ajax-loader.gif") no-repeat scroll 0 0 transparent;
+  border-radius: 5px 5px 5px 5px;
+  color: #FFFFFF;
+  display: block;
+  float: left;
+  height: 15px;
+  left: 50%;
+  margin-left: -50px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 50%;
+  width: 128px;
+}
