@@ -19,22 +19,7 @@ class Advance extends AbstractTable
 
     public function init()
     {
-        //Attr and class for table
-        $this->addClass('tableClass');
-        $this->addAttr('tableAttr', 'tableAttrValue');
         
-         //Attr and class for header
-        $this->getHeader('name')->addAttr('attr', 'example');
-        $this->getHeader('name')->addClass('new-class');
-        
-         //Attr and class for row
-        $this->getRow()->addAttr('test', 'newattr');
-        $this->getRow()->addClass('class', 'nowaklasa1');
-        
-         //Attr and class for cell
-        $this->getHeader('surname')->getCell()->addAttr('cellAttr', 'cellAttrValue');
-        $this->getHeader('surname')->getCell()->addDecorator('class', array('class' => 'sss'));
-
     }
 
     /**
