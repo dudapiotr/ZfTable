@@ -23,6 +23,9 @@ Features
 - Conditional decorating
 - Simply Integration with DataTables
 - Pagination, QuickSearch, Sorting and Items per page
+- Default Bootstrap layout
+- Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
+
 
 
 Goals
