@@ -26,6 +26,15 @@ Features
 - Default Bootstrap layout
 - Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
 
+Version 2.0 (planned for release middle of August 2013)
+----------------
+-  Editable decorator -> the ability to edit data from the table level
+-  Filtering for each column
+-  Row decorator for separeting row by ordering column (dividing the same data)
+-  New conditions
+-  Exporter data to CVS
+
+
 
 
 Goals
