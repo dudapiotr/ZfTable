@@ -8,6 +8,8 @@ use ZfTable\Params\AdapterArrayObject;
 use ZfTable\Table\Exception;
 use ZfTable\Options\ModuleOptions;
 
+use ZfTable\Config;
+
 abstract class AbstractTable extends AbstractElement implements TableInterface
 {
 
@@ -61,12 +63,6 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     protected $paramAdapter;
 
     /**
-     * Module options object
-     * @var ModuleOptions
-     */
-    protected $options;
-
-    /**
      * Flag to know if table has been initializable
      * @var boolean
      */
@@ -74,6 +70,15 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     
     protected $class = array('table', 'table-bordered', 'table-condensed', 'table-hover', 'table-striped', 'dataTable');
+    
+    /**
+     * Array configuration of table
+     * @var array 
+     */
+    protected $config;
+    
+    
+    
     
     /**
      * Check if table has benn initializable
@@ -101,19 +106,6 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Get all module options
-     *
-     * @return ModuleOptions
-     */
-    public function getOptions()
-    {
-        if (null === $this->options) {
-            $this->setOptions(new ModuleOptions());
-        }
-        return $this->options;
-    }
-
-    /**
      * Return Params adapter which responsible for universal mapping parameters from diffrent 
      * source (default params, Data Table params, JGrid params)
      * @return ParamAdapterInterface
@@ -122,7 +114,9 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->paramAdapter;
     }
-
+    
+    
+    
     /**
      * 
      * @param \ZfTable\Params\AdapterInterface $paramAdapter
@@ -354,5 +348,21 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->render();
     }
-
+    
+    /**
+     * 
+     * @return Config
+     * @throws Zend_Exception
+     */
+    public function getConfig()
+    {
+        if(is_array($this->config)){
+            $this->config = new Config($this->config); 
+        } else if(!$this->config instanceof  Config){
+            throw new Zend_Exception('Config class problem');
+        } 
+        return $this->config;
+        
+    }
+    
 }

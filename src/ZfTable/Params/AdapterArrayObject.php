@@ -72,7 +72,7 @@ AdapterInterface,
         $this->page = (isset($array['zfTablePage'])) ? $array['zfTablePage'] : self::DEFAULT_PAGE;
         $this->column = (isset($array['zfTableColumn'])) ? $array['zfTableColumn'] : null;
         $this->order = (isset($array['zfTableOrder'])) ? $array['zfTableOrder'] : self::DEFAULT_ORDER;
-        $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getOptions()->getDefaultItemCountPerPage();
+        $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getConfig()->getDefaultItemCountPerPage();
         $this->quickSearch = (isset($array['zfTableQuickSearch'])) ? $array['zfTableQuickSearch'] : '';
     }
 

@@ -6,7 +6,17 @@ use ZfTable\AbstractTable;
 
 class Base extends AbstractTable
 {
-
+    
+    protected $config = array(
+        'name' => 'Wyceny',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'itemCountPerPage' => 20,
+        'areFilters' => true,
+    );
+    
+    
     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50'),
@@ -19,7 +29,6 @@ class Base extends AbstractTable
 
     public function init()
     {
-
        
     }
 

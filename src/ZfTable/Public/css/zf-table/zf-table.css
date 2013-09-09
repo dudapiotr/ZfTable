@@ -1,6 +1,5 @@
-
 .processing {
-  background: url("../img/ajax-loader.gif") no-repeat scroll 0 0 transparent;
+  background: url("../../img/zf-table/ajax-loader.gif") no-repeat scroll 0 0 transparent;
   border-radius: 5px 5px 5px 5px;
   color: #FFFFFF;
   display: block;

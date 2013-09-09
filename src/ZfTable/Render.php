@@ -88,7 +88,7 @@ class Render extends AbstractCommon
         $view->setVariable('rows', $rowsArray);
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $this->getTable()->getOptions()->getValuesOfItemPerPage());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
 
@@ -101,7 +101,12 @@ class Render extends AbstractCommon
      */
     public function renderTableAsHtml()
     {
-
+        $tableConfig = $this->getTable()->getConfig();
+        
+        if($tableConfig->getAreFilters()){
+            $render .= $this->renderFilters();
+        }
+        
         $render = '';
         $render .= $this->renderHead();
         $render  = sprintf('<thead>%s</thead>',$render);
@@ -112,15 +117,59 @@ class Render extends AbstractCommon
         $view->setTemplate('container');
 
         $view->setVariable('table', $table);
+        $view->setVariable('name', $tableConfig->getName());
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $this->getTable()->getOptions()->getValuesOfItemPerPage());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+        $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
+        $view->setVariable('showPagination', $tableConfig->getShowPagination());
 
         return $this->getRenderer()->render($view);
     }
-
+    
+    
+    /**
+     * Rentering table
+     * @return string 
+     */
+//    public function renderTableAsHtml()
+//    {
+//        
+//        $render = '';
+//        $tableConfig = $this->getTable()->getConfig();
+//        
+//        if($tableConfig->getAreFilters()){
+//            $render .= $this->renderFilters();
+//        }
+//        $render .= $this->renderHead();
+//        $render  = sprintf('<thead>%s</thead>',$render);
+//        $render .= $this->getTable()->getRow()->renderRows();
+//        $table = sprintf('<table %s>%s</table>', $this->getTable()->getAttributes(), $render);
+//
+//        $view = $this->createView();
+//        
+//        
+//        //$this->assignToViewTableConfig($view);
+//        
+//        $view->assign('table', $table);
+//        $view->assign('name', $tableConfig->getName());
+//        $view->assign('paginator', $this->renderPaginator());
+//        $view->assign('paramsWrap', $this->renderParamsWrap());
+//        $view->assign('itemCountPerPageValues', $this->getOptions()->getValuesOfItemPerPage());
+//        $view->assign('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
+//        $view->assign('showQuickSearch', $tableConfig->getShowQuickSearch());
+//        $view->assign('showPagination', $tableConfig->getShowPagination());
+//        $view->assign('showItemPerPage', $tableConfig->getShowItemPerPage());
+//        $view->assign('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+//
+//        
+//        return $view->render('container.phtml');
+//    }
+    
+    
+    
     /**
      * Rendering head
      * @return string
@@ -165,8 +214,7 @@ class Render extends AbstractCommon
     {
         $renderer = new PhpRenderer();
         $resolver = new Resolver\AggregateResolver();
-
-        $map = new Resolver\TemplateMapResolver($this->getOptions()->getTemplateMap());
+        $map = new Resolver\TemplateMapResolver($this->getTable()->getConfig()->getTemplateMap());
         $resolver->attach($map);
 
         $renderer->setResolver($resolver);
@@ -194,16 +242,6 @@ class Render extends AbstractCommon
         $this->renderer = $renderer;
     }
 
-    /**
-     * 
-     * @return ModuleOptions
-     */
-    public function getOptions(){
-        if(!$this->options){
-            $this->options = $this->getTable()->getOptions();
-        }
-        return $this->options;
-    }
     
 }
 

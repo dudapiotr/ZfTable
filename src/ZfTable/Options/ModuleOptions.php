@@ -34,6 +34,8 @@ PaginatorInterface
     */
     protected $dataTablesMaxRows = 999;
     
+    protected $showPagination = false;
+    
     
     /**
      * Template Map
@@ -42,7 +44,18 @@ PaginatorInterface
     protected $templateMap = array();
     
     
-    
+    public function __construct($options = null)
+    {
+        $this->templateMap = array(
+                'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
+                'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
+                'container' => __DIR__ . '/../../../view/templates/container.phtml',
+                'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
+                'custom' => __DIR__ . '/../../../view/templates/custom.phtml',
+        );
+        
+        parent::__construct($options);
+    }
     /**
      * Set template map
      * @param array $templateMap
@@ -58,15 +71,6 @@ PaginatorInterface
      * @return array
      */
     public function getTemplateMap(){
-        if(!count($this->templateMap)){
-            $this->templateMap = array(
-                'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
-                'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
-                'container' => __DIR__ . '/../../../view/templates/container.phtml',
-                'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
-                'custom' => __DIR__ . '/../../../view/templates/custom.phtml',
-            );
-        }
         return $this->templateMap;
     }
     

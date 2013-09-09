@@ -2,31 +2,22 @@
 
 namespace ZfTable\Params;
 
-use ZfTable\Options\ModuleOptions;
 use ZfTable\AbstractCommon;
+use ZfTable\Config;
 
 abstract class AbstractAdapter extends AbstractCommon
 {
-
-    /**
-     * Module options object
-     * @var ModuleOptions
-     */
-    protected $options;
-
+    
     
 
     /**
-     * Get all module options
+     * Get configuration of table
      *
-     * @return ModuleOptions
+     * @return Config
      */
-    public function getOptions()
+    public function getConfig()
     {
-        if(!$this->options){
-            $this->options = $this->getTable()->getOptions();
-        }
-        return $this->options;
+        return $this->getTable()->getConfig();
     }
 
 }
