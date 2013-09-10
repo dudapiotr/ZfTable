@@ -19,7 +19,7 @@ class Base extends AbstractTable
     
     //Definition of headers
     protected $headers = array(
-        'idcustomer' => array('title' => 'Id', 'width' => '50'),
+        'idcustomer' => array('title' => 'Id', 'width' => '50', 'filters' => 'text'),
         'name' => array('title' => 'Name'),
         'surname' => array('title' => 'Surname'),
         'street' => array('title' => 'Street'),

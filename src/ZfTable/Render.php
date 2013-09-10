@@ -23,6 +23,7 @@ class Render extends AbstractCommon
     protected $options;
     
     
+    
     /**
      * 
      * @param AbstractTable $table
@@ -101,11 +102,15 @@ class Render extends AbstractCommon
      */
     public function renderTableAsHtml()
     {
+        $render = '';
         $tableConfig = $this->getTable()->getConfig();
         
         if($tableConfig->getAreFilters()){
             $render .= $this->renderFilters();
         }
+        
+        dbs($render);
+        
         
         $render = '';
         $render .= $this->renderHead();
@@ -128,6 +133,45 @@ class Render extends AbstractCommon
 
         return $this->getRenderer()->render($view);
     }
+    
+    
+    /**
+     * Rendering filters
+     * @return string
+     */
+    public function renderFilters()
+    {
+        $headers = $this->getTable()->getHeaders();
+        $render = '';
+        foreach ($headers as $name => $params) {
+            if (isset($params['filters'])) {
+                $id =  'zff_'.$name;
+                $value = $this->getTable()->getParamAdapter()->getValueOfFilter($id);
+                
+                
+                if (is_string($params['filters'])) {
+                    $element = new \Zend\Form\Element\Text($id);
+                    
+                    //$el = Base_Form_Abstract::simplefactoryElement('text',$id, array('value' => $value , 'class' => 'filter'));
+                    
+                    
+                } else {
+                    $el = Base_Form_Abstract::simplefactoryElement('select', $id, array('multiOptions' => $params['filters'] , 'value' => $value , 'class' => 'filter'));
+                }
+                
+                $view = new \Zend\View\Model\ViewModel();
+                
+                dbs($view->layout());
+                
+                
+                $render .= sprintf('<td>%s</td>', $e->render($element));
+            } else {
+                $render .= '<td></td>';
+            }
+        }
+        return sprintf('<tr>%s</tr>', $render);
+    }
+    
     
     
     /**

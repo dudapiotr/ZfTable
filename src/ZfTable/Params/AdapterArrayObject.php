@@ -47,6 +47,14 @@ AdapterInterface,
      */
     protected $quickSearch;
 
+    
+     /**
+     * Array of filters
+     * @var array
+     */
+    protected $filters;
+    
+    
     const DEFAULT_PAGE = 1;
     const DEFAULT_ORDER = 'asc';
     const DEFAULT_ITEM_COUNT_PER_PAGE = 2;
@@ -74,8 +82,21 @@ AdapterInterface,
         $this->order = (isset($array['zfTableOrder'])) ? $array['zfTableOrder'] : self::DEFAULT_ORDER;
         $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getConfig()->getDefaultItemCountPerPage();
         $this->quickSearch = (isset($array['zfTableQuickSearch'])) ? $array['zfTableQuickSearch'] : '';
+        
+        //Init filters value
+        if($this->getTable()->getConfig('areFilters')){
+            foreach($array as $key => $value){
+                if(substr($key, 0, 4) == 'zff_'){
+                    $this->filters[$key] = $value;
+                }
+            }
+        }
     }
-
+    
+    public function getValueOfFilter($key){
+        return $this->filters[$key];
+    }
+    
     /**
      * Get page
      * @return int
