@@ -17,7 +17,7 @@ class CustomerTable extends AbstractTableGateway {
         $this->adapter = $adapter;
         $this->resultSetPrototype = new ResultSet();
         $this->resultSetPrototype->setArrayObjectPrototype(new Customer());
-
+        
         $this->initialize();
     }
 

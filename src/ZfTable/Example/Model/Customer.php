@@ -17,7 +17,6 @@ class Customer implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
-       
     }
     
     public function getArrayCopy()
