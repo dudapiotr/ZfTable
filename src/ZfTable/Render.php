@@ -109,10 +109,6 @@ class Render extends AbstractCommon
             $render .= $this->renderFilters();
         }
         
-        dbs($render);
-        
-        
-        $render = '';
         $render .= $this->renderHead();
         $render  = sprintf('<thead>%s</thead>',$render);
         $render .= $this->getTable()->getRow()->renderRows();
@@ -143,74 +139,27 @@ class Render extends AbstractCommon
     {
         $headers = $this->getTable()->getHeaders();
         $render = '';
+        
         foreach ($headers as $name => $params) {
             if (isset($params['filters'])) {
                 $id =  'zff_'.$name;
                 $value = $this->getTable()->getParamAdapter()->getValueOfFilter($id);
-                
-                
                 if (is_string($params['filters'])) {
                     $element = new \Zend\Form\Element\Text($id);
-                    
-                    //$el = Base_Form_Abstract::simplefactoryElement('text',$id, array('value' => $value , 'class' => 'filter'));
-                    
-                    
                 } else {
-                    $el = Base_Form_Abstract::simplefactoryElement('select', $id, array('multiOptions' => $params['filters'] , 'value' => $value , 'class' => 'filter'));
+                    $element = new \Zend\Form\Element\Select($id);
+                    $element->setValueOptions($params['filters']);
                 }
+                $element->setAttribute('class', 'filter form-control');
+                $element->setValue($value);
                 
-                $view = new \Zend\View\Model\ViewModel();
-                
-                dbs($view->layout());
-                
-                
-                $render .= sprintf('<td>%s</td>', $e->render($element));
+                $render .= sprintf('<td>%s</td>', $this->getRenderer()->formRow($element));
             } else {
                 $render .= '<td></td>';
             }
         }
         return sprintf('<tr>%s</tr>', $render);
     }
-    
-    
-    
-    /**
-     * Rentering table
-     * @return string 
-     */
-//    public function renderTableAsHtml()
-//    {
-//        
-//        $render = '';
-//        $tableConfig = $this->getTable()->getConfig();
-//        
-//        if($tableConfig->getAreFilters()){
-//            $render .= $this->renderFilters();
-//        }
-//        $render .= $this->renderHead();
-//        $render  = sprintf('<thead>%s</thead>',$render);
-//        $render .= $this->getTable()->getRow()->renderRows();
-//        $table = sprintf('<table %s>%s</table>', $this->getTable()->getAttributes(), $render);
-//
-//        $view = $this->createView();
-//        
-//        
-//        //$this->assignToViewTableConfig($view);
-//        
-//        $view->assign('table', $table);
-//        $view->assign('name', $tableConfig->getName());
-//        $view->assign('paginator', $this->renderPaginator());
-//        $view->assign('paramsWrap', $this->renderParamsWrap());
-//        $view->assign('itemCountPerPageValues', $this->getOptions()->getValuesOfItemPerPage());
-//        $view->assign('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
-//        $view->assign('showQuickSearch', $tableConfig->getShowQuickSearch());
-//        $view->assign('showPagination', $tableConfig->getShowPagination());
-//        $view->assign('showItemPerPage', $tableConfig->getShowItemPerPage());
-//        $view->assign('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
-//
-//        
-//        return $view->render('container.phtml');
-//    }
     
     
     
@@ -225,10 +174,7 @@ class Render extends AbstractCommon
         foreach ($headers as $name => $title) {
             $render .= $this->getTable()->getHeader($name)->render();
         }
-        
         $render = sprintf('<tr>%s</tr>', $render);
-        
-
         return $render;
     }
 
@@ -257,6 +203,11 @@ class Render extends AbstractCommon
     protected function initRenderer()
     {
         $renderer = new PhpRenderer();
+        
+        $plugins = $renderer->getHelperPluginManager();
+        $config  = new \Zend\Form\View\HelperConfig;
+        $config->configureServiceManager($plugins);
+        
         $resolver = new Resolver\AggregateResolver();
         $map = new Resolver\TemplateMapResolver($this->getTable()->getConfig()->getTemplateMap());
         $resolver->attach($map);
