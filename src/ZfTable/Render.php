@@ -126,6 +126,7 @@ class Render extends AbstractCommon
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
         $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
         $view->setVariable('showPagination', $tableConfig->getShowPagination());
+        $view->setVariable('showItemPerPage', $tableConfig->getShowItemPerPage());
 
         return $this->getRenderer()->render($view);
     }

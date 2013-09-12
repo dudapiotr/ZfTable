@@ -73,8 +73,10 @@ class Cell extends AbstractElement
     public function render($type = 'html')
     {
         $row = $this->getTable()->getRow()->getActualRow();
-        $value = $row[$this->getHeader()->getName()];
+        $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
 
+        
+        
         foreach ($this->decorators as $decorator) {
             if ($decorator->validConditions()) {
                 $value = $decorator->render($value);

@@ -22,7 +22,7 @@ PaginatorInterface
      * Default item count per page (pagination)
      * @var int
      */
-    protected $defaultItemCountPerPage = 2;
+    protected $defaultItemCountPerPage = 10;
     
     
    /**
@@ -49,7 +49,7 @@ PaginatorInterface
         $this->templateMap = array(
                 'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
                 'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
-                'container' => __DIR__ . '/../../../view/templates/container.phtml',
+                'container' => __DIR__ . '/../../../view/templates/container-b3.phtml',
                 'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
                 'custom' => __DIR__ . '/../../../view/templates/custom.phtml',
         );
