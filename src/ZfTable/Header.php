@@ -39,6 +39,12 @@ class Header extends AbstractElement
         'asc' => 'desc',
         'desc' => 'asc'
     );
+    
+    /**
+     * Flag to inform if column should be sortable
+     * @var type 
+     */
+    protected $sortable = true;
 
     /**
      * Array of options
@@ -53,7 +59,7 @@ class Header extends AbstractElement
     }
 
     /**
-     * 
+     * Set options like title, width, order, sortable
      * @param string $name
      * @param array $options
      * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
@@ -76,6 +82,7 @@ class Header extends AbstractElement
         $this->title = (isset($options['title'])) ? $options['title'] : '';
         $this->width = (isset($options['width'])) ? $options['width'] : '';
         $this->order = (isset($options['order'])) ? $options['order'] : true;
+        $this->sortable = (isset($options['sortable'])) ? $options['sortable'] : true;
         
         
         return $this;
@@ -156,7 +163,24 @@ class Header extends AbstractElement
     {
         return $this->title;
     }
+    
+    /**
+     * Get sortable flag
+     * @return boolean
+     */
+    public function getSortable()
+    {
+        return $this->sortable;
+    }
 
+    /**
+     * Set flat to inform about sortable
+     * @param boolean $sortable
+     */
+    public function setSortable($sortable)
+    {
+        $this->sortable = $sortable;
+    }
     
     /**
      * Set reference to table
@@ -175,17 +199,22 @@ class Header extends AbstractElement
     {
         $paramColumn = $this->getTable()->getParamAdapter()->getColumn();
         $paramOrder = $this->getTable()->getParamAdapter()->getOrder();
-        $order = ($paramColumn == $this->getName()) ? static::$orderReverse[$paramOrder] : 'asc';
-        $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . static::$orderReverse[$paramOrder] : 'sorting';
-        $this->addClass($classSorting);
-        $this->addAttr('data-order', $order);
-        $this->addAttr('data-column', $this->getName());
+        $order = ($paramColumn == $this->getName()) ? self::$orderReverse[$paramOrder] : 'asc';
+        
+        if($this->getSortable()){
+            $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . self::$orderReverse[$paramOrder] : 'sorting';
+            $this->addClass($classSorting);
+            $this->addClass('sortable');
+            $this->addAttr('data-order', $order);
+            $this->addAttr('data-column', $this->getName());
+        }
+        
         
         if($this->width){
             $this->addAttr('width', $this->width);
         }
     }
-
+    
     
     /**
      * Rendering header element

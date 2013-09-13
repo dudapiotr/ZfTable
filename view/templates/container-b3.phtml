@@ -18,16 +18,14 @@
     <div class="row">
         <div class="col-sm-6 text-left">
             <?php if ($this->showItemPerPage): ?>
-                <div class="dataTables_length">
-                    <label class="pull-left">
-                        <select class="itemPerPage form-control">
-                            <?php foreach ($this->itemCountPerPageValues as $item): ?>
-                                <?php $selected = ($item == $this->itemCountPerPage) ? 'selected="selected"' : '""'; ?>
-                                <option <?php echo $selected ?>><?php echo $item ?></option>
-                            <?php endforeach; ?>
-                        </select> 
-                    </label> 
-                </div>
+                <label class="pull-left">
+                    <select class="itemPerPage form-control">
+                        <?php foreach ($this->itemCountPerPageValues as $item): ?>
+                            <?php $selected = ($item == $this->itemCountPerPage) ? 'selected="selected"' : '""'; ?>
+                            <option <?php echo $selected ?>><?php echo $item ?></option>
+                        <?php endforeach; ?>
+                    </select> 
+                </label> 
             <?php endif; ?>
         </div>
         <div class="col-sm-6 text-right">

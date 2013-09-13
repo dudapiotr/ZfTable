@@ -192,6 +192,7 @@ class SqlSelect extends AbstractSource
         $column = $this->getParamAdapter()->getColumn();
         $order = $this->getParamAdapter()->getOrder();
         if ($column) {
+            $this->select->reset('order');
             $this->select->order($column . ' ' . $order);
         }
     }
