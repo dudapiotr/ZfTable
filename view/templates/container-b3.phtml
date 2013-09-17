@@ -3,13 +3,15 @@
     </div>
     <div class="row ">
         <div class="col-sm-6 pull-left">
-            <header>
-                <h5><?= $this->name ?></h5>
-            </header>
+            <?if($this->name):?>
+                <header>
+                    <h4><?= $this->name ?></h4>
+                </header>
+            <?endif;?>
         </div>
         <?php if ($this->showQuickSearch): ?>
-            <div class="dataTables_filter pull-right" id="dataTable_filter">
-                <label>Search: <input type="text" aria-controls="dataTable" class="quick-search" value="<?php echo $this->quickSearch ?>">
+            <div class="dataTables_filter pull-right col-sm-3" id="dataTable_filter">
+                <label>Search: <input type="text" aria-controls="dataTable" class="quick-search form-control" value="<?php echo $this->quickSearch ?>">
                 </label>
             </div>
         <?php endif; ?>

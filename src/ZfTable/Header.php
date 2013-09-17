@@ -32,6 +32,24 @@ class Header extends AbstractElement
     protected $cell;
     
     /**
+     * Flag to inform if column should be sortable
+     * @var boolean 
+     */
+    protected $sortable = true;
+    
+    /**
+     * Check if column is separatable
+     * @var boolean
+     */
+    protected $separatable = false;
+    
+    /**
+     * Check if column is editable
+     * @var boolean
+     */
+    protected $editable = false;
+    
+    /**
      * Static array exchanging ordering (when column is ascending, in data-ordering should be desc)
      * @var array
      */
@@ -41,12 +59,6 @@ class Header extends AbstractElement
     );
     
     /**
-     * Flag to inform if column should be sortable
-     * @var type 
-     */
-    protected $sortable = true;
-
-    /**
      * Array of options
      * @param string $name
      * @param array $options
@@ -54,8 +66,8 @@ class Header extends AbstractElement
     public function __construct($name, $options = array())
     {
         $this->name = $name;
-        $this->setOptions($options);
         $this->cell = new Cell($this);
+        $this->setOptions($options);
     }
 
     /**
@@ -83,6 +95,12 @@ class Header extends AbstractElement
         $this->width = (isset($options['width'])) ? $options['width'] : '';
         $this->order = (isset($options['order'])) ? $options['order'] : true;
         $this->sortable = (isset($options['sortable'])) ? $options['sortable'] : true;
+        $this->separatable = (isset($options['separatable'])) ? $options['separatable'] : $this->getSeparatable();
+        
+        if(isset($options['editable']) && $options['editable'] == true){
+            $this->editable = $options['editable'];
+            $this->getCell()->addDecorator('editable',array());
+        }
         
         
         return $this;
@@ -181,6 +199,43 @@ class Header extends AbstractElement
     {
         $this->sortable = $sortable;
     }
+    
+    /**
+     * Get flat to inform about separable
+     * @return boolean
+     */
+    public function getSeparatable()
+    {
+        return $this->separatable;
+    }
+
+    /**
+     * Flag to inform about for all cell in header
+     * @param boolean $separatable
+     */
+    public function setSeparatable($separatable)
+    {
+        $this->separatable = $separatable;
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function getEditable()
+    {
+        return $this->editable;
+    }
+    
+    /**
+     * Flag to inform about for all cell in header
+     * @param boolean $editable
+     */
+    public function setEditable($editable)
+    {
+        $this->editable = $editable;
+    }
+
     
     /**
      * Set reference to table

@@ -1,4 +1,20 @@
 (function(jQuery) {
+    
+    $.fn.animateGreenHighlight = function (highlightColor, duration) {
+        var highlightBg = highlightColor || "#68e372";
+        var animateMs = duration || "1000"; // edit is here
+        var originalBg = this.css("background-color");
+
+        if (!originalBg || originalBg == highlightBg)
+            originalBg = "#FFFFFF"; // default to white
+
+        jQuery(this)
+            .css("backgroundColor", highlightBg)
+            .animate({ backgroundColor: originalBg }, animateMs, null, function () {
+                jQuery(this).css("backgroundColor", originalBg); 
+            });
+    };
+    
     jQuery.fn.zfTable = function(url) {
         
         var initialized = false;
@@ -53,31 +69,26 @@
                    ajax($obj);
                }
             });
-            
             jQuery('.editable').dblclick(function(){
                 if(jQuery(this).find('input').size() === 0){
                     var val = jQuery(this).html();
-                    jQuery(this).html('<input type="text" value="'+val+'"/><i class="icon-pencil row-save cursor-pointer"></i>');
+                    jQuery(this).html('<input style="width: 80%" type="text" value="'+val+'" class="form-control"/><a href="#" class="row-save">Save</a>');
                 }
             });
-            $obj.on('click','.row-save',function(){
+            $obj.on('click', '.row-save', function(e){
+                e.preventDefault();
+                
                 var newVal = jQuery(this).siblings('input').val();
-                var $td = jQuery(this).parent('td');
+                var $td = jQuery(this).parents('td');
                 $td.html(newVal);
-                $td.animate({
-                        backgroundColor: "#68e372"
-                    }, 1000, function() {
-                        $td.removeAttr('style');
-                });
+                $td.animateGreenHighlight();
                 jQuery.ajax({
-                    url:  $obj.find('#rowAction').attr('href'),
-                    data: 'column='+$td.data('column')+'&value='+newVal+'&row='+$td.parent().data('row'),
+                    url:  $obj.find('.rowAction').attr('href'),
+                    data: {column: $td.data('column') , value : newVal , row: $td.parent().data('row') },
                     type: 'POST',
-                    success: function(data) {
-                    },
+                    success: function(data) {},
                     dataType: 'json'
                 });
-                
             });
         }
         return this.each(function() {

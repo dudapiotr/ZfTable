@@ -13,3 +13,11 @@
   top: 50%;
   width: 128px;
 }
+
+td.editable , .table-hover>tbody>tr:hover>td.editable , .table-striped>tbody>tr:nth-child(odd)>td.editable {
+    background-color: #FFFCF0;
+}
+
+.separatable td{
+    border-top: 5px solid rgb(223, 223, 223) !important;
+}

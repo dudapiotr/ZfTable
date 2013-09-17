@@ -19,8 +19,11 @@ class DecoratorPluginManager extends AbstractPluginManager
         'cellmapper' => '\ZfTable\Decorator\Cell\Mapper',
         'celllink' => '\ZfTable\Decorator\Cell\Link',
         'celltemplate' => '\ZfTable\Decorator\Cell\Template',
+        'celleditable' => '\ZfTable\Decorator\Cell\Editable',
         
         'rowclass' => '\ZfTable\Decorator\Row\ClassDecorator',
+        'rowvarattr' => '\ZfTable\Decorator\Row\VarAttr',
+        'rowseparator' => '\ZfTable\Decorator\Row\Separator',
     );
 
     /**

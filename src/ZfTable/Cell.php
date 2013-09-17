@@ -83,7 +83,10 @@ class Cell extends AbstractElement
             }
         }
         if($type == 'html'){
-            return sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
+            $ret = sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
+            $this->clearVar();
+            return $ret;
+            
         }
         else{
             return $value;

@@ -31,7 +31,7 @@ class Row extends AbstractElement
      * @param array $options
      * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryRow($name, $options);
         $this->attachDecorator($decorator);
@@ -122,6 +122,7 @@ class Row extends AbstractElement
                 $decorator->render('');
             }
             $render .= sprintf('<tr %s>%s</tr>', $this->getAttributes(), $rowRender);
+            $this->clearVar();
         }
         return $render;
     }

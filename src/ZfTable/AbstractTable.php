@@ -226,7 +226,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      * Init configuration like setting header, decorators, filters and others 
      * (call in render method as well)
      */
-    public function initializable()
+    protected function initializable()
     {
         if(!$this->getParamAdapter()){
             throw new Exception\LogicException('Param Adapter is required');
@@ -240,9 +240,29 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             $this->setHeaders($this->headers);
         }
         $this->init();
-        $this->initQuickSearch();
+        
+        $this->initFilters($this->getSource()->getSelect());
     }
-
+    
+    
+    /**
+     * @deprecated since version 2.0
+     * Function replace by initFilters 
+     */
+    protected function initQuickSearch()
+    {
+        
+    }
+    
+    /**
+     * Init filters for quick serach or filters for each column
+     * @param \Zend\Db\Sql\Select $query
+     */
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+        
+    }
+    
     /**
      * 
      * @param array $headers

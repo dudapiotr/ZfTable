@@ -24,7 +24,20 @@ abstract class AbstractElement extends AbstractCommon
      * @var array
      */
     protected $decorators = array();
-
+    
+    
+    /**
+     * Array of vars class
+     * @var array
+     */
+    protected $varClass = array();
+    
+    /**
+     * Array of vars attr
+     * @var array
+     */
+    protected $varAttr= array();
+    
     /**
      * Add new class to element
      * @param string $class
@@ -50,7 +63,33 @@ abstract class AbstractElement extends AbstractCommon
         }
         return $this;
     }
-
+    
+     /**
+     * Add new var class to element
+     * @param string $class
+     * @return \ZfTable\AbstractElement
+     */
+    public function addVarClass($class)
+    {
+        if (!in_array($class, $this->varClass)) {
+            $this->varClass[] = $class;
+        }
+        return $this;
+    }
+    
+    /**
+     * Add new var class to element
+     * @param string $class
+     * @return \ZfTable\AbstractElement
+     */
+    public function addVarAttr($name, $value)
+    {
+        if (!in_array($name, $this->varAttr)) {
+            $this->varAttr[$name] = $value;
+        }
+        return $this;
+    }
+    
     /**
      * Add new attribute to table, header, column or rowset
      * @param string $name
@@ -75,6 +114,10 @@ abstract class AbstractElement extends AbstractCommon
         if (count($this->class)) {
             $className = implode(' ', array_values($this->class));
         }
+        if (count($this->varClass)) {
+            $className .= ' ';
+            $className .= implode(' ', array_values($this->varClass));
+        }
         return $className;
     }
 
@@ -90,14 +133,26 @@ abstract class AbstractElement extends AbstractCommon
                 $ret[] = sprintf($name . '="%s"', $value);
             }
         }
-
+         if (count($this->varAttr)) {
+            foreach ($this->varAttr as $name => $value) {
+                $ret[] = sprintf($name . '="%s"', $value);
+            }
+        }
         if (strlen($className = $this->getClassName())) {
             $ret[] = sprintf('class="%s"', $className);
         }
         return ' ' . implode(' ', $ret);
     }
 
-
+     /**
+     * Clearing var classes
+     */
+    public function clearVar()
+    {
+        $this->varClass = array();
+        $this->varAttr = array();
+    }
+    
     /**
      * Get collestions of decoratos
      * @return array

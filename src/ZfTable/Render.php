@@ -193,7 +193,7 @@ class Render extends AbstractCommon
         $view->setVariable('order', $this->getTable()->getParamAdapter()->getOrder());
         $view->setVariable('page', $this->getTable()->getParamAdapter()->getPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
-
+        $view->setVariable('rowAction', $this->getTable()->getConfig()->getRowAction());
 
         return $this->getRenderer()->render($view);
     }
