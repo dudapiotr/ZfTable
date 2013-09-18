@@ -28,7 +28,10 @@
                         <?php endforeach; ?>
                     </select> 
                 </label> 
-            <?php endif; ?>
+           <?php endif; ?>
+           <?php if($this->showExportToCSV): ?>
+             <a href="#" style="margin-left: 10px;" class="export-csv">Export to CSV</a>
+           <?php endif;?>
         </div>
         <div class="col-sm-6 text-right">
             <?php if ($this->showPagination): ?>

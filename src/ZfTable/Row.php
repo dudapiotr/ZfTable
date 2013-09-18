@@ -7,7 +7,7 @@ use ZfTable\Decorator\DecoratorFactory;
 
 class Row extends AbstractElement
 {
-
+    protected $class = array('zf-data-row');
     
     /**
      * 

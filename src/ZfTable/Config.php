@@ -23,6 +23,18 @@ class Config extends AbstractOptions
     
     protected $rowAction = false;
     
+    protected $showExportToCSV = false;
+    
+    public function __construct($options = null)
+    {
+        $moduleOptions = $this->getModuleOptions();
+        //db($options);
+        //db($moduleOptions);
+        $options = array_merge($moduleOptions->toArray() ,   $options );
+        
+        parent::__construct($options);
+    }
+    
     /**
      * Value to specify items per page (pagination)
      * @var array
@@ -44,15 +56,14 @@ class Config extends AbstractOptions
     */
     protected $dataTablesMaxRows = 999;
     
-    
-    public function __construct($options = null)
+    public function getShowExportToCSV()
     {
-        $moduleOptions = $this->getModuleOptions();
-        //db($options);
-        //db($moduleOptions);
-        $options = array_merge($moduleOptions->toArray() ,   $options );
-        
-        parent::__construct($options);
+        return $this->showExportToCSV;
+    }
+
+    public function setShowExportToCSV($showExportToCSV)
+    {
+        $this->showExportToCSV = $showExportToCSV;
     }
     
     public function getRowAction()

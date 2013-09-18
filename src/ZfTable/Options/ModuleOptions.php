@@ -34,6 +34,7 @@ PaginatorInterface
     */
     protected $dataTablesMaxRows = 999;
     
+    
     protected $showPagination = false;
     
     
@@ -42,6 +43,21 @@ PaginatorInterface
      * @var array
      */
     protected $templateMap = array();
+    
+    
+    protected $showExportToCSV = false;
+    
+    
+    public function getShowExportToCSV()
+    {
+        return $this->showExportToCSV;
+    }
+
+    public function setShowExportToCSV($showExportToCSV)
+    {
+        $this->showExportToCSV = $showExportToCSV;
+    }
+    
     
     
     public function __construct($options = null)

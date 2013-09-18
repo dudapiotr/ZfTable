@@ -1,6 +1,5 @@
 (function(jQuery) {
-    
-    $.fn.animateGreenHighlight = function (highlightColor, duration) {
+    jQuery.fn.animateGreenHighlight = function (highlightColor, duration) {
         var highlightBg = highlightColor || "#68e372";
         var animateMs = duration || "1000"; // edit is here
         var originalBg = this.css("background-color");
@@ -19,13 +18,19 @@
         
         var initialized = false;
         
+        function strip(html){
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || "";
+        }
+        
         function init($obj) {
             ajax($obj);
         }
-        function ajax($obj){
-             $obj.prepend('<div class="processing" style=""></div>');
-             jQuery.ajax({
-                url:  url,
+        function ajax($obj) {
+            $obj.prepend('<div class="processing" style=""></div>');
+            jQuery.ajax({
+                url: url,
                 data: $obj.find(':input').serialize(),
                 type: 'POST',
                 success: function(data) {
@@ -38,6 +43,8 @@
             });
         }
         function initNavigation($obj){
+            var _this = this;
+            
             $obj.find('table th.sortable').on('click',function(e){
                 $obj.find('input[name="zfTableColumn"]').val(jQuery(this).data('column'));
                 $obj.find('input[name="zfTableOrder"]').val(jQuery(this).data('order'));
@@ -90,7 +97,35 @@
                     dataType: 'json'
                 });
             });
+            
+            $obj.find('.export-csv').on('click',function(e){
+                exportToCSV($obj);
+            });
         }
+        function exportToCSV($table){
+            var data = new Array();
+            
+            $table.find("tr.zf-title , tr.zf-data-row").each(function(i,el){
+                var row = new Array();
+                $(this).find('th, td').each(function(j, el2){
+                    row[j] = strip($(this).html());
+                });
+                data[i] = row;
+            });
+            var csvContent = "data:text/csv;charset=utf-8,";
+            data.forEach(function(infoArray, index){
+               dataString = infoArray.join(";");
+               csvContent += index < infoArray.length ? dataString+ "\n" : dataString;
+
+            }); 
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "table.csv");
+            link.click();
+        }
+        
         return this.each(function() {
            var $this = jQuery( this );
            if(!initialized){
@@ -99,4 +134,5 @@
           
         });
     };
+    
 })(jQuery); 

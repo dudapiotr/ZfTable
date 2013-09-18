@@ -118,15 +118,17 @@ class Render extends AbstractCommon
         $view->setTemplate('container');
 
         $view->setVariable('table', $table);
-        $view->setVariable('name', $tableConfig->getName());
+        
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+        $view->setVariable('name', $tableConfig->getName());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
         $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
         $view->setVariable('showPagination', $tableConfig->getShowPagination());
         $view->setVariable('showItemPerPage', $tableConfig->getShowItemPerPage());
+        $view->setVariable('showExportToCSV', $tableConfig->getShowExportToCSV());
 
         return $this->getRenderer()->render($view);
     }
@@ -175,7 +177,7 @@ class Render extends AbstractCommon
         foreach ($headers as $name => $title) {
             $render .= $this->getTable()->getHeader($name)->render();
         }
-        $render = sprintf('<tr>%s</tr>', $render);
+        $render = sprintf('<tr class="zf-title">%s</tr>', $render);
         return $render;
     }
 

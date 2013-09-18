@@ -18,7 +18,6 @@ abstract class AbstractModel implements InputFilterAwareInterface
 
     protected $data;
     
-   
     
     public function __call($name, $arguments)
     {
@@ -36,8 +35,6 @@ abstract class AbstractModel implements InputFilterAwareInterface
         return $this->data[$nameOfColumn];
         
     }
-    
-   
     
     /**
      * Used by ResultSet to pass each database row to the entity
