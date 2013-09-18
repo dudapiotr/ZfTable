@@ -8,32 +8,65 @@ use ZfTable\Options\ModuleOptions;
 class Config extends AbstractOptions
 {
  
-    
+    /**
+     * Name of table 
+     * @var null | string
+     */
     protected $name = '';
     
+    /**
+     * Show or hide pagination view
+     * @var boolean 
+     */
     protected $showPagination = true;
     
+    /**
+     * Show or hide quick search view
+     * @var boolean
+     */
     protected $showQuickSearch = false;
     
+    
+    /**
+     * Show or hide item per page view
+     * @var boolean
+     */
     protected $showItemPerPage = true;
     
+    /**
+     * @todo item and default cout per page
+     * Default value for item count per page
+     * @var int
+     */
     protected $itemCountPerPage = 50;
     
+    /**
+     * Default item count per page (pagination)
+     * @var int
+     */
+    protected $defaultItemCountPerPage = 2;
+    
+    
+    /**
+     * Flag to show row with filters (for each column)
+     * @var boolean
+     */
     protected $areFilters = false;
     
+    /**
+     * Definition of 
+     * @var string | boolean
+     */
     protected $rowAction = false;
     
+    
+    /**
+     * Show or hide exporter to CSV
+     * @var boolean
+     */
     protected $showExportToCSV = false;
     
-    public function __construct($options = null)
-    {
-        $moduleOptions = $this->getModuleOptions();
-        //db($options);
-        //db($moduleOptions);
-        $options = array_merge($moduleOptions->toArray() ,   $options );
-        
-        parent::__construct($options);
-    }
+    
     
     /**
      * Value to specify items per page (pagination)
@@ -41,11 +74,7 @@ class Config extends AbstractOptions
      */
     protected $valuesOfItemPerPage = array(5, 10, 20, 50);
     
-     /**
-     * Default item count per page (pagination)
-     * @var int
-     */
-    protected $defaultItemCountPerPage = 2;
+     
     
      /**
     * Get maximal rows to returning. Data tables can use
@@ -56,11 +85,23 @@ class Config extends AbstractOptions
     */
     protected $dataTablesMaxRows = 999;
     
+    
+    
+    public function __construct($options = null)
+    {
+        $moduleOptions = $this->getModuleOptions();
+        $options = array_merge($moduleOptions->toArray() ,   $options );
+        parent::__construct($options);
+    }
+    
+    
+    
     public function getShowExportToCSV()
     {
         return $this->showExportToCSV;
     }
 
+    
     public function setShowExportToCSV($showExportToCSV)
     {
         $this->showExportToCSV = $showExportToCSV;
