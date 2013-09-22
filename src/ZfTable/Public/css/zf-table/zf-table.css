@@ -21,3 +21,25 @@ td.editable , .table-hover>tbody>tr:hover>td.editable , .table-striped>tbody>tr:
 .separatable td{
     border-top: 5px solid rgb(223, 223, 223) !important;
 }
+ 
+.zf-table-wrap .pagination{
+    margin: 0px;
+}
+
+
+
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+table.table thead .sorting { background: url('../../img/datatable/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('../../img/datatable/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('../../img/datatable/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('../../img/datatable/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('../../img/datatable/sort_desc_disabled.png') no-repeat center right; }

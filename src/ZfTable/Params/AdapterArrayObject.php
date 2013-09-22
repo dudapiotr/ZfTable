@@ -84,7 +84,7 @@ AdapterInterface,
         $this->quickSearch = (isset($array['zfTableQuickSearch'])) ? $array['zfTableQuickSearch'] : '';
         
         //Init filters value
-        if($this->getTable()->getConfig('areFilters')){
+        if($this->getTable()->getConfig('showColumnFilters')){
             foreach($array as $key => $value){
                 if(substr($key, 0, 4) == 'zff_'){
                     $this->filters[$key] = $value;
@@ -93,8 +93,8 @@ AdapterInterface,
         }
     }
     
-    public function getValueOfFilter($key){
-        return $this->filters[$key];
+    public function getValueOfFilter($key , $prefix = 'zff_'){
+        return $this->filters[$prefix . $key];
     }
     
     /**

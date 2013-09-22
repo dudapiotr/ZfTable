@@ -14,6 +14,8 @@ class DecoratorPluginManager extends AbstractPluginManager
      */
     protected $invokableClasses = array(
         
+        'cellattr' => '\ZfTable\Decorator\Cell\AttrDecorator',
+        'cellvarattr' => '\ZfTable\Decorator\Cell\VarAttrDecorator',
         'cellclass' => '\ZfTable\Decorator\Cell\ClassDecorator',
         'cellicon' => '\ZfTable\Decorator\Cell\Icon',
         'cellmapper' => '\ZfTable\Decorator\Cell\Mapper',
@@ -23,7 +25,7 @@ class DecoratorPluginManager extends AbstractPluginManager
         
         'rowclass' => '\ZfTable\Decorator\Row\ClassDecorator',
         'rowvarattr' => '\ZfTable\Decorator\Row\VarAttr',
-        'rowseparator' => '\ZfTable\Decorator\Row\Separator',
+        'rowseparatable' => '\ZfTable\Decorator\Row\Separatable',
     );
 
     /**

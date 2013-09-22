@@ -15,6 +15,10 @@ class ConditionPluginManager extends AbstractPluginManager
     protected $invokableClasses = array(
         'equal' => '\ZfTable\Decorator\Condition\Plugin\Equal',
         'notequal' => '\ZfTable\Decorator\Condition\Plugin\NotEqual',
+        'between' => '\ZfTable\Decorator\Condition\Plugin\Between',
+        'greaterthan' => '\ZfTable\Decorator\Condition\Plugin\GreaterThan',
+        'lesserthan' => '\ZfTable\Decorator\Condition\Plugin\LesserThan',
+        
         
     );
 

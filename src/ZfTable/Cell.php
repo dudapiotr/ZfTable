@@ -29,7 +29,7 @@ class Cell extends AbstractElement
      * @param type $options
      * @return \ZfTable\Decorator\AbstractDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryCell($name, $options);
         $decorator->setCell($this);

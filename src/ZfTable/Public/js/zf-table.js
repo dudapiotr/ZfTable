@@ -99,12 +99,11 @@
             });
             
             $obj.find('.export-csv').on('click',function(e){
-                exportToCSV($obj);
+                exportToCSV(jQuery(this), $obj);
             });
         }
-        function exportToCSV($table){
+        function exportToCSV(link, $table){
             var data = new Array();
-            
             $table.find("tr.zf-title , tr.zf-data-row").each(function(i,el){
                 var row = new Array();
                 $(this).find('th, td').each(function(j, el2){
@@ -112,18 +111,19 @@
                 });
                 data[i] = row;
             });
-            var csvContent = "data:text/csv;charset=utf-8,";
+            console.log(data);
+            var csvHeader= "data:application/csv;charset=utf-8,";
+            var csvData = '';
             data.forEach(function(infoArray, index){
                dataString = infoArray.join(";");
-               csvContent += index < infoArray.length ? dataString+ "\n" : dataString;
+               csvData += dataString + '\r\n';
 
             }); 
-
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "table.csv");
-            link.click();
+            link.attr({
+                 'download': 'export-table.csv',
+                 'href': csvHeader + encodeURIComponent(csvData),
+                 'target': '_blank'
+            });
         }
         
         return this.each(function() {

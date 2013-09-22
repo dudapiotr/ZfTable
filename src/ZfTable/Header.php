@@ -76,7 +76,7 @@ class Header extends AbstractElement
      * @param array $options
      * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryHeader($name, $options);
         $this->attachDecorator($decorator);

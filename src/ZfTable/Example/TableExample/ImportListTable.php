@@ -60,8 +60,6 @@ class ImportListTable extends AbstractTable
             
         }
         
-        
-        
     }
     
     

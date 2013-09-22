@@ -35,7 +35,7 @@ PaginatorInterface
     protected $dataTablesMaxRows = 999;
     
     
-    protected $showPagination = false;
+    protected $showPagination = true;
     
     
     /**

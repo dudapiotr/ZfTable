@@ -4,7 +4,7 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class Base extends AbstractTable
+class ColumnFiltering extends AbstractTable
 {
     
     protected $config = array(
@@ -13,7 +13,7 @@ class Base extends AbstractTable
         'showQuickSearch' => false,
         'showItemPerPage' => true,
         'itemCountPerPage' => 20,
-        'showColumnFilters' => false,
+        'showColumnFilters' => true,
     );
     
     
@@ -29,12 +29,25 @@ class Base extends AbstractTable
 
     public function init()
     {
+        
     }
 
-    
     protected function initFilters(\Zend\Db\Sql\Select $query)
     {
-       
+        if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
+            $query->where("name like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
+            $query->where("surname like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
+            $query->where("street like '%".$value."%' ");
+        }
+        $value = $this->getParamAdapter()->getValueOfFilter('active');
+        if ($value != null) {
+            $query->where("active = '".$value."' ");
+            
+        }
     }
 
 }

@@ -105,7 +105,7 @@ class Render extends AbstractCommon
         $render = '';
         $tableConfig = $this->getTable()->getConfig();
         
-        if($tableConfig->getAreFilters()){
+        if($tableConfig->getShowColumnFilters()){
             $render .= $this->renderFilters();
         }
         
@@ -145,8 +145,8 @@ class Render extends AbstractCommon
         
         foreach ($headers as $name => $params) {
             if (isset($params['filters'])) {
-                $id =  'zff_'.$name;
-                $value = $this->getTable()->getParamAdapter()->getValueOfFilter($id);
+                $value = $this->getTable()->getParamAdapter()->getValueOfFilter($name);
+                $id = 'zff_'.$name;
                 if (is_string($params['filters'])) {
                     $element = new \Zend\Form\Element\Text($id);
                 } else {

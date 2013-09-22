@@ -1,7 +1,7 @@
 <?php
 namespace ZfTable\Decorator\Row;
 
-class Separator extends AbstractRowDecorator
+class Separatable extends AbstractRowDecorator
 {
     /**
      * Flag to inform if iterable is just started
@@ -60,7 +60,6 @@ class Separator extends AbstractRowDecorator
         }elseif(!$column && $this->getDefaultColumn()){
             $column = $this->getDefaultColumn();
         }
-        
         $actualRow = $this->getRow()->getActualRow();
         $valueOfColumn = $actualRow[$column];
 

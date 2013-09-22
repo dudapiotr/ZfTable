@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of AbstractTable
- *
- * @author  HYPERmediaISOBAR 2013, pduda001 Piotr Duda (dudapiotrek@gmail.com)
- */
 
 namespace Application\Model;
 

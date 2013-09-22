@@ -51,7 +51,7 @@ class Config extends AbstractOptions
      * Flag to show row with filters (for each column)
      * @var boolean
      */
-    protected $areFilters = false;
+    protected $showColumnFilters = false;
     
     /**
      * Definition of 
@@ -158,14 +158,14 @@ class Config extends AbstractOptions
         $this->itemCountPerPage = $itemCountPerPage;
     }
 
-    public function getAreFilters()
+    public function getShowColumnFilters()
     {
-        return $this->areFilters;
+        return $this->showColumnFilters;
     }
 
-    public function setAreFilters($areFilters)
+    public function setShowColumnFilters($showColumnFilters)
     {
-        $this->areFilters = $areFilters;
+        $this->showColumnFilters = $showColumnFilters;
     }
     
     public function getShowQuickSearch()
