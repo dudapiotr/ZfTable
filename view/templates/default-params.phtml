@@ -4,7 +4,7 @@
     <input type="hidden"  name="zfTableOrder" value="<?php echo $this->order?>" />
     <input type="hidden"  name="zfTableQuickSearch" value="<?php echo $this->quickSearch?>" />
     <input type="hidden"  name="zfTableItemPerPage" value="<?php echo $this->itemCountPerPage?>" />
-    <?if($this->rowAction):?>
+    <?php if($this->rowAction):?>
         <a href="<?php echo $this->rowAction?>" class="rowAction"></a>
-    <?endif;?>
+    <?php endif;?>
 </div>
