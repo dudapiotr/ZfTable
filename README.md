@@ -1,4 +1,4 @@
-ZfTable [See on live](http://dudapiotr.eu/table/changes)
+ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu/table/changes)
 =======
 Version 2.0 Created by Piotr Duda
 
@@ -35,6 +35,7 @@ Changes in Version 2.0
 -  Row decorator for separeting row by ordering column (dividing the same data)
 -  New conditions
 -  Exporter data to CVS
+-  Support for Bootstrap 3.0
 
 
 In next verions
