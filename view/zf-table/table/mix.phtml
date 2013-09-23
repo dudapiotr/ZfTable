@@ -1,35 +1,23 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-        <div id="tableContainer">
+<div id="tableContainer"></div>
+<hr />
+<h4>Code/Information</h4>
 
-        </div>
-    </div>
-</div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-        Mix decorators - Uses template and link decorator (table Full name)
-        <pre>
-        $this->getHeader('surname')->getCell()->addDecorator('template', array(
+<p>
+    Mix decorators - Uses template and link decorator (table Full name)
+</p>
+<pre>
+$this->getHeader('surname')->getCell()->addDecorator('template', array(
             'template' => '<strong>%s %s</strong>',
             'vars' => array('name', 'surname')
-        ));
+));
         
-        $this->getHeader('surname')->getCell()->addDecorator('link', array(
+$this->getHeader('surname')->getCell()->addDecorator('link', array(
             'url' => '/table/link/id/%s',
             'vars' => array('idcustomer')
-        ));
+));
+</pre>
 
-        </pre>
-    </div>
-</div>
+
 <script>
     $("#tableContainer").zfTable('/table/ajax-mix');
 </script>

@@ -1,0 +1,69 @@
+<div class="zf-table-wrap  form-inline">
+    <div class="table-header">
+    </div>
+    <div class="row ">
+        <div class="col-sm-6 pull-left">
+            <?php if($this->name): ?>
+                <header>
+                    <h4><?= $this->name ?></h4>
+                </header>
+            <?php endif;?>
+        </div>
+        <?php if ($this->showQuickSearch): ?>
+            <div class="dataTables_filter pull-right col-sm-3" id="dataTable_filter">
+                <label class="pull-right">Search: <input type="text" aria-controls="dataTable" class="quick-search form-control" value="<?php echo $this->quickSearch ?>">
+                </label>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <div class="content">
+        <?php foreach($this->rows as $row):?>
+        <article class="row" style="margin-bottom: 10px;">
+            <div class="col-sm-2">
+                <div style="height: 50px; border: 1px solid black; text-align: center;">
+                    Place for Avatar
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <a href="">
+                    Box /article title - Mr <?php echo $row['surname']?> 
+                </a>
+                <br />
+                <?php echo $row['surname']?> <br />
+                <?php echo $row['idcustomer']?> <br />
+            </div>
+            <div class="span2">
+                City - <?php echo $row['city']?>
+            </div>
+        </article>
+        <?php endforeach;?>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-left">
+            <?php if ($this->showItemPerPage): ?>
+                <label class="pull-left">
+                    <select class="itemPerPage form-control">
+                        <?php foreach ($this->itemCountPerPageValues as $item): ?>
+                            <?php $selected = ($item == $this->itemCountPerPage) ? 'selected="selected"' : '""'; ?>
+                            <option <?php echo $selected ?>><?php echo $item ?></option>
+                        <?php endforeach; ?>
+                    </select> 
+                </label> 
+           <?php endif; ?>
+           <?php if($this->showExportToCSV): ?>
+             <a href="#" style="margin-left: 10px;" class="export-csv">Export to CSV</a>
+           <?php endif;?>
+        </div>
+        <div class="col-sm-6 text-right">
+            <?php if ($this->showPagination): ?>
+                <div class="dataTables_paginate paging_bootstrap pagination">
+                    <?php echo $this->paginator; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="processing">
+        </div>
+    </div>
+    <?php echo $this->paramsWrap;?>
+</div>

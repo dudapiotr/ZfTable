@@ -1,4 +1,10 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
 
 namespace ZfTable\Controller;
 
@@ -42,6 +48,10 @@ class TableController extends AbstractActionController
     {
     }
      
+    public function bootstrapAction()
+    {
+    }
+    
     /**
      * ********* Column filtering *******************
      * ***********************************
@@ -160,7 +170,12 @@ class TableController extends AbstractActionController
     }
     public function ajaxBaseAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Base());
+        $table = new TableExample\Base();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
     
@@ -175,7 +190,13 @@ class TableController extends AbstractActionController
 
     public function ajaxMapperAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Mapper());
+        $table = new TableExample\Mapper();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+        
     }
     
     /**
@@ -189,7 +210,12 @@ class TableController extends AbstractActionController
 
     public function ajaxLinkAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Link());
+        $table = new TableExample\Link();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
     
@@ -204,7 +230,12 @@ class TableController extends AbstractActionController
 
     public function ajaxTemplateAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Template());
+        $table = new TableExample\Template();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
     
@@ -219,7 +250,12 @@ class TableController extends AbstractActionController
 
     public function ajaxAttrAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Attr());
+        $table = new TableExample\Attr();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
     
@@ -234,7 +270,12 @@ class TableController extends AbstractActionController
 
     public function ajaxConditionAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Condition());
+        $table = new TableExample\Condition();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
     
@@ -249,7 +290,12 @@ class TableController extends AbstractActionController
 
     public function ajaxMixAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Mix());
+        $table = new TableExample\Mix();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
     }
     
      /**
@@ -263,7 +309,13 @@ class TableController extends AbstractActionController
 
     public function ajaxAdvanceAction()
     {
-        return $this->getCommonTableAjax(new TableExample\Advance() , 'custom' , 'custom');
+        $table = new TableExample\Advance();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render('custom' , 'custom-b2'));
+        
     }
     
     
@@ -272,8 +324,8 @@ class TableController extends AbstractActionController
     
     
     
-    /*     * ********************************************** */
-    /*     * ************* EXAMPLE DATA TABLE ************* */
+    /************************************************ */
+    /*************** EXAMPLE DATA TABLE ************* */
 
     public function dataTableAction()
     {
@@ -305,8 +357,6 @@ class TableController extends AbstractActionController
     }
     
     
-    
-    
     public function htmlResponse($html)
     {
         $response = $this->getResponse();
@@ -328,25 +378,6 @@ class TableController extends AbstractActionController
     }
     
     
-    
-    /*     * ********************************************** */
-    /*     * ********************************************** */
-
-    protected function getCommonTableAjax(AbstractTable $table,  $renderType = 'html', $renderTemplate = null)
-    {
-        $source = $this->getSource();
-
-        $table->setAdapter($this->getDbAdapter())
-                ->setSource($source)
-                ->setParamAdapter($this->getRequest()->getPost())
-        ;
-
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        $response->setContent($table->render($renderType , $renderTemplate));
-        return $response;
-    }
-
     /**
      * 
      * @return \ZfTable\Example\Model\CustomerTable

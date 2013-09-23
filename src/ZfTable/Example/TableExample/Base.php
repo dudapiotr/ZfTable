@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -12,21 +19,21 @@ class Base extends AbstractTable
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
-        'itemCountPerPage' => 20,
+        'itemCountPerPage' => 10,
         'showColumnFilters' => false,
         'showExportToCSV ' => false,
         'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
         'rowAction' => ''
     );
     
-    //Definition of headers
+     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
-        'name' => array('title' => 'Name' , 'filters' => 'text'),
-        'surname' => array('title' => 'Surname' , 'filters' => 'text' ),
-        'street' => array('title' => 'Street' , 'filters' => 'text'),
-        'city' => array('title' => 'City'),
-        'active' => array('title' => 'Active' , 'width' => 100 , 'filters' => array( null => 'All' , 1 => 'Active' , 0 => 'Inactive')),
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()

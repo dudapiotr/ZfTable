@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -12,7 +19,7 @@ class ColumnFiltering extends AbstractTable
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
-        'itemCountPerPage' => 5,
+        'itemCountPerPage' => 10,
         'showColumnFilters' => true,
     );
     

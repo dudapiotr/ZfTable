@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -10,7 +17,7 @@ class Editable extends AbstractTable
     protected $config = array(
         'name' => 'Editable table (Db-click on pale yellow space)',
         'showQuickSearch' => false,
-        'itemCountPerPage' => 20,
+        'itemCountPerPage' => 10,
         'showColumnFilters' => true,
         'rowAction' => '/table/updateRow',
     );
@@ -18,7 +25,9 @@ class Editable extends AbstractTable
     
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50'),
-        'name' => array('title' => 'Name', 'filters' => 'text', 'editable' => true),
+        'name' => array('title' => 'Name', 'filters' => 'text'),
+        'edit1' => array('title' => 'Edit 1',  'editable' => true),
+        'edit2' => array('title' => 'Edit 2'),
         'surname' => array('title' => 'Surname', 'filters' => 'text'),
         'street' => array('title' => 'Street', 'filters' => 'text'),
         'city' => array('title' => 'City'),
@@ -27,7 +36,7 @@ class Editable extends AbstractTable
 
     public function init()
     {
-        $this->getHeader('surname')->getCell()->addDecorator('editable');
+        $this->getHeader('edit2')->getCell()->addDecorator('editable');
         $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));
     }
 

@@ -8,10 +8,77 @@
 <h4>Code/Information</h4>
 
 <p>
-    Base table without any decorations
+    First - we have to create table class
 </p>
 <pre>
+    class DataTable extends AbstractTable
+    {
 
+        protected $config = array(
+            'name' => 'Data table integration',
+        );
+
+        //Definition of headers
+        protected $headers = array(
+            'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+            'name' => array('title' => 'Name' ),
+            'surname' => array('title' => 'Surname' ),
+            'street' => array('title' => 'Street'),
+            'city' => array('title' => 'City' ),
+            'active' => array('title' => 'Active' , 'width' => 100 ),
+        );
+
+        public function init()
+        {
+            //Table attributes
+            $this->addAttr('id', 'zfDataTableExample');
+            $this->addClass('display');
+        }
+
+        protected function initFilters(\Zend\Db\Sql\Select $query)
+        {
+
+        }
+}
+</pre>
+<p>
+    In next step we have to render init html for data table and next call dataTable on our selector.
+</p>
+
+<pre>
+        echo $this->tableDataTable->render('dataTableAjaxInit');
+
+        //For Bootstrap 3.0
+
+        $(document).ready(function() {
+            $('#zfDataTableExample').dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "<'pull-right'bl>t<'row'<'col-sm-6'f><'col-sm-6'p>>",
+                "bServerSide": true,
+                "sServerMethod": "POST",
+                "sAjaxSource": '/table/ajax-data-table'
+            });
+        });
+
+        //For Bootstrap 2.2.2
+        
+      $(document).ready(function() {
+        $('#zfDataTableExample').dataTable({
+            "sPaginationType": "bootstrap",
+            "sDom": "<'pull-right'l>t<'row-fluid'<'span6'f><'span6'p>>",
+            "bServerSide": true,
+            "sServerMethod": "POST",
+            "sAjaxSource": '/table/ajax-data-table'
+        });
+    });
+</pre>
+<p>
+    Remember add property javascript files :
+</p>
+<pre>
+    ->appendFile($this->basePath() . '/js/DT_bootstrap_3.js')   
+    ->appendFile($this->basePath() . '/js/DT_bootstrap_2.js')   
+</pre>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {

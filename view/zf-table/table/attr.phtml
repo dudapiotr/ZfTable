@@ -1,40 +1,29 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-        <div id="tableContainer">
+<div id="tableContainer"></div>
+<hr />
+<h4>Code/Information</h4>
 
-        </div>
-    </div>
-</div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-        Look on attr and class in source code (or use firebug)
-        <pre>
-            //Attr and class for table
-            $this->addClass('tableClass');
-            $this->addAttr('tableAttr', 'tableAttrValue');
+<p>
+    Look on attr and class in source code (or use firebug)
+</p>
+<pre>
+//Attr and class for table
+$this->addClass('tableClass');
+$this->addAttr('tableAttr', 'tableAttrValue');
 
-             //Attr and class for header
-            $this->getHeader('name')->addAttr('attr', 'example');
-            $this->getHeader('name')->addClass('new-class');
+ //Attr and class for header
+$this->getHeader('name')->addAttr('attr', 'example');
+$this->getHeader('name')->addClass('new-class');
 
-             //Attr and class for row
-            $this->getRow()->addAttr('test', 'newattr');
-            $this->getRow()->addClass('class', 'nowaklasa1');
+ //Attr and class for row
+$this->getRow()->addAttr('test', 'newattr');
+$this->getRow()->addClass('class', 'nowaklasa1');
 
-             //Attr and class for cell
-            $this->getHeader('surname')->getCell()->addAttr('cellAttr', 'cellAttrValue');
-            $this->getHeader('surname')->getCell()->addDecorator('class', array('class' => 'sss'));
-        </pre>
-    </div>
-</div>
+ //Attr and class for cell
+$this->getHeader('surname')->getCell()->addAttr('cellAttr', 'cellAttrValue');
+$this->getHeader('surname')->getCell()->addDecorator('class', array('class' => 'sss'));
+</pre>
+
+
 <script>
     $("#tableContainer").zfTable('/table/ajax-attr');
 </script>

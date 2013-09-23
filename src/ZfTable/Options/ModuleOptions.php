@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Options;
 
@@ -41,7 +48,7 @@ PaginatorInterface
      * Default value for item count per page
      * @var int
      */
-    protected $itemCountPerPage = 50;
+    protected $itemCountPerPage = 10;
     
     /**
      * Flag to show row with filters (for each column)
@@ -96,7 +103,8 @@ PaginatorInterface
                 'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
                 'container' => __DIR__ . '/../../../view/templates/container-b3.phtml',
                 'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
-                'custom' => __DIR__ . '/../../../view/templates/custom.phtml',
+                'custom-b2' => __DIR__ . '/../../../view/templates/custom-b2.phtml',
+                'custom-b3' => __DIR__ . '/../../../view/templates/custom-b3.phtml',
         );
         
         parent::__construct($options);

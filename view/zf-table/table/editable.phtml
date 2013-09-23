@@ -26,14 +26,17 @@ class Editable extends AbstractTable
     protected $config = array(
         'name' => 'Editable table (Db-click on pale yellow space)',
         'showQuickSearch' => false,
-        'itemCountPerPage' => 20,
+        'itemCountPerPage' => 10,
         'showColumnFilters' => true,
-        <strong>'rowAction' => 'updateRow'</strong>,
+        <strong>'rowAction' => '/table/updateRow'</strong>,
     );
+    
     
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50'),
-        'name' => array('title' => 'Name', 'filters' => 'text', <strong>'editable' => true</strong>),
+        'name' => array('title' => 'Name', 'filters' => 'text'),
+        'edit1' => array('title' => 'Edit 1',  <strong>'editable' => true</strong>),
+        'edit2' => array('title' => 'Edit 2'),
         'surname' => array('title' => 'Surname', 'filters' => 'text'),
         'street' => array('title' => 'Street', 'filters' => 'text'),
         'city' => array('title' => 'City'),
@@ -42,8 +45,9 @@ class Editable extends AbstractTable
 
     public function init()
     {
-        <strong>$this->getHeader('surname')->getCell()->addDecorator('editable');
-        $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));</strong>
+        <strong>$this->getHeader('edit2')->getCell()->addDecorator('editable');
+            $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));
+        </strong>
     }
 
     protected function initFilters(\Zend\Db\Sql\Select $query)

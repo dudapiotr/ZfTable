@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -81,17 +88,24 @@ class Render extends AbstractCommon
     
     public function renderCustom($template){
         
+        $tableConfig = $this->getTable()->getOptions();
         $rowsArray = $this->getTable()->getRow()->renderRows('array_assc');
         
         $view = new \Zend\View\Model\ViewModel();
         $view->setTemplate($template);
 
         $view->setVariable('rows', $rowsArray);
+        
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+        $view->setVariable('name', $tableConfig->getName());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
+        $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
+        $view->setVariable('showPagination', $tableConfig->getShowPagination());
+        $view->setVariable('showItemPerPage', $tableConfig->getShowItemPerPage());
+        $view->setVariable('showExportToCSV', $tableConfig->getShowExportToCSV());
 
         return $this->getRenderer()->render($view);
     }

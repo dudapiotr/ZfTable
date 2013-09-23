@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -9,20 +16,16 @@ class DataTable extends AbstractTable
 
     protected $config = array(
         'name' => 'Data table integration',
-        'showPagination' => true,
-        'showQuickSearch' => false,
-        'showItemPerPage' => true,
-        'itemCountPerPage' => 20,
     );
     
-    //Definition of headers
+     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
-        'name' => array('title' => 'Name' , 'filters' => 'text'),
-        'surname' => array('title' => 'Surname' , 'filters' => 'text' ),
-        'street' => array('title' => 'Street' , 'filters' => 'text'),
-        'city' => array('title' => 'City'),
-        'active' => array('title' => 'Active' , 'width' => 100 , 'filters' => array( null => 'All' , 1 => 'Active' , 0 => 'Inactive')),
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
@@ -31,11 +34,9 @@ class DataTable extends AbstractTable
         $this->addAttr('id', 'zfDataTableExample');
         $this->addClass('display');
     }
-
     
     protected function initFilters(\Zend\Db\Sql\Select $query)
     {
        
     }
-
 }
