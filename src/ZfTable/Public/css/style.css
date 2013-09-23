@@ -1,0 +1,39 @@
+header{
+    margin: 20px 0px;
+    font-size: 16px;
+}
+nav{
+
+}
+nav ul {
+    list-style: none;
+    padding: 0px;
+}
+nav ul li{
+    margin-bottom: 5px;
+}
+li.topic{
+    font-weight: bold;
+    margin: 10px 0px 10px 0px;
+    border-bottom: 1px solid;
+    list-style: none;
+}
+body{
+    font-size: 12px;
+}
+
+pre strong{
+    font-size: 13px;
+    color: #AC0101;
+}
+footer{
+    text-align: center;
+    padding-bottom: 20px;
+}
+ul.intro{
+    margin-top: 20px;
+}
+ul.intro li{
+    font-size: 14px;
+    margin-bottom: 5px;   
+}
