@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -7,14 +14,18 @@ use ZfTable\AbstractTable;
 class DataTable extends AbstractTable
 {
 
-    //Definition of headers
+    protected $config = array(
+        'name' => 'Data table integration',
+    );
+    
+     //Definition of headers
     protected $headers = array(
-        'idcustomer' => array('title' => 'Id', 'width' => '50'),
-        'name' => array('title' => 'Name'),
-        'surname' => array('title' => 'Surname'),
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
         'street' => array('title' => 'Street'),
-        'city' => array('title' => 'City'),
-        'active' => array('title' => 'Active'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
@@ -23,20 +34,9 @@ class DataTable extends AbstractTable
         $this->addAttr('id', 'zfDataTableExample');
         $this->addClass('display');
     }
-
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
+    
+    protected function initFilters(\Zend\Db\Sql\Select $query)
     {
-        $quickSearchValue = $this->getParamAdapter()->getQuickSearch();
-        $quickSearchQuery = new \Zend\Db\Sql\Select();
-
-        if (strlen($quickSearchValue)) {
-            //Unsecure query (without quote)
-            $quickSearchQuery->where('name like "%' . $quickSearchValue . '%"');
-            $this->getSource()->setQuickSearchQuery($quickSearchQuery);
-        }
+       
     }
-
 }

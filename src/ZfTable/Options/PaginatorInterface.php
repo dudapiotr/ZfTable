@@ -1,24 +1,17 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Options;
 
 interface PaginatorInterface
 {
 
-    /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function getDefaultItemCountPerPage();
-
-    
-     /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function setDefaultItemCountPerPage($defaultItemCountPerPage);
-    
-    
     /**
      * Get Array of values to set items per page
      * @return array

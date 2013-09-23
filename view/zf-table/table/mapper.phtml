@@ -1,31 +1,19 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-        <div id="tableContainer">
+<div id="tableContainer"></div>
+<hr />
+<h4>Code/Information</h4>
 
-        </div>
-    </div>
-</div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-        Mapper decorations (change org value to destination)
-
-        <pre>
-        $this->getHeader('active')->getCell()->addDecorator('mapper', array(
+<p>
+    Mapper decorations (change org value to destination)
+</p>
+<pre>
+$this->getHeader('active')->getCell()->addDecorator('mapper', array(
             '0' => 'TAK',
             '1' => 'NIE'
-        ));
+));
+</pre>
 
-        </pre>
-    </div>
-</div>
+
+
 <script>
     $("#tableContainer").zfTable('/table/ajax-mapper');
 </script>

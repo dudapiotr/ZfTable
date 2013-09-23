@@ -1,0 +1,46 @@
+
+<div id="tableContainer">
+
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+<p>To add this decorator we have to set flat in header array and in next step add decorator to row decorators in init method</p>
+<p>
+    We have two separatable column (name and city). Please note we can set default column separatable.
+</p>
+<pre>
+class Separatable extends AbstractTable
+{
+    
+    protected $config = array(
+        'name' => 'Separatable decorator',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+    );
+    
+    //Definition of headers
+    protected $headers = array(
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' , <strong>'separatable' => true</strong>),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' , <strong>'separatable' => true</strong>),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
+    );
+
+    public function init()
+    {
+        <strong>$this->getRow()->addDecorator('separatable', array('defaultColumn' => 'city'));</strong>
+    }
+
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+    }
+} 
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-separatable');
+</script>

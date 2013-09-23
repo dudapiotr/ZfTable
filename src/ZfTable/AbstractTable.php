@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -7,6 +14,8 @@ use ZfTable\Params\AdapterInterface as ParamAdapterInterface;
 use ZfTable\Params\AdapterArrayObject;
 use ZfTable\Table\Exception;
 use ZfTable\Options\ModuleOptions;
+
+use ZfTable\Config;
 
 abstract class AbstractTable extends AbstractElement implements TableInterface
 {
@@ -61,19 +70,31 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     protected $paramAdapter;
 
     /**
-     * Module options object
-     * @var ModuleOptions
-     */
-    protected $options;
-
-    /**
      * Flag to know if table has been initializable
      * @var boolean
      */
     private $tableInit = false;
 
-    
+
+    /**
+     * Default classes for table
+     * @var array
+     */
     protected $class = array('table', 'table-bordered', 'table-condensed', 'table-hover', 'table-striped', 'dataTable');
+    
+    /**
+     * Array configuration of table
+     * @var array 
+     */
+    protected $config;
+    
+    
+    /**
+     * Options base ond ModuleOptions and config array
+     * @var \ZfTable\Options\ModuleOptions 
+     */
+    protected $options = null;
+    
     
     /**
      * Check if table has benn initializable
@@ -101,19 +122,6 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Get all module options
-     *
-     * @return ModuleOptions
-     */
-    public function getOptions()
-    {
-        if (null === $this->options) {
-            $this->setOptions(new ModuleOptions());
-        }
-        return $this->options;
-    }
-
-    /**
      * Return Params adapter which responsible for universal mapping parameters from diffrent 
      * source (default params, Data Table params, JGrid params)
      * @return ParamAdapterInterface
@@ -122,7 +130,9 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->paramAdapter;
     }
-
+    
+    
+    
     /**
      * 
      * @param \ZfTable\Params\AdapterInterface $paramAdapter
@@ -232,7 +242,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      * Init configuration like setting header, decorators, filters and others 
      * (call in render method as well)
      */
-    public function initializable()
+    protected function initializable()
     {
         if(!$this->getParamAdapter()){
             throw new Exception\LogicException('Param Adapter is required');
@@ -246,9 +256,29 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             $this->setHeaders($this->headers);
         }
         $this->init();
-        $this->initQuickSearch();
+        
+        $this->initFilters($this->getSource()->getSelect());
     }
-
+    
+    
+    /**
+     * @deprecated since version 2.0
+     * Function replace by initFilters 
+     */
+    protected function initQuickSearch()
+    {
+        
+    }
+    
+    /**
+     * Init filters for quick serach or filters for each column
+     * @param \Zend\Db\Sql\Select $query
+     */
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+        
+    }
+    
     /**
      * 
      * @param array $headers
@@ -354,5 +384,21 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->render();
     }
-
+    
+    /**
+     * 
+     * @return ModuleOptions
+     * @throws Zend_Exception
+     */
+    public function getOptions()
+    {
+        if(is_array($this->config)){
+            $this->config = new ModuleOptions($this->config); 
+        } else if(!$this->config instanceof  ModuleOptions){
+            throw new Zend_Exception('Config class problem');
+        } 
+        return $this->config;
+        
+    }
+    
 }

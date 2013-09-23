@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Source;
 
@@ -192,6 +199,7 @@ class SqlSelect extends AbstractSource
         $column = $this->getParamAdapter()->getColumn();
         $order = $this->getParamAdapter()->getOrder();
         if ($column) {
+            $this->select->reset('order');
             $this->select->order($column . ' ' . $order);
         }
     }

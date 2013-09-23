@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -32,6 +39,24 @@ class Header extends AbstractElement
     protected $cell;
     
     /**
+     * Flag to inform if column should be sortable
+     * @var boolean 
+     */
+    protected $sortable = true;
+    
+    /**
+     * Check if column is separatable
+     * @var boolean
+     */
+    protected $separatable = false;
+    
+    /**
+     * Check if column is editable
+     * @var boolean
+     */
+    protected $editable = false;
+    
+    /**
      * Static array exchanging ordering (when column is ascending, in data-ordering should be desc)
      * @var array
      */
@@ -39,7 +64,7 @@ class Header extends AbstractElement
         'asc' => 'desc',
         'desc' => 'asc'
     );
-
+    
     /**
      * Array of options
      * @param string $name
@@ -48,17 +73,17 @@ class Header extends AbstractElement
     public function __construct($name, $options = array())
     {
         $this->name = $name;
-        $this->setOptions($options);
         $this->cell = new Cell($this);
+        $this->setOptions($options);
     }
 
     /**
-     * 
+     * Set options like title, width, order, sortable
      * @param string $name
      * @param array $options
      * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryHeader($name, $options);
         $this->attachDecorator($decorator);
@@ -76,6 +101,13 @@ class Header extends AbstractElement
         $this->title = (isset($options['title'])) ? $options['title'] : '';
         $this->width = (isset($options['width'])) ? $options['width'] : '';
         $this->order = (isset($options['order'])) ? $options['order'] : true;
+        $this->sortable = (isset($options['sortable'])) ? $options['sortable'] : true;
+        $this->separatable = (isset($options['separatable'])) ? $options['separatable'] : $this->getSeparatable();
+        
+        if(isset($options['editable']) && $options['editable'] == true){
+            $this->editable = $options['editable'];
+            $this->getCell()->addDecorator('editable',array());
+        }
         
         
         return $this;
@@ -156,6 +188,60 @@ class Header extends AbstractElement
     {
         return $this->title;
     }
+    
+    /**
+     * Get sortable flag
+     * @return boolean
+     */
+    public function getSortable()
+    {
+        return $this->sortable;
+    }
+
+    /**
+     * Set flat to inform about sortable
+     * @param boolean $sortable
+     */
+    public function setSortable($sortable)
+    {
+        $this->sortable = $sortable;
+    }
+    
+    /**
+     * Get flat to inform about separable
+     * @return boolean
+     */
+    public function getSeparatable()
+    {
+        return $this->separatable;
+    }
+
+    /**
+     * Flag to inform about for all cell in header
+     * @param boolean $separatable
+     */
+    public function setSeparatable($separatable)
+    {
+        $this->separatable = $separatable;
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function getEditable()
+    {
+        return $this->editable;
+    }
+    
+    /**
+     * Flag to inform about for all cell in header
+     * @param boolean $editable
+     */
+    public function setEditable($editable)
+    {
+        $this->editable = $editable;
+    }
 
     
     /**
@@ -175,17 +261,22 @@ class Header extends AbstractElement
     {
         $paramColumn = $this->getTable()->getParamAdapter()->getColumn();
         $paramOrder = $this->getTable()->getParamAdapter()->getOrder();
-        $order = ($paramColumn == $this->getName()) ? static::$orderReverse[$paramOrder] : 'asc';
-        $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . static::$orderReverse[$paramOrder] : 'sorting';
-        $this->addClass($classSorting);
-        $this->addAttr('data-order', $order);
-        $this->addAttr('data-column', $this->getName());
+        $order = ($paramColumn == $this->getName()) ? self::$orderReverse[$paramOrder] : 'asc';
+        
+        if($this->getSortable()){
+            $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . self::$orderReverse[$paramOrder] : 'sorting';
+            $this->addClass($classSorting);
+            $this->addClass('sortable');
+            $this->addAttr('data-order', $order);
+            $this->addAttr('data-column', $this->getName());
+        }
+        
         
         if($this->width){
             $this->addAttr('width', $this->width);
         }
     }
-
+    
     
     /**
      * Rendering header element

@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Example\TableExample;
 
@@ -6,37 +13,35 @@ use ZfTable\AbstractTable;
 
 class Base extends AbstractTable
 {
-
-    //Definition of headers
+    
+    protected $config = array(
+        'name' => 'Base table',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'itemCountPerPage' => 10,
+        'showColumnFilters' => false,
+        'showExportToCSV ' => false,
+        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
+        'rowAction' => ''
+    );
+    
+     //Definition of headers
     protected $headers = array(
-        'idcustomer' => array('title' => 'Id', 'width' => '50'),
-        'name' => array('title' => 'Name'),
-        'surname' => array('title' => 'Surname'),
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
         'street' => array('title' => 'Street'),
-        'city' => array('title' => 'City'),
-        'active' => array('title' => 'Active'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
     {
-
+    }
+    
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
        
     }
-
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-        $quickSearchValue = $this->getParamAdapter()->getQuickSearch();
-        $quickSearchQuery = new \Zend\Db\Sql\Select();
-
-        if (strlen($quickSearchValue)) {
-            //Unsecure query (without quote)
-            $quickSearchQuery->where('name like "%'.$quickSearchValue.'%"')
-                             ->where('surname like "%'.$quickSearchValue.'%"');
-            $this->getSource()->setQuickSearchQuery($quickSearchQuery);
-        }
-    }
-
 }

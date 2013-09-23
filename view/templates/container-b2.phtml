@@ -1,0 +1,50 @@
+<div class="zf-table-wrap  form-inline">
+    <div class="table-header">
+    </div>
+    <div class="row-fluid ">
+        <div class="span6 pull-left">
+            <?php if($this->name): ?>
+                <header>
+                    <h4><?= $this->name ?></h4>
+                </header>
+            <?php endif;?>
+        </div>
+        <?php if ($this->showQuickSearch): ?>
+            <div class="dataTables_filter pull-right" id="dataTable_filter">
+                <label>Search: <input type="text" aria-controls="dataTable" class="quick-search" value="<?php echo $this->quickSearch ?>">
+                </label>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php echo $this->table; ?>
+    <div class="row-fluid">
+        <div class="span6">
+            <?php if ($this->showItemPerPage): ?>
+                <div class="dataTables_length">
+                    <label class="pull-right">
+                        Show
+                        <select class="itemPerPage">
+                            <?php foreach ($this->itemCountPerPageValues as $item): ?>
+                                <?php $selected = ($item == $this->itemCountPerPage) ? 'selected="selected"' : '""'; ?>
+                                <option <?php echo $selected ?>><?php echo $item ?></option>
+                            <?php endforeach; ?>
+                        </select> 
+                    </label> 
+                </div>
+            <?php endif; ?>
+            <?php if($this->showExportToCSV): ?>
+                <a href="#" style="margin-left: 10px;" class="export-csv">Export to CSV</a>
+           <?php endif;?>
+        </div>
+        <div class="span6">
+            <?php if ($this->showPagination): ?>
+                <div class="dataTables_paginate paging_bootstrap pagination">
+                    <?php echo $this->paginator; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="processing">
+        </div>
+    </div>
+    <?php echo $this->paramsWrap; ?>
+</div>

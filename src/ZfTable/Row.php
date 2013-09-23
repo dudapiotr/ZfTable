@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -7,7 +14,7 @@ use ZfTable\Decorator\DecoratorFactory;
 
 class Row extends AbstractElement
 {
-
+    protected $class = array('zf-data-row');
     
     /**
      * 
@@ -31,7 +38,7 @@ class Row extends AbstractElement
      * @param array $options
      * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryRow($name, $options);
         $this->attachDecorator($decorator);
@@ -122,6 +129,7 @@ class Row extends AbstractElement
                 $decorator->render('');
             }
             $render .= sprintf('<tr %s>%s</tr>', $this->getAttributes(), $rowRender);
+            $this->clearVar();
         }
         return $render;
     }

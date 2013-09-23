@@ -1,48 +1,106 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-           <?php
-                echo $this->tableDataTable->render('dataTableAjaxInit');
-            ?>
-    </div>
+<div id="tableContainer" class="zf-table-wrap">
+     <?php
+        echo $this->tableDataTable->render('dataTableAjaxInit');
+     ?>
 </div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-       Rendered table looks very similar, but working on data table Engine. We render only html, and next call dataTable in javaScrrpt).
-       <pre>
-            echo $this->tableDataTable->render('dataTableAjaxInit');
-            
-            $(document).ready(function() {
-                $('#zfDataTableExample').dataTable({
-                    "sPaginationType": "bootstrap",
-                    "sDom": "<'pull-right'l>t<'row-fluid'<'span6'f><'span6'p>>",
-                    //"bProcessing": true,
-                    "bServerSide": true,
-                    //"iTotalRecords": 0,
-                    "sServerMethod": "POST",
-                    "sAjaxSource": '/table/ajax-data-table'
-                });
+
+<hr />
+<h4>Code/Information</h4>
+
+<p>
+    First - we have to create table class
+</p>
+<pre>
+    class DataTable extends AbstractTable
+    {
+
+        protected $config = array(
+            'name' => 'Data table integration',
+        );
+
+        //Definition of headers
+        protected $headers = array(
+            'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+            'name' => array('title' => 'Name' ),
+            'surname' => array('title' => 'Surname' ),
+            'street' => array('title' => 'Street'),
+            'city' => array('title' => 'City' ),
+            'active' => array('title' => 'Active' , 'width' => 100 ),
+        );
+
+        public function init()
+        {
+            //Table attributes
+            $this->addAttr('id', 'zfDataTableExample');
+            $this->addClass('display');
+        }
+
+        protected function initFilters(\Zend\Db\Sql\Select $query)
+        {
+
+        }
+}
+</pre>
+<p>
+    In next step we have to render init html for data table and next call dataTable on our selector.
+</p>
+
+<pre>
+        echo $this->tableDataTable->render('dataTableAjaxInit');
+
+        //For Bootstrap 3.0
+
+        $(document).ready(function() {
+            $('#zfDataTableExample').dataTable({
+                "sPaginationType": "bootstrap",
+                "sDom": "<'pull-right'bl>t<'row'<'col-sm-6'f><'col-sm-6'p>>",
+                "bServerSide": true,
+                "sServerMethod": "POST",
+                "sAjaxSource": '/table/ajax-data-table'
             });
-       </pre>
-    </div>
-</div>
- <script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
+        });
+
+        //For Bootstrap 2.2.2
+        
+      $(document).ready(function() {
         $('#zfDataTableExample').dataTable({
             "sPaginationType": "bootstrap",
             "sDom": "<'pull-right'l>t<'row-fluid'<'span6'f><'span6'p>>",
-            //"bProcessing": true,
             "bServerSide": true,
-            //"iTotalRecords": 0,
+            "sServerMethod": "POST",
+            "sAjaxSource": '/table/ajax-data-table'
+        });
+    });
+</pre>
+<p>
+    Remember add property javascript files :
+</p>
+<pre>
+    ->appendFile($this->basePath() . '/js/DT_bootstrap_3.js')   
+    ->appendFile($this->basePath() . '/js/DT_bootstrap_2.js')   
+</pre>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#zfDataTableExample').dataTable({
+            "sPaginationType": "bootstrap",
+            "sDom": "<'pull-right'bl>t<'row'<'col-sm-6'f><'col-sm-6'p>>",
+            "bServerSide": true,
             "sServerMethod": "POST",
             "sAjaxSource": '/table/ajax-data-table'
         });
     });
 </script>
+
+
+<!--<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#zfDataTableExample').dataTable({
+            "sPaginationType": "bootstrap",
+            "sDom": "<'pull-right'l>t<'row-fluid'<'span6'f><'span6'p>>",
+            "bServerSide": true,
+            "sServerMethod": "POST",
+            "sAjaxSource": '/table/ajax-data-table'
+        });
+    });
+</script>-->

@@ -1,35 +1,22 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-        <div id="tableContainer">
+<div id="tableContainer"></div>
+<hr />
+<h4>Code/Information</h4>
 
-        </div>
-    </div>
-</div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-        Conditional decoration (look at column name and city)
-        <pre>
-        $this->getHeader('name')->getCell()->addDecorator('link', array(
-            'url' => '/table/link/id/%s',
-            'vars' => array('idcustomer')
-        ))->addCondition('equal', array('column' => 'name', 'values' => 'Jan'));
-        
-         $this->getHeader('city')->getCell()->addDecorator('link', array(
-            'url' => '/table/link/id/%s',
-            'vars' => array('idcustomer')
-        ))->addCondition('equal', array('column' => 'city', 'values' => 'Warszawa'));
+<p>
+    Conditional decoration (look at column name and city)
+</p>
+<pre>
+$this->getHeader('name')->getCell()->addDecorator('link', array(
+    'url' => '/table/link/id/%s',
+    'vars' => array('idcustomer')
+))->addCondition('equal', array('column' => 'name', 'values' => 'Jan'));
 
-        </pre>
-    </div>
-</div>
+ $this->getHeader('city')->getCell()->addDecorator('link', array(
+    'url' => '/table/link/id/%s',
+    'vars' => array('idcustomer')
+))->addCondition('equal', array('column' => 'city', 'values' => 'Warszawa'));
+</pre>
+
 <script>
     $("#tableContainer").zfTable('/table/ajax-condition');
 </script>

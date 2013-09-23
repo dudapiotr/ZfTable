@@ -1,30 +1,20 @@
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Dynamic Table</h5>
-    </header>
-    <div class="body">
-        <div id="tableContainer">
+<div id="tableContainer">
 
-        </div>
-    </div>
 </div>
-<div class="box">
-    <header>
-        <div class="icons"><i class="icon-move"></i></div>
-        <h5>Info</h5>
-    </header>
-    <div class="body">
-        Link decorations - look at variable param id
-        <pre>
-        $this->getHeader('name')->getCell()->addDecorator('link', array(
-            'url' => '/table/link/id/%s',
-            'vars' => array('idcustomer')
-        ));
 
-        </pre>
-    </div>
-</div>
+<hr />
+<h4>Code/Information</h4>
+
+<p>
+   Link decorations - look at variable param id
+</p>
+<pre>
+$this->getHeader('name')->getCell()->addDecorator('link', array(
+        'url' => '/table/link/id/%s',
+        'vars' => array('idcustomer')
+ ));
+</pre>
+
 <script>
     $("#tableContainer").zfTable('/table/ajax-link');
 </script>

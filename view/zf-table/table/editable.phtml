@@ -1,0 +1,71 @@
+
+<div id="tableContainer">
+
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+
+<p>
+    Please <strong>db-click</strong> on on pale yellow space in table.
+</p>
+<p> Decorator can can be add in two way: <br />
+    1) By adding flag to config array <br />
+    2) By adding decorator in init() method
+</p>
+<p>
+    Additional we need to set action to handle our request (in table config variable)
+</p>
+<p>
+    Decorator also need another decorator - Variable, becuse we have to have information about which row we will be changing in database. 
+</p>
+<pre>
+class Editable extends AbstractTable
+{
+
+    protected $config = array(
+        'name' => 'Editable table (Db-click on pale yellow space)',
+        'showQuickSearch' => false,
+        'itemCountPerPage' => 10,
+        'showColumnFilters' => true,
+        <strong>'rowAction' => '/table/updateRow'</strong>,
+    );
+    
+    
+    protected $headers = array(
+        'idcustomer' => array('title' => 'Id', 'width' => '50'),
+        'name' => array('title' => 'Name', 'filters' => 'text'),
+        'edit1' => array('title' => 'Edit 1',  <strong>'editable' => true</strong>),
+        'edit2' => array('title' => 'Edit 2'),
+        'surname' => array('title' => 'Surname', 'filters' => 'text'),
+        'street' => array('title' => 'Street', 'filters' => 'text'),
+        'city' => array('title' => 'City'),
+        'active' => array('title' => 'Active', 'width' => 100),
+    );
+
+    public function init()
+    {
+        <strong>$this->getHeader('edit2')->getCell()->addDecorator('editable');
+            $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));
+        </strong>
+    }
+
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+        if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
+            $query->where("name like '%" . $value . "%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
+            $query->where("surname like '%" . $value . "%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
+            $query->where("street like '%" . $value . "%' ");
+        }
+    }
+
+}
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-editable');
+</script>

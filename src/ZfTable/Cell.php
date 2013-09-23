@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -29,7 +36,7 @@ class Cell extends AbstractElement
      * @param type $options
      * @return \ZfTable\Decorator\AbstractDecorator
      */
-    public function addDecorator($name, $options)
+    public function addDecorator($name, $options = array())
     {
         $decorator = DecoratorFactory::factoryCell($name, $options);
         $decorator->setCell($this);
@@ -73,15 +80,20 @@ class Cell extends AbstractElement
     public function render($type = 'html')
     {
         $row = $this->getTable()->getRow()->getActualRow();
-        $value = $row[$this->getHeader()->getName()];
+        $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
 
+        
+        
         foreach ($this->decorators as $decorator) {
             if ($decorator->validConditions()) {
                 $value = $decorator->render($value);
             }
         }
         if($type == 'html'){
-            return sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
+            $ret = sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
+            $this->clearVar();
+            return $ret;
+            
         }
         else{
             return $value;

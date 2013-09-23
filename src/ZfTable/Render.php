@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable;
 
@@ -21,6 +28,7 @@ class Render extends AbstractCommon
      * @var ModuleOptions
      */
     protected $options;
+    
     
     
     /**
@@ -80,17 +88,24 @@ class Render extends AbstractCommon
     
     public function renderCustom($template){
         
+        $tableConfig = $this->getTable()->getOptions();
         $rowsArray = $this->getTable()->getRow()->renderRows('array_assc');
         
         $view = new \Zend\View\Model\ViewModel();
         $view->setTemplate($template);
 
         $view->setVariable('rows', $rowsArray);
+        
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $this->getTable()->getOptions()->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+        $view->setVariable('name', $tableConfig->getName());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
+        $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
+        $view->setVariable('showPagination', $tableConfig->getShowPagination());
+        $view->setVariable('showItemPerPage', $tableConfig->getShowItemPerPage());
+        $view->setVariable('showExportToCSV', $tableConfig->getShowExportToCSV());
 
         return $this->getRenderer()->render($view);
     }
@@ -101,8 +116,13 @@ class Render extends AbstractCommon
      */
     public function renderTableAsHtml()
     {
-
         $render = '';
+        $tableConfig = $this->getTable()->getOptions();
+        
+        if($tableConfig->getShowColumnFilters()){
+            $render .= $this->renderFilters();
+        }
+        
         $render .= $this->renderHead();
         $render  = sprintf('<thead>%s</thead>',$render);
         $render .= $this->getTable()->getRow()->renderRows();
@@ -112,15 +132,54 @@ class Render extends AbstractCommon
         $view->setTemplate('container');
 
         $view->setVariable('table', $table);
+        
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
-        $view->setVariable('itemCountPerPageValues', $this->getTable()->getOptions()->getValuesOfItemPerPage());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
+        $view->setVariable('name', $tableConfig->getName());
+        $view->setVariable('itemCountPerPageValues', $tableConfig->getValuesOfItemPerPage());
+        $view->setVariable('showQuickSearch', $tableConfig->getShowQuickSearch());
+        $view->setVariable('showPagination', $tableConfig->getShowPagination());
+        $view->setVariable('showItemPerPage', $tableConfig->getShowItemPerPage());
+        $view->setVariable('showExportToCSV', $tableConfig->getShowExportToCSV());
 
         return $this->getRenderer()->render($view);
     }
-
+    
+    
+    /**
+     * Rendering filters
+     * @return string
+     */
+    public function renderFilters()
+    {
+        $headers = $this->getTable()->getHeaders();
+        $render = '';
+        
+        foreach ($headers as $name => $params) {
+            if (isset($params['filters'])) {
+                $value = $this->getTable()->getParamAdapter()->getValueOfFilter($name);
+                $id = 'zff_'.$name;
+                if (is_string($params['filters'])) {
+                    $element = new \Zend\Form\Element\Text($id);
+                } else {
+                    $element = new \Zend\Form\Element\Select($id);
+                    $element->setValueOptions($params['filters']);
+                }
+                $element->setAttribute('class', 'filter form-control');
+                $element->setValue($value);
+                
+                $render .= sprintf('<td>%s</td>', $this->getRenderer()->formRow($element));
+            } else {
+                $render .= '<td></td>';
+            }
+        }
+        return sprintf('<tr>%s</tr>', $render);
+    }
+    
+    
+    
     /**
      * Rendering head
      * @return string
@@ -132,10 +191,7 @@ class Render extends AbstractCommon
         foreach ($headers as $name => $title) {
             $render .= $this->getTable()->getHeader($name)->render();
         }
-        
-        $render = sprintf('<tr>%s</tr>', $render);
-        
-
+        $render = sprintf('<tr class="zf-title">%s</tr>', $render);
         return $render;
     }
 
@@ -153,7 +209,7 @@ class Render extends AbstractCommon
         $view->setVariable('order', $this->getTable()->getParamAdapter()->getOrder());
         $view->setVariable('page', $this->getTable()->getParamAdapter()->getPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
-
+        $view->setVariable('rowAction', $this->getTable()->getOptions()->getRowAction());
 
         return $this->getRenderer()->render($view);
     }
@@ -164,9 +220,13 @@ class Render extends AbstractCommon
     protected function initRenderer()
     {
         $renderer = new PhpRenderer();
+        
+        $plugins = $renderer->getHelperPluginManager();
+        $config  = new \Zend\Form\View\HelperConfig;
+        $config->configureServiceManager($plugins);
+        
         $resolver = new Resolver\AggregateResolver();
-
-        $map = new Resolver\TemplateMapResolver($this->getOptions()->getTemplateMap());
+        $map = new Resolver\TemplateMapResolver($this->getTable()->getOptions()->getTemplateMap());
         $resolver->attach($map);
 
         $renderer->setResolver($resolver);
@@ -194,16 +254,6 @@ class Render extends AbstractCommon
         $this->renderer = $renderer;
     }
 
-    /**
-     * 
-     * @return ModuleOptions
-     */
-    public function getOptions(){
-        if(!$this->options){
-            $this->options = $this->getTable()->getOptions();
-        }
-        return $this->options;
-    }
     
 }
 

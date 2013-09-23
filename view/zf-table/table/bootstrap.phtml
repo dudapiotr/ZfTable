@@ -1,0 +1,45 @@
+<h4>Setting bootstrap version 3.0 / 2.2.2</h4>
+<p>
+    Bootstrap 3.0
+</p>
+<pre>
+1. CSS
+->prependStylesheet($this->basePath() . '/css/bootstrap-3.0.0/bootstrap.min.css')
+
+2. Javascript (required only for Data Table)
+->appendFile($this->basePath() . '/js/DT_bootstrap_3.js')  
+
+3. Module Options
+$this->templateMap = array(
+                'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
+                'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
+                <strong>'container' => __DIR__ . '/../../../view/templates/container-b3.phtml',</strong>
+                'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
+                'custom-b2' => __DIR__ . '/../../../view/templates/custom-b2.phtml',
+                'custom-b3' => __DIR__ . '/../../../view/templates/custom-b3.phtml',
+);
+</pre>
+
+<p>
+    Bootstrap 2.2.2
+</p>
+<pre>
+1. CSS
+->prependStylesheet($this->basePath() . '/css/bootstrap-2.2.2/DT_bootstrap.css')
+->prependStylesheet($this->basePath() . '/css/bootstrap-2.2.2/bootstrap-responsive.min.css')
+->prependStylesheet($this->basePath() . '/css/bootstrap-2.2.2/bootstrap.min.css')
+
+2. Javascript (required only for Data Table)
+->appendFile($this->basePath() . '/js/DT_bootstrap_2.js')  
+
+3. Module Options
+$this->templateMap = array(
+                'paginator-slide' => __DIR__ . '/../../../view/templates/slide-paginator.phtml',
+                'default-params' => __DIR__ . '/../../../view/templates/default-params.phtml',
+                <strong>'container' => __DIR__ . '/../../../view/templates/container-b2.phtml',</strong>
+                'data-table-init' => __DIR__ . '/../../../view/templates/data-table-init.phtml',
+                'custom-b2' => __DIR__ . '/../../../view/templates/custom-b2.phtml',
+                'custom-b3' => __DIR__ . '/../../../view/templates/custom-b3.phtml',
+);
+</pre>
+

@@ -1,32 +1,30 @@
 <?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
+
 
 namespace ZfTable\Params;
 
-use ZfTable\Options\ModuleOptions;
 use ZfTable\AbstractCommon;
+use ZfTable\Config;
 
 abstract class AbstractAdapter extends AbstractCommon
 {
-
-    /**
-     * Module options object
-     * @var ModuleOptions
-     */
-    protected $options;
-
+    
     
 
     /**
-     * Get all module options
+     * Get configuration of table
      *
-     * @return ModuleOptions
+     * @return Config
      */
     public function getOptions()
     {
-        if(!$this->options){
-            $this->options = $this->getTable()->getOptions();
-        }
-        return $this->options;
+        return $this->getTable()->getOptions();
     }
 
 }
