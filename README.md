@@ -1,4 +1,4 @@
-ZfTable [See on live](http://zfcrm.laohost.net/table/base)
+ZfTable [See on live](http://dudapiotr.eu/table/changes)
 =======
 Version 0.0.3 Created by Piotr Duda
 
