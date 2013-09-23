@@ -1,6 +1,6 @@
 ZfTable [See on live](http://dudapiotr.eu/table/changes)
 =======
-Version 0.0.3 Created by Piotr Duda
+Version 2.0 Created by Piotr Duda
 
 Introduction
 ------------
@@ -8,6 +8,7 @@ Introduction
 Flexible table generator with headers decorating , rows and cells. 
 It Uses own engine to communication by ajax (Pagination, QuickSearch, Sorting and Items per page), 
 but  simply can be integrated with [dataTables](http://www.datatables.net/) as well. 
+In 2.0 version added editable ajax edition, column filters, exporter to CSV and more decorators and conditions.
 
 
 Requirements
@@ -26,7 +27,8 @@ Features
 - Default Bootstrap layout
 - Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
 
-Version 2.0 (planned for release 23.09.2013)
+
+Changes in Version 2.0
 ----------------
 -  Editable decorator -> the ability to edit data from the table level
 -  Filtering for each column
@@ -35,15 +37,15 @@ Version 2.0 (planned for release 23.09.2013)
 -  Exporter data to CVS
 
 
-
-
-Goals
+In next verions
 ----------------
 
+- Export only selected data
+- Add dynamicly (by ajax) new row
 - More decorators and conditions
 - Adapter for Doctrine 2 and Arrays
 - Adapter for JGrid
-- Exporter (PDF, CSV)
+- Exporter (PDFV)
 
 
 Installation
