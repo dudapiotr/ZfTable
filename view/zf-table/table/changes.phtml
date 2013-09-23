@@ -1,6 +1,6 @@
 <ul class="intro">
     <li>
-        Added support for Bootstrap 3.0.0. Bootstrap 2.2.2 is still support.
+        Added support for Bootstrap 3.0.0 (also for data table). Bootstrap 2.2.2 is still support.
     </li>
     <li>
         Added new filtering options - filtering by column
@@ -105,6 +105,23 @@
              * @var array
              */
             protected $templateMap = array();
+
+
+            /*******************************************/
+       </pre>
+       <p>Now each table can have own configuration (If param is not define, its taken from module config) </p>
+       <pre>
+            protected $config = array(
+                'name' => 'Filtering by column',
+                'showPagination' => true,
+                'showQuickSearch' => false,
+                'showItemPerPage' => true,
+                'itemCountPerPage' => 20,
+                'showColumnFilters' => false,
+                'showExportToCSV ' => false,
+                'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
+                'rowAction' => ''
+            );
        </pre>
     </li>
     

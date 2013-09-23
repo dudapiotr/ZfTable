@@ -7,54 +7,43 @@
 <h4>Code/Information</h4>
 
 <p>
+    Base table without any decorations
 </p>
 <pre>
     
-class ColumnFiltering extends AbstractTable
+class Base extends AbstractTable
 {
     
     protected $config = array(
-        'name' => 'Filtering by column',
+        'name' => 'Base table',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
         'itemCountPerPage' => 20,
-        <strong>'showColumnFilters' => true,</strong>
+        'showColumnFilters' => false,
+        'showExportToCSV ' => false,
+        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
+        'rowAction' => ''
     );
     
+    //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
-        'name' => array('title' => 'Name' , <strong>'filters' => 'text'</strong>),
-        'surname' => array('title' => 'Surname' , 'filters' => 'text' ),
-        'street' => array('title' => 'Street' , 'filters' => 'text'),
-        'city' => array('title' => 'City'),
-        'active' => array('title' => 'Active' , 'width' => 100 , <strong>'filters' => array( null => 'All' , 1 => 'Active' , 0 => 'Inactive')</strong>),
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
     {
-        
     }
     
     protected function initFilters(\Zend\Db\Sql\Select $query)
     {
-        if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
-            $query->where("name like '%".$value."%' ");
-        }
-        if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
-            $query->where("surname like '%".$value."%' ");
-        }
-        if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
-            $query->where("street like '%".$value."%' ");
-        }
-        
-        $value = $this->getParamAdapter()->getValueOfFilter('active');
-        if ($value != null) {
-            $query->where("active = '".$value."' ");
-            
-        }
+       
     }
-
 }
 </pre>
 
