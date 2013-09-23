@@ -1,12 +1,12 @@
 <ul class="intro">
     <li>
-        Added support for Bootstrap 3.0.0.
+        Added support for Bootstrap 3.0.0. Bootstrap 2.2.2 is still support.
     </li>
     <li>
         Added new filtering options - filtering by column
     </li>
     <li>
-        Editable decorator -> the ability to edit data from the table level
+        Editable decorator -> the ability to edit data(by ajax) from the table level
     </li>
     <li>
        Row decorator for separeting row by ordering column (dividing the same data)
@@ -21,12 +21,91 @@
        Exporter to CSV
     </li>
     <li>
-       The ability to configure from table level (additional possibility for module config)
-    </li>
-    <li>
         Attr and VarAttr Cell decorators for adding attributes to single Cell with possibility to add conditional decorating. 
     </li>
     <li>
        Deprecated initQuickSearchOption  - instead initFilters funtion
     </li>
+    <li>
+       The ability to configure from table level. Configuration is more flexible and can be set diffrent for each table. Configuration: 
+       
+       <pre>
+            /**
+             * Name of table 
+             * @var null | string
+             */
+            protected $name = '';
+
+            /**
+             * Show or hide pagination view
+             * @var boolean 
+             */
+            protected $showPagination = true;
+
+            /**
+             * Show or hide quick search view
+             * @var boolean
+             */
+            protected $showQuickSearch = false;
+
+
+            /**
+             * Show or hide item per page view
+             * @var boolean
+             */
+            protected $showItemPerPage = true;
+
+            /**
+             * @todo item and default cout per page
+             * Default value for item count per page
+             * @var int
+             */
+            protected $itemCountPerPage = 50;
+
+            /**
+             * Flag to show row with filters (for each column)
+             * @var boolean
+             */
+            protected $showColumnFilters = false;
+
+            /**
+             * Definition of 
+             * @var string | boolean
+             */
+            protected $rowAction = false;
+
+
+            /**
+             * Show or hide exporter to CSV
+             * @var boolean
+             */
+            protected $showExportToCSV = false;
+
+
+
+            /**
+             * Value to specify items per page (pagination)
+             * @var array
+             */
+            protected $valuesOfItemPerPage = array(5, 10, 20, 50 , 100);
+
+
+            /**
+            * Get maximal rows to returning. Data tables can use
+            * pagination, but also can get data by ajax, and use
+            * java script to pagination (and variable destiny for this case)
+            *
+            * @var int
+            */
+            protected $dataTablesMaxRows = 999;
+
+
+            /**
+             * Template Map
+             * @var array
+             */
+            protected $templateMap = array();
+       </pre>
+    </li>
+    
 </ul>

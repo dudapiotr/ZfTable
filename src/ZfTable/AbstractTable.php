@@ -68,7 +68,11 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      */
     private $tableInit = false;
 
-    
+
+    /**
+     * Default classes for table
+     * @var array
+     */
     protected $class = array('table', 'table-bordered', 'table-condensed', 'table-hover', 'table-striped', 'dataTable');
     
     /**
@@ -78,6 +82,11 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     protected $config;
     
     
+    /**
+     * Options base ond ModuleOptions and config array
+     * @var \ZfTable\Options\ModuleOptions 
+     */
+    protected $options = null;
     
     
     /**
@@ -371,14 +380,14 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     
     /**
      * 
-     * @return Config
+     * @return ModuleOptions
      * @throws Zend_Exception
      */
-    public function getConfig()
+    public function getOptions()
     {
         if(is_array($this->config)){
-            $this->config = new Config($this->config); 
-        } else if(!$this->config instanceof  Config){
+            $this->config = new ModuleOptions($this->config); 
+        } else if(!$this->config instanceof  ModuleOptions){
             throw new Zend_Exception('Config class problem');
         } 
         return $this->config;

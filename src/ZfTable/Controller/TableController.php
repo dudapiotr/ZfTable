@@ -54,7 +54,6 @@ class TableController extends AbstractActionController
         $table = new TableExample\ColumnFiltering();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($this->getSource())
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
@@ -73,7 +72,6 @@ class TableController extends AbstractActionController
         $table = new TableExample\Editable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($this->getSource())
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
@@ -99,7 +97,6 @@ class TableController extends AbstractActionController
         $table = new TableExample\CsvExport();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($this->getSource())
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
@@ -120,7 +117,6 @@ class TableController extends AbstractActionController
         $table = new TableExample\Separatable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
@@ -148,7 +144,6 @@ class TableController extends AbstractActionController
         $table = new TableExample\NewPluginCondition();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($this->getSource())
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
@@ -343,7 +338,6 @@ class TableController extends AbstractActionController
 
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
-                ->setOptions($this->getModuleOptions())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
 
@@ -365,16 +359,6 @@ class TableController extends AbstractActionController
             $this->customerTable = $sm->get('ZfTable\Example\Model\CustomerTable');
         }
         return $this->customerTable;
-    }
-
-    public function getModuleOptions()
-    {
-        if (!$this->moduleOptions) {
-            $sm = $this->getServiceLocator();
-            $config = $sm->get('Config');
-            $this->moduleOptions = new ModuleOptions(isset($config['zftable']) ? $config['zftable'] : array());
-        }
-        return $this->moduleOptions;
     }
 
     /**

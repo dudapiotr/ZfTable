@@ -15,9 +15,9 @@ abstract class AbstractAdapter extends AbstractCommon
      *
      * @return Config
      */
-    public function getConfig()
+    public function getOptions()
     {
-        return $this->getTable()->getConfig();
+        return $this->getTable()->getOptions();
     }
 
 }

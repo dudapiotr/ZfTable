@@ -6,20 +6,6 @@ interface PaginatorInterface
 {
 
     /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function getDefaultItemCountPerPage();
-
-    
-     /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function setDefaultItemCountPerPage($defaultItemCountPerPage);
-    
-    
-    /**
      * Get Array of values to set items per page
      * @return array
      */

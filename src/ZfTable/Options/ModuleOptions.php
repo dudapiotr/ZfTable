@@ -10,22 +10,68 @@ DataTableInterface,
 RenderInterface,
 PaginatorInterface
 {
-
+   
+    /**
+     * Name of table 
+     * @var null | string
+     */
+    protected $name = '';
+    
+    /**
+     * Show or hide pagination view
+     * @var boolean 
+     */
+    protected $showPagination = true;
+    
+    /**
+     * Show or hide quick search view
+     * @var boolean
+     */
+    protected $showQuickSearch = false;
+    
+    
+    /**
+     * Show or hide item per page view
+     * @var boolean
+     */
+    protected $showItemPerPage = true;
+    
+    /**
+     * @todo item and default cout per page
+     * Default value for item count per page
+     * @var int
+     */
+    protected $itemCountPerPage = 50;
+    
+    /**
+     * Flag to show row with filters (for each column)
+     * @var boolean
+     */
+    protected $showColumnFilters = false;
+    
+    /**
+     * Definition of 
+     * @var string | boolean
+     */
+    protected $rowAction = false;
+    
+    
+    /**
+     * Show or hide exporter to CSV
+     * @var boolean
+     */
+    protected $showExportToCSV = false;
+    
+    
+    
     /**
      * Value to specify items per page (pagination)
      * @var array
      */
-    protected $valuesOfItemPerPage = array(1, 2, 10, 20);
+    protected $valuesOfItemPerPage = array(5, 10, 20, 50 , 100);
     
-    
+     
     /**
-     * Default item count per page (pagination)
-     * @var int
-     */
-    protected $defaultItemCountPerPage = 10;
-    
-    
-   /**
     * Get maximal rows to returning. Data tables can use
     * pagination, but also can get data by ajax, and use
     * java script to pagination (and variable destiny for this case)
@@ -35,28 +81,11 @@ PaginatorInterface
     protected $dataTablesMaxRows = 999;
     
     
-    protected $showPagination = true;
-    
-    
     /**
      * Template Map
      * @var array
      */
     protected $templateMap = array();
-    
-    
-    protected $showExportToCSV = false;
-    
-    
-    public function getShowExportToCSV()
-    {
-        return $this->showExportToCSV;
-    }
-
-    public function setShowExportToCSV($showExportToCSV)
-    {
-        $this->showExportToCSV = $showExportToCSV;
-    }
     
     
     
@@ -72,6 +101,21 @@ PaginatorInterface
         
         parent::__construct($options);
     }
+    
+    
+    public function getShowExportToCSV()
+    {
+        return $this->showExportToCSV;
+    }
+    
+    
+    public function setShowExportToCSV($showExportToCSV)
+    {
+        $this->showExportToCSV = $showExportToCSV;
+    }
+    
+    
+    
     /**
      * Set template map
      * @param array $templateMap
@@ -113,27 +157,6 @@ PaginatorInterface
     }
     
     /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function getDefaultItemCountPerPage()
-    {
-        return $this->defaultItemCountPerPage;
-    }
-
-    
-     /**
-     * Item count per page (for pagination)
-     * @return int
-     */
-    public function setDefaultItemCountPerPage($defaultItemCountPerPage)
-    {
-        $this->defaultItemCountPerPage = $defaultItemCountPerPage;
-        return $this;
-    }
-    
-    
-    /**
      * Get Array of values to set items per page
      * @return array
      */
@@ -154,5 +177,78 @@ PaginatorInterface
         $this->valuesOfItemPerPage = $valuesOfItemPerPage;
         return $this;
     }
+    
+        
+    public function getName()
+    {
+        return $this->name;
+    }
 
+    public function getShowPagination()
+    {
+        return $this->showPagination;
+    }
+
+    public function getShowQuickSearch()
+    {
+        return $this->showQuickSearch;
+    }
+
+    public function getShowItemPerPage()
+    {
+        return $this->showItemPerPage;
+    }
+
+    public function getItemCountPerPage()
+    {
+        return $this->itemCountPerPage;
+    }
+
+    public function getShowColumnFilters()
+    {
+        return $this->showColumnFilters;
+    }
+
+    public function getRowAction()
+    {
+        return $this->rowAction;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setShowPagination($showPagination)
+    {
+        $this->showPagination = $showPagination;
+    }
+
+    public function setShowQuickSearch($showQuickSearch)
+    {
+        $this->showQuickSearch = $showQuickSearch;
+    }
+
+    public function setShowItemPerPage($showItemPerPage)
+    {
+        $this->showItemPerPage = $showItemPerPage;
+    }
+
+    public function setItemCountPerPage($itemCountPerPage)
+    {
+        $this->itemCountPerPage = $itemCountPerPage;
+    }
+
+    public function setShowColumnFilters($showColumnFilters)
+    {
+        $this->showColumnFilters = $showColumnFilters;
+    }
+
+    public function setRowAction($rowAction)
+    {
+        $this->rowAction = $rowAction;
+    }
+
+
+    
 }

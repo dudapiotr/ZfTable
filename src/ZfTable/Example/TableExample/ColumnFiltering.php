@@ -12,7 +12,7 @@ class ColumnFiltering extends AbstractTable
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
-        'itemCountPerPage' => 20,
+        'itemCountPerPage' => 5,
         'showColumnFilters' => true,
     );
     

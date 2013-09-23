@@ -103,7 +103,7 @@ class Render extends AbstractCommon
     public function renderTableAsHtml()
     {
         $render = '';
-        $tableConfig = $this->getTable()->getConfig();
+        $tableConfig = $this->getTable()->getOptions();
         
         if($tableConfig->getShowColumnFilters()){
             $render .= $this->renderFilters();
@@ -195,7 +195,7 @@ class Render extends AbstractCommon
         $view->setVariable('order', $this->getTable()->getParamAdapter()->getOrder());
         $view->setVariable('page', $this->getTable()->getParamAdapter()->getPage());
         $view->setVariable('quickSearch', $this->getTable()->getParamAdapter()->getQuickSearch());
-        $view->setVariable('rowAction', $this->getTable()->getConfig()->getRowAction());
+        $view->setVariable('rowAction', $this->getTable()->getOptions()->getRowAction());
 
         return $this->getRenderer()->render($view);
     }
@@ -212,7 +212,7 @@ class Render extends AbstractCommon
         $config->configureServiceManager($plugins);
         
         $resolver = new Resolver\AggregateResolver();
-        $map = new Resolver\TemplateMapResolver($this->getTable()->getConfig()->getTemplateMap());
+        $map = new Resolver\TemplateMapResolver($this->getTable()->getOptions()->getTemplateMap());
         $resolver->attach($map);
 
         $renderer->setResolver($resolver);

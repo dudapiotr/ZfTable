@@ -80,11 +80,11 @@ AdapterInterface,
         $this->page = (isset($array['zfTablePage'])) ? $array['zfTablePage'] : self::DEFAULT_PAGE;
         $this->column = (isset($array['zfTableColumn'])) ? $array['zfTableColumn'] : null;
         $this->order = (isset($array['zfTableOrder'])) ? $array['zfTableOrder'] : self::DEFAULT_ORDER;
-        $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getConfig()->getDefaultItemCountPerPage();
+        $this->itemCountPerPage = (isset($array['zfTableItemPerPage'])) ? $array['zfTableItemPerPage'] : $this->getOptions()->getItemCountPerPage();
         $this->quickSearch = (isset($array['zfTableQuickSearch'])) ? $array['zfTableQuickSearch'] : '';
         
         //Init filters value
-        if($this->getTable()->getConfig('showColumnFilters')){
+        if($this->getTable()->getOptions('showColumnFilters')){
             foreach($array as $key => $value){
                 if(substr($key, 0, 4) == 'zff_'){
                     $this->filters[$key] = $value;
