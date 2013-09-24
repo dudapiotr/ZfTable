@@ -19,13 +19,18 @@ Requirements
 
 Features
 ----------------
-- Flexible generating table
-- Decoratoring headers, rows and cell
-- Conditional decorating
-- Simply Integration with DataTables
-- Pagination, QuickSearch, Sorting and Items per page
-- Default Bootstrap layout
-- Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
+-  Flexible generating table
+-  Decoratoring headers, rows and cell
+-  Conditional decorating (Greater, Lesser, Equal, NotEqual, Between)
+-  Simply Integration with DataTables
+-  Pagination, QuickSearch, Sorting and Items per page
+-  Default Bootstrap layout
+-  Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
+-  Editable decorator -> the ability to edit data from the table level
+-  Filtering for each column
+-  Row decorator for separeting row by ordering column (dividing the same data)
+-  Exporter data to CVS
+-  Support for Bootstrap 3.0 and 2.2.2
 
 
 Changes in Version 2.0
