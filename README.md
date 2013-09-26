@@ -10,6 +10,10 @@ It Uses own engine to communication by ajax (Pagination, QuickSearch, Sorting an
 but  simply can be integrated with [dataTables](http://www.datatables.net/) as well. 
 In 2.0 version added edit data via ajax, column filters, exporter to CSV and more decorators and conditions.
 
+Contributors
+------------
+If you want to help develop this module please don't hesitate. 
+
 
 Requirements
 ------------
