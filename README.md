@@ -15,6 +15,11 @@ Contributors
 If you want to help develop this module please don't hesitate. 
 
 
+Version 2.1
+------------
+- Doctrine 2 Adapter
+- Closure decorators
+
 Requirements
 ------------
 
