@@ -2,6 +2,10 @@ ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu/table/changes)
 =======
 Version 2.0 Created by Piotr Duda
 
+Download
+-----------
+[Complete site : dudapiotr.eu](https://drive.google.com/file/d/0B4WJ3MxrRUAENF9haVlxZEZ4eURwRU12WXBWUDVraXU0bFFZ/edit?usp=sharing)
+
 Introduction
 ------------
 
@@ -13,6 +17,7 @@ In 2.0 version added edit data via ajax, column filters, exporter to CSV and mor
 Contributors
 ------------
 If you want to help develop this module please don't hesitate. 
+
 
 
 Version 2.1
