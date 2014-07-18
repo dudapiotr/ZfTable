@@ -2,6 +2,13 @@ ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu/table/changes)
 =======
 Version 2.0 Created by Piotr Duda
 
+2014-07-18 Start work on version 3.0
+------------
+- Closure decorator
+- Doctinre 2 Integration
+- JavaScript Events
+
+
 Introduction
 ------------
 
@@ -46,15 +53,6 @@ Changes in Version 2.0
 -  Support for Bootstrap 3.0
 
 
-In next verions
-----------------
-
-- Export only selected data
-- Add dynamicly (by ajax) new row
-- More decorators and conditions
-- Adapter for Doctrine 2 and Arrays
-- Adapter for JGrid
-- Exporter (PDFV)
 
 
 Installation
