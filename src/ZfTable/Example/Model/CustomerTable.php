@@ -40,4 +40,15 @@ class CustomerTable extends AbstractTableGateway {
         return $select;
         
     }
+    
+    public function fetchAllInstitutionRequests()
+    {
+
+        $sql = new Sql($this->adapter);
+        $select = $sql->select()
+                ->from(array('i' => 'institution'), array('address'))
+                ->join(array('u' => 'user'), 'i.user_id = u.id', array('name'));
+
+        return $select;
+    }
 }

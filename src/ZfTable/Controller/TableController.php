@@ -15,6 +15,7 @@ use Zend\Db\ResultSet\ResultSet;
 use ZfTable\Params\AdapterDataTables;
 use ZfTable\Options\ModuleOptions;
 use ZfTable\AbstractTable;
+use Doctrine\ORM\EntityManager; 
 
 class TableController extends AbstractActionController
 {
@@ -44,8 +45,32 @@ class TableController extends AbstractActionController
     protected $moduleOptions;
     
     
+    
+    
+     /**
+     * @var Doctrine\ORM\EntityManager
+     */
+    protected $em;
+    
+    /**
+     * 
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        }
+        return $this->em;
+    }
+    
     public function changesAction()
     {
+         $res = $this->getEntityManager()->getRepository('ZfTable\Entity\Customer');
+//         dbs($res);
+//         foreach($res as $r){
+//             dbs($r);
+//         }
     }
      
     public function bootstrapAction()
@@ -391,6 +416,34 @@ class TableController extends AbstractActionController
         }
         return $this->customerTable;
     }
+    
+    /**********************My codes*********************/
+    
+    
+    
+    public function institutionRequestsAction()
+    {
+    }
+    
+    public function ajaxInstitutionRequestsAction()
+    {
+        $table = new TableExample\InstitutionRequests();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getInstitutionRequests())
+                ->setParamAdapter($this->getRequest()->getPost());
+        return $this->htmlResponse($table->render());
+    }
+ 
+    /**
+     * 
+     * @return type
+     */
+    private function getInstitutionRequests()
+    {
+        return $this->getCustomerTable()->fetchAllInstitutionRequests();
+    }
+    
+           
 
     /**
      * 
