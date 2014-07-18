@@ -78,6 +78,25 @@ class TableController extends AbstractActionController
     }
     
     /**
+     * ********* Closure *******************
+     * *****************************************
+     */
+    public function closureAction()
+    {
+    }
+    public function ajaxClosureAction()
+    {
+        $table = new TableExample\Closure();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    
+    /**
      * ********* Column filtering *******************
      * ***********************************
      */
