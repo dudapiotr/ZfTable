@@ -31,7 +31,14 @@ class Header extends AbstractElement
      * @var int
      */
     protected $width;
-
+    
+    
+    /**
+     * Name of table alias for defined column
+     * @var string
+     */
+    protected $tableAlias;
+    
     /**
      * Cell object
      * @var Cell
@@ -55,6 +62,13 @@ class Header extends AbstractElement
      * @var boolean
      */
     protected $editable = false;
+    
+    
+    /**
+     * Table of options
+     * @var array
+     */
+    protected $options = array();
     
     /**
      * Static array exchanging ordering (when column is ascending, in data-ordering should be desc)
@@ -103,6 +117,7 @@ class Header extends AbstractElement
         $this->order = (isset($options['order'])) ? $options['order'] : true;
         $this->sortable = (isset($options['sortable'])) ? $options['sortable'] : true;
         $this->separatable = (isset($options['separatable'])) ? $options['separatable'] : $this->getSeparatable();
+        $this->tableAlias = (isset($options['tableAlias'])) ? $options['tableAlias'] : '';
         
         if(isset($options['editable']) && $options['editable'] == true){
             $this->editable = $options['editable'];
@@ -243,6 +258,23 @@ class Header extends AbstractElement
         $this->editable = $editable;
     }
 
+    /**
+     * Get list of options
+     * @return options
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Get header title
+     * @return string
+     */
+    public function getTableAlias()
+    {
+        return $this->tableAlias;
+    }
     
     /**
      * Set reference to table
@@ -292,5 +324,7 @@ class Header extends AbstractElement
         }
         return sprintf('<th %s >%s</th>', $this->getAttributes(), $render);
     }
+    
+    
 
 }

@@ -11,52 +11,24 @@ use Zend\InputFilter\InputFilterInterface;
 /**
  *
  * @ORM\Entity
- * @ORM\Table(name="customer")
- * @property string $name
- * @property int $idcustomer
+ * @ORM\Table(name="product")
  */
-class Customer implements InputFilterAwareInterface 
+class Product implements InputFilterAwareInterface 
 {
     protected $inputFilter;
-    
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="idcustomer", referencedColumnName="customer_id")
-     */
-    protected $product;
-    
+ 
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $idcustomer;
+    protected $customer_id;
  
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected $product;
     
-     /**
-     * @ORM\Column(type="string")
-     */
-    protected $surname;
-    
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $street;
-    
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $city;
-    
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $active;
  
     /**
      * Magic getter to expose protected properties.

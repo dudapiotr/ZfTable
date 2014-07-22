@@ -3,6 +3,7 @@ namespace ZfTable;
 
 use ZfTable\Example\Model\CustomerTable;
 
+
 class Module
 {
     public function getAutoloaderConfig()

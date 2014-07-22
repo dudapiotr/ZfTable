@@ -14,10 +14,29 @@ use ZfTable\Source\SourceInterface;
 
 abstract class AbstractSource extends AbstractCommon implements SourceInterface
 {
-
+    
+    /**
+     *
+     * @var \ZfTable\Params\AdapterInterface 
+     */
+    protected $paramAdapter;
+    
+    
     abstract protected function limit();
 
     abstract protected function order();
     
     abstract protected function quickSearch();
+    
+    /**
+     *
+     * @var \ZfTable\Params\AdapterInterface 
+     */
+    public function getParamAdapter()
+    {
+        if (!$this->paramAdapter) {
+            $this->paramAdapter = $this->getTable()->getParamAdapter();
+        }
+        return $this->paramAdapter;
+    }
 }

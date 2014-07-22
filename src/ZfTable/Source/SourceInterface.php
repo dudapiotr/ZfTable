@@ -17,8 +17,4 @@ interface SourceInterface
     
     public function setQuickSearchQuery(\Zend\Db\Sql\Select $quickSearchQuery);
     
-    /**
-     * @return \Zend\Db\Sql\Select
-     */
-    public function getSelect();
 }

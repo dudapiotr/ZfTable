@@ -36,11 +36,7 @@ class SqlSelect extends AbstractSource
      */
     protected $paginator;
 
-    /**
-     *
-     * @var \ZfTable\Params\AdapterInterface 
-     */
-    protected $paramAdapter;
+    
 
     /**
      * 
@@ -125,17 +121,7 @@ class SqlSelect extends AbstractSource
         $this->paginator = $paginator;
     }
 
-    /**
-     *
-     * @var \ZfTable\Params\AdapterInterface 
-     */
-    public function getParamAdapter()
-    {
-        if (!$this->paramAdapter) {
-            $this->paramAdapter = $this->getTable()->getParamAdapter();
-        }
-        return $this->paramAdapter;
-    }
+    
 
     /**
      * 

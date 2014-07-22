@@ -66,16 +66,42 @@ class TableController extends AbstractActionController
     
     public function changesAction()
     {
-         $res = $this->getEntityManager()->getRepository('ZfTable\Entity\Customer');
-//         dbs($res);
-//         foreach($res as $r){
-//             dbs($r);
-//         }
+        
     }
      
     public function bootstrapAction()
     {
     }
+    
+    /**
+     * ********* Doctrine *******************
+     * *****************************************
+     */
+    public function doctrineAction()
+    {
+    }
+    public function ajaxDoctrineAction()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        
+        $queryBuilder->add('select', 'p , q')
+              ->add('from', '\ZfTable\Entity\Customer q')
+              ->leftJoin('q.product', 'p')
+                
+        ;
+        
+        //dbs($queryBuilder->getQuery());
+        
+        $table = new TableExample\Doctrine();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($queryBuilder)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        
+        return $this->htmlResponse($table->render());
+    }
+    
     
     /**
      * ********* Closure *******************
