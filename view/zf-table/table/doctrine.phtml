@@ -14,12 +14,27 @@
     Furthermore, Please be careful during define your query and aliases for tables. You have to connect all headers column to your alias table ("p" and "q" in below exapmle).
 </p>
 
-<h4>Query</h4>
+<h4>Action with query</h4>
 <pre>
-$queryBuilder->add('select', 'p , q')
+public function ajaxDoctrineAction()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        
+        $queryBuilder->add('select', 'p , q')
               ->add('from', '\ZfTable\Entity\Customer q')
               ->leftJoin('q.product', 'p')
-;
+                
+        ;
+        
+        $table = new TableExample\Doctrine();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($queryBuilder)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        
+        return $this->htmlResponse($table->render());
+}
 </pre>
 
 <pre>

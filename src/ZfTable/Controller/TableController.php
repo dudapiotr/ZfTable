@@ -74,16 +74,48 @@ class TableController extends AbstractActionController
     }
     
     /**
+     * ********* Additional Params *******************
+     * ***********************************
+     */
+    public function additionalParamsAction()
+    {
+    }
+    public function ajaxadditionalParamsAction()
+    {
+        $table = new TableExample\AdditionalParams();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    /**
+     * ********* Javascript Events *******************
+     * ***********************************
+     */
+    public function javascriptEventsAction()
+    {
+    }
+    public function ajaxJavascriptEventsAction()
+    {
+        $table = new TableExample\JavascriptEvents();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    /**
      * ********* Array Adapter *******************
      * *****************************************
      */
     public function arrayAction()
     {
-        
-        
-        
-        
     }
+    
     public function ajaxArrayAction()
     {   
         $table = new TableExample\ArrayAdapter();
@@ -123,8 +155,6 @@ class TableController extends AbstractActionController
               ->leftJoin('q.product', 'p')
                 
         ;
-        
-        //dbs($queryBuilder->getQuery());
         
         $table = new TableExample\Doctrine();
         $table->setAdapter($this->getDbAdapter())
@@ -417,7 +447,7 @@ class TableController extends AbstractActionController
                 ->setSource($this->getSource())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
-        return $this->htmlResponse($table->render('custom' , 'custom-b2'));
+        return $this->htmlResponse($table->render('custom' , 'custom-b3'));
         
     }
     

@@ -1,0 +1,103 @@
+
+<form id="additionalParams">
+    <label>Name:</label>
+    <input type="text" name="name" class="form-control" style="width: 40%" placeholder="Name">
+    <label>Surname:</label>
+    <input type="text" name="surname" class="form-control" style="width: 40%" placeholder="Surname">
+    <br/> 
+    <input type="submit"  class="form-control" style="width: 20%" value="Search">
+</form>
+<hr />
+
+<div id="tableContainer">
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+
+<h4>Javascript code</h4>
+<pre>
+(function(jQuery) {
+    table();
+    
+    $("#additionalParams").on('submit', function(e){
+        e.preventDefault();
+        table();
+    });
+    
+    function table(){
+        $("#tableContainer").zfTable('/table/ajax-additional-params', {
+            sendAdditionalParams: function() {
+                var data = $('#additionalParams').serialize();
+                return '&' + data;
+            },
+        });
+    }
+ });
+</pre>
+
+<h4>Table class code</h4>
+<pre>
+    
+class JavascriptEvents extends AbstractTable
+{
+    
+    protected $config = array(
+        'name' => 'Table',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'itemCountPerPage' => 10,
+        'showColumnFilters' => false,
+        'showExportToCSV ' => false,
+        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
+    );
+    
+     //Definition of headers
+    protected $headers = array(
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
+    );
+
+    public function init()
+    {
+    }
+    
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+        if ($value = $this->getParamAdapter()-><strong>getPureValueOfFilter('name')</strong>) {
+            $query->where("name like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()-><strong>getPureValueOfFilter('surname')</strong>) {
+            $query->where("surname like '%".$value."%' ");
+        }
+    }
+    
+}
+</pre>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    table();
+    
+    $("#additionalParams").on('submit', function(e){
+        e.preventDefault();
+        table();
+    });
+    
+    function table(){
+        $("#tableContainer").zfTable('/table/ajax-additional-params', {
+            sendAdditionalParams: function() {
+                var data = $('#additionalParams').serialize();
+                return '&' + data;
+            },
+        });
+    }
+ });
+    
+</script>

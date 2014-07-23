@@ -15,7 +15,7 @@ class ArrayAdapter extends AbstractTable
 {
 
     protected $config = array(
-        'name' => 'Closure',
+        'name' => 'Array Adapter',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -68,8 +68,5 @@ class ArrayAdapter extends AbstractTable
         }
         
     }
-        
-
-   
 
 }
