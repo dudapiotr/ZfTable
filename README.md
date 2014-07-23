@@ -4,9 +4,6 @@ Version 2.0 Created by Piotr Duda
 
 2014-07-18 Start work on version 3.0
 ------------
-- Closure decorator
-- Doctinre 2 Integration
-- JavaScript Events
 
 Download
 -----------
@@ -15,10 +12,8 @@ Download
 Introduction
 ------------
 
-Flexible table generator with headers decorating , rows and cells. 
-It Uses own engine to communication by ajax (Pagination, QuickSearch, Sorting and Items per page), 
-but  simply can be integrated with [dataTables](http://www.datatables.net/) as well. 
-In 2.0 version added edit data via ajax, column filters, exporter to CSV and more decorators and conditions.
+Awesome table/grid (and much much more) generator with huge possibilities of decorating and conditioning. 
+Integrated with DataTables, Doctrine 2, Bootstrap 2.0 and 3.0.
 
 Contributors
 ------------
@@ -44,6 +39,19 @@ Features
 -  Filtering for each column
 -  Row decorator for separeting row by ordering column (dividing the same data)
 -  Exporter data to CVS
+-  Callable decorator
+-  Doctrine 2 Adapter (Source)
+-  Array Adaper  (Source)
+-  JavaScript Events (Callable Events)
+-  Possibility to send additional params
+
+Changes in Version 3.0
+----------------
+- Callable decorator
+- Doctrine 2 Adapter (Source)
+- Array Adaper  (Source)
+- JavaScript Events (Callable Events)
+- Possibility to send additional params
 
 
 Changes in Version 2.0
