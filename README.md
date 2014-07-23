@@ -113,7 +113,7 @@ All files are optional (zf-table.js is need to use own engine, but also can use 
 
 
 
-Examples [See on live](http://dudapiotr.eu/table/changes)
+Examples [See on live](http://dudapiotr.eu)
 -------
 In Example directory there is a couple of examples how use decorators and generate table. After added js and css file
 to your layout view, in controller there are a table calls(based on datas from ZF2 tutorial - album ).
