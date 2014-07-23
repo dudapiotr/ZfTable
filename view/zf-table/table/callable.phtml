@@ -1,21 +1,19 @@
-<?php
-/**
- * ZfTable ( Module for Zend Framework 2)
- *
- * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
- */
 
+<div id="tableContainer">
 
-namespace ZfTable\Example\TableExample;
+</div>
 
-use ZfTable\AbstractTable;
+<hr />
+<h4>Code/Information</h4>
 
-class Closure extends AbstractTable
+<p>
+    Callable decorator
+</p>
+<pre>
+class Callable extends AbstractTable
 {
-
     protected $config = array(
-        'name' => 'Closure',
+        'name' => 'Callable',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -34,10 +32,17 @@ class Closure extends AbstractTable
 
     public function init()
     {
+        <strong>
         $this->getHeader('closureColumn')->getCell()->addDecorator('closure', array(
             'closure' => function($context, $record){
                 return ' Imię : ' . $record['name'] . ', Nazwisko: '. $record['surname'];
             }
         ));
+        </strong>
     }
 }
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-callable');
+</script>

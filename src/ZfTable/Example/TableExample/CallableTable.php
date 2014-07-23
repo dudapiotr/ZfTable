@@ -1,19 +1,21 @@
+<?php
+/**
+ * ZfTable ( Module for Zend Framework 2)
+ *
+ * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
+ * @license   MIT License 
+ */
 
-<div id="tableContainer">
 
-</div>
+namespace ZfTable\Example\TableExample;
 
-<hr />
-<h4>Code/Information</h4>
+use ZfTable\AbstractTable;
 
-<p>
-    Closure decorator
-</p>
-<pre>
-class Closure extends AbstractTable
+class CallableTable extends AbstractTable
 {
+
     protected $config = array(
-        'name' => 'Closure',
+        'name' => 'Callable',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -22,7 +24,7 @@ class Closure extends AbstractTable
     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
-        'closureColumn' => array('title' => 'Closure'),
+        'callableColumn' => array('title' => 'Closure' ,'sortable' => false),
         'name' => array('title' => 'Name' , 'separatable' => true),
         'surname' => array('title' => 'Surname' ),
         'street' => array('title' => 'Street'),
@@ -32,17 +34,10 @@ class Closure extends AbstractTable
 
     public function init()
     {
-        <strong>
-        $this->getHeader('closureColumn')->getCell()->addDecorator('closure', array(
-            'closure' => function($context, $record){
+        $this->getHeader('callableColumn')->getCell()->addDecorator('callable', array(
+            'callable' => function($context, $record){
                 return ' Imię : ' . $record['name'] . ', Nazwisko: '. $record['surname'];
             }
         ));
-        </strong>
     }
 }
-</pre>
-
-<script>
-    $("#tableContainer").zfTable('/table/ajax-closure');
-</script>

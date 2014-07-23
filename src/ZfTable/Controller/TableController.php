@@ -167,15 +167,15 @@ class TableController extends AbstractActionController
     
     
     /**
-     * ********* Closure *******************
+     * ********* Callable *******************
      * *****************************************
      */
-    public function closureAction()
+    public function callableAction()
     {
     }
-    public function ajaxClosureAction()
+    public function ajaxCallableAction()
     {
-        $table = new TableExample\Closure();
+        $table = new TableExample\CallableTable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($this->getSource())
                 ->setParamAdapter($this->getRequest()->getPost())

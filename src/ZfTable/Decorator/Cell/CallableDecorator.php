@@ -9,7 +9,7 @@
 
 namespace ZfTable\Decorator\Cell;
 
-class Closure extends AbstractCellDecorator
+class CallableDecorator extends AbstractCellDecorator
 {
     
     /**
@@ -25,7 +25,7 @@ class Closure extends AbstractCellDecorator
      */
     public function __construct(array $options = array())
     {
-        if (!isset($options['closure'])) {
+        if (!isset($options['callable'])) {
             throw new Exception('Please define closure');
         }
         $this->options = $options;
@@ -39,7 +39,7 @@ class Closure extends AbstractCellDecorator
      */
     public function render($context)
     {
-        $closure = $this->options['closure'];
+        $closure = $this->options['callable'];
         return $closure($context, $this->getCell()->getActualRow());
     }
 

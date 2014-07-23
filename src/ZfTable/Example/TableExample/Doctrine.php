@@ -25,26 +25,26 @@ class Doctrine extends AbstractTable
     //Definition of headers
     protected $headers = array(
         'idcustomer' =>     array('tableAlias' => 'q', 'title' => 'Id', 'width' => '50') ,
-        'doctrine' =>       array('tableAlias' => 'q', 'title' => 'Doctrine closure' , 'filters' => 'text'),
+        'doctrine' =>       array('tableAlias' => 'q', 'title' => 'Doctrine closure' , 'filters' => 'text' ,'sortable' => false),
         'product' =>        array('tableAlias' => 'p', 'title' => 'Product' , 'filters' => 'text'),
-        'name' =>           array('tableAlias' => 'q', 'title' => 'Name' , 'filters' => 'text' ,'separatable' => true),
+        'name' =>           array('tableAlias' => 'q', 'title' => 'Name' , 'filters' => 'text') ,
         'surname' =>        array('tableAlias' => 'q', 'title' => 'Surname' , 'filters' => 'text'),
         'street' =>         array('tableAlias' => 'q', 'title' => 'Street' , 'filters' => 'text'),
-        'city' =>           array('tableAlias' => 'q', 'title' => 'City' , 'filters' => 'text' , 'separatable' => true),
+        'city' =>           array('tableAlias' => 'q', 'title' => 'City' , 'filters' => 'text'),
         'active' =>         array('tableAlias' => 'q', 'title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
     {
-        $this->getHeader('doctrine')->getCell()->addDecorator('closure', array(
-            'closure' => function($context, $record){
+        $this->getHeader('doctrine')->getCell()->addDecorator('callable', array(
+            'callable' => function($context, $record){
                 return $record->name . ' ' . $record->surname;
             }
         ));
         
         
-        $this->getHeader('product')->getCell()->addDecorator('closure', array(
-            'closure' => function($context, $record){
+        $this->getHeader('product')->getCell()->addDecorator('callable', array(
+            'callable' => function($context, $record){
             
                 if(is_object($record->product)){
                     return $record->product->product;
