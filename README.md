@@ -1,4 +1,4 @@
-ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu/table/changes)
+ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu)
 =======
 Version 2.0 Created by Piotr Duda
 
