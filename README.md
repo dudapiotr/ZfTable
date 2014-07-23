@@ -6,12 +6,6 @@ Download
 -----------
 [Complete site : dudapiotr.eu](https://drive.google.com/file/d/0B4WJ3MxrRUAENF9haVlxZEZ4eURwRU12WXBWUDVraXU0bFFZ/edit?usp=sharing)
 
-2014-07-18 Start work on version 3.0
-------------
-- Closure decorator
-- Doctinre 2 Integration
-- JavaScript Events
-
 
 Introduction
 ------------
