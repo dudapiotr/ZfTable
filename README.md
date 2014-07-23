@@ -63,11 +63,10 @@ Changes in Version 2.0
 
 In next verions
 ----------------
-
+- MongoDB adapter
 - Export only selected data
 - Add dynamicly (by ajax) new row
 - More decorators and conditions
-- Adapter for Doctrine 2 and Arrays
 - Adapter for JGrid
 - Exporter (PDFV)
 
