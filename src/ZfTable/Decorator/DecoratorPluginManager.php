@@ -29,6 +29,8 @@ class DecoratorPluginManager extends AbstractPluginManager
         'celllink' => '\ZfTable\Decorator\Cell\Link',
         'celltemplate' => '\ZfTable\Decorator\Cell\Template',
         'celleditable' => '\ZfTable\Decorator\Cell\Editable',
+        'cellcallable' => '\ZfTable\Decorator\Cell\CallableDecorator',
+        
         
         'rowclass' => '\ZfTable\Decorator\Row\ClassDecorator',
         'rowvarattr' => '\ZfTable\Decorator\Row\VarAttr',

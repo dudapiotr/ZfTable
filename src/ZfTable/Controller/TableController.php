@@ -15,6 +15,7 @@ use Zend\Db\ResultSet\ResultSet;
 use ZfTable\Params\AdapterDataTables;
 use ZfTable\Options\ModuleOptions;
 use ZfTable\AbstractTable;
+use Doctrine\ORM\EntityManager; 
 
 class TableController extends AbstractActionController
 {
@@ -44,13 +45,145 @@ class TableController extends AbstractActionController
     protected $moduleOptions;
     
     
+    
+    
+     /**
+     * @var Doctrine\ORM\EntityManager
+     */
+    protected $em;
+    
+    /**
+     * 
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        }
+        return $this->em;
+    }
+    
     public function changesAction()
     {
+        
     }
      
     public function bootstrapAction()
     {
     }
+    
+    /**
+     * ********* Additional Params *******************
+     * ***********************************
+     */
+    public function additionalParamsAction()
+    {
+    }
+    public function ajaxadditionalParamsAction()
+    {
+        $table = new TableExample\AdditionalParams();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    /**
+     * ********* Javascript Events *******************
+     * ***********************************
+     */
+    public function javascriptEventsAction()
+    {
+    }
+    public function ajaxJavascriptEventsAction()
+    {
+        $table = new TableExample\JavascriptEvents();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    /**
+     * ********* Array Adapter *******************
+     * *****************************************
+     */
+    public function arrayAction()
+    {
+    }
+    
+    public function ajaxArrayAction()
+    {   
+        $table = new TableExample\ArrayAdapter();
+        
+        $sql = new \Zend\Db\Sql\Sql($this->getDbAdapter());
+        
+        $stmt = $sql->prepareStatementForSqlObject($this->getSource());
+        $res = $stmt->execute();
+        
+        $resultSet = new \Zend\Db\ResultSet\ResultSet();
+        $resultSet->initialize($res);
+        
+        $source = $resultSet->toArray();
+        
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($source)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    /**
+     * ********* Doctrine Adapter *******************
+     * *****************************************
+     */
+    public function doctrineAction()
+    {
+    }
+    public function ajaxDoctrineAction()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        
+        $queryBuilder->add('select', 'p , q')
+              ->add('from', '\ZfTable\Entity\Customer q')
+              ->leftJoin('q.product', 'p')
+                
+        ;
+        
+        $table = new TableExample\Doctrine();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($queryBuilder)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    /**
+     * ********* Callable *******************
+     * *****************************************
+     */
+    public function callableAction()
+    {
+    }
+    public function ajaxCallableAction()
+    {
+        $table = new TableExample\CallableTable();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getSource())
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
     
     /**
      * ********* Column filtering *******************
@@ -314,7 +447,7 @@ class TableController extends AbstractActionController
                 ->setSource($this->getSource())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
-        return $this->htmlResponse($table->render('custom' , 'custom-b2'));
+        return $this->htmlResponse($table->render('custom' , 'custom-b3'));
         
     }
     
@@ -391,6 +524,34 @@ class TableController extends AbstractActionController
         }
         return $this->customerTable;
     }
+    
+    /**********************My codes*********************/
+    
+    
+    
+    public function institutionRequestsAction()
+    {
+    }
+    
+    public function ajaxInstitutionRequestsAction()
+    {
+        $table = new TableExample\InstitutionRequests();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($this->getInstitutionRequests())
+                ->setParamAdapter($this->getRequest()->getPost());
+        return $this->htmlResponse($table->render());
+    }
+ 
+    /**
+     * 
+     * @return type
+     */
+    private function getInstitutionRequests()
+    {
+        return $this->getCustomerTable()->fetchAllInstitutionRequests();
+    }
+    
+           
 
     /**
      * 
@@ -407,11 +568,13 @@ class TableController extends AbstractActionController
 
     /**
      * 
-     * @return type
+     * @return \Zend\Db\Sql\Select
      */
     private function getSource()
     {
         return $this->getCustomerTable()->fetchAllSelect();
     }
+    
+    
 
 }

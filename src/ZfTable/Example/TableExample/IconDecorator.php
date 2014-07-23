@@ -29,12 +29,6 @@ class LinkDecorator extends AbstractTable
 
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
+   
 
 }

@@ -1,0 +1,91 @@
+
+<div id="tableContainer">
+
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+
+<p>
+    Array Adapter.
+</p>
+<p>
+    If you want to set array source it's not a problem. Only one diffrent is that you have to change Your 
+    way to filter results. 
+</p>
+<p>
+    We havent' got access to any object (with methods like where, whereIn etc...) becouse we have array structure, so we have to
+    filters data alone.
+</p>
+<p>
+    Look at initFilters methods placed below.
+    
+</p>
+<pre>
+    
+class ArrayAdapter extends AbstractTable
+{
+
+    protected $config = array(
+        'name' => 'Closure',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'showColumnFilters' => true,
+    );
+    
+    //Definition of headers
+    protected $headers = array(
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' , 'separatable' => true , 'filters' => 'text'),
+        'surname' => array('title' => 'Surname' , 'filters' => 'text'),
+        'street' => array('title' => 'Street' , 'filters' => 'text'),
+        'city' => array('title' => 'City' , 'separatable' => true , 'filters' => 'text'),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
+    );
+
+    public function init()
+    {
+    }
+        
+    protected function initFilters($arrayData)
+    {
+        <strong>
+        $keys = array();
+        
+        foreach($arrayData as $key => $row){
+            if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
+                if(strpos($row['name'], $value) === false && !isset($keys[$key]) ){
+                    $keys[] = $key;
+                }
+            }
+            if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
+                if(strpos($row['surname'], $value) === false && !isset($keys[$key]) ){
+                    $keys[] = $key;
+                }
+            }
+            if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
+                if(strpos($row['street'], $value) === false && !isset($keys[$key]) ){
+                    $keys[] = $key;
+                }
+            }
+            if ($value = $this->getParamAdapter()->getValueOfFilter('city')) {
+                if(strpos($row['city'], $value) === false && !isset($keys[$key]) ){
+                    $keys[] = $key;
+                }
+            }
+        }
+        
+        foreach($keys as $key){
+            unset($arrayData[$key]);
+        }
+        </strong>
+        
+    }
+
+}
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-array');
+</script>

@@ -36,11 +36,7 @@ class SqlSelect extends AbstractSource
      */
     protected $paginator;
 
-    /**
-     *
-     * @var \ZfTable\Params\AdapterInterface 
-     */
-    protected $paramAdapter;
+    
 
     /**
      * 
@@ -59,37 +55,16 @@ class SqlSelect extends AbstractSource
     {
         return $this->select;
     }
-
     
     /**
      * 
-     * @return \Zend\Db\Sql\Select 
+     * @return \Zend\Db\Sql\Select
      */
-    public function getQuickSearchQuery()
+    public function getSource()
     {
-        return $this->quickSearchQuery;
+        return $this->select;
     }
-
-    /**
-     * Set quick search query
-     * @param \Zend\Db\Sql\Select $quickSearchQuery
-     */
-    public function setQuickSearchQuery(\Zend\Db\Sql\Select $quickSearchQuery)
-    {
-        $this->quickSearchQuery = $quickSearchQuery;
-    }
-
-    /**
-     * 
-     * @return \Zend\Paginator\Paginator
-     */
-    public function getData()
-    {
-
-        $paginator = $this->getPaginator();
-        return $paginator;
-    }
-
+    
     /**
      * Return data as PDO statemant
      * not-used
@@ -110,85 +85,12 @@ class SqlSelect extends AbstractSource
         if (!$this->paginator) {
             $adapter = new DbSelect($this->getSelect(), $this->getTable()->getAdapter());
             $this->paginator = new Paginator($adapter);
-            $this->initQuery();
+            
+            $this->order();
+            
             $this->initPaginator();
         }
         return $this->paginator;
-    }
-
-    /**
-     * 
-     * @param \ZfTable\Source\Zend\Paginator\Paginator $paginator
-     */
-    public function setPaginator(Zend\Paginator\Paginator $paginator)
-    {
-        $this->paginator = $paginator;
-    }
-
-    /**
-     *
-     * @var \ZfTable\Params\AdapterInterface 
-     */
-    public function getParamAdapter()
-    {
-        if (!$this->paramAdapter) {
-            $this->paramAdapter = $this->getTable()->getParamAdapter();
-        }
-        return $this->paramAdapter;
-    }
-
-    /**
-     * 
-     * @param \ZfTable\Params\AdapterInterface $paramAdapter
-     */
-    public function setParamAdapter(\ZfTable\Params\AdapterInterface $paramAdapter)
-    {
-        $this->paramAdapter = $paramAdapter;
-    }
-
-    /**
-     * Init paginator
-     */
-    protected function initPaginator()
-    {
-        $this->paginator->setItemCountPerPage($this->getParamAdapter()->getItemCountPerPage());
-        $this->paginator->setCurrentPageNumber($this->getParamAdapter()->getPage());
-    }
-
-    
-    /**
-     * Init query like ordering and quicksearching
-     */
-    private function initQuery()
-    {
-        $this->order();
-        $this->quickSearch();
-    }
-
-    /**
-     * Not use (using paginator)
-     */
-    protected function limit()
-    {
-        
-    }
-
-    /**
-     * Not use (using paginator)
-     */
-    protected function offset()
-    {
-    }
-
-    /*
-     * Init quicksearch
-     */
-    protected function quickSearch()
-    {
-        if ($this->getQuickSearchQuery()) {
-            $where = $this->getQuickSearchQuery()->getRawState('where');
-            $this->select->where($where);
-        }
     }
 
     /**
@@ -203,5 +105,20 @@ class SqlSelect extends AbstractSource
             $this->select->order($column . ' ' . $order);
         }
     }
+    
+    /*
+     * Init quicksearch
+     */
+    protected function quickSearch()
+    {
+        if ($this->getQuickSearchQuery()) {
+            $where = $this->getQuickSearchQuery()->getRawState('where');
+            $this->select->where($where);
+        }
+    }
+
+    
+
+    
 
 }

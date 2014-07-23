@@ -187,6 +187,10 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
         if ($source instanceof \Zend\Db\Sql\Select) {
             $source = new \ZfTable\Source\SqlSelect($source);
+        } elseif ($source instanceof \Doctrine\ORM\QueryBuilder) {
+            $source = new \ZfTable\Source\DoctrineQueryBuilder($source);
+        } elseif(is_array($source)) {
+            $source = new \ZfTable\Source\ArrayAdapter($source);
         } else {
             throw new \LogicException('This type of source is undefined');
         }
@@ -257,7 +261,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         }
         $this->init();
         
-        $this->initFilters($this->getSource()->getSelect());
+        $this->initFilters($this->getSource()->getSource());
     }
     
     
@@ -274,7 +278,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      * Init filters for quick serach or filters for each column
      * @param \Zend\Db\Sql\Select $query
      */
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         
     }

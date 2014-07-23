@@ -1,0 +1,115 @@
+
+<div id="tableContainer">
+
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+
+<p>
+    Table based on Doctrine Query Builder. Look below at closure decorator. Previous, we always use table context, but now
+    we have object in clouse call: $record->name . ' ' . $record->surname;. 
+</p>
+<p>
+    Furthermore, Please be careful during define your query and aliases for tables. You have to connect all headers column to your alias table ("p" and "q" in below exapmle).
+</p>
+
+<h4>Action with query</h4>
+<pre>
+public function ajaxDoctrineAction()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        
+        $queryBuilder->add('select', 'p , q')
+              ->add('from', '\ZfTable\Entity\Customer q')
+              ->leftJoin('q.product', 'p')
+                
+        ;
+        
+        $table = new TableExample\Doctrine();
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($queryBuilder)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        
+        return $this->htmlResponse($table->render());
+}
+</pre>
+
+<pre>
+<h4>Class definition</h4>    
+class Doctrine extends AbstractTable
+{
+
+    protected $config = array(
+        'name' => 'Doctrine',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'showColumnFilters' => true,
+    );
+    
+    //Definition of headers
+    protected $headers = array(
+        'idcustomer' =>     array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Id', 'width' => '50') ,
+        'doctrine' =>       array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Doctrine closure' , 'filters' => 'text'),
+        'product' =>        array(<strong>'tableAlias' => 'p'</strong>, 'title' => 'Product' , 'filters' => 'text'),
+        'name' =>           array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Name' , 'filters' => 'text' ,'separatable' => true),
+        'surname' =>        array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Surname' , 'filters' => 'text'),
+        'street' =>         array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Street' , 'filters' => 'text'),
+        'city' =>           array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'City' , 'filters' => 'text' , 'separatable' => true),
+        'active' =>         array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Active' , 'width' => 100 ),
+    );
+
+    public function init()
+    {   
+        <strong>
+        $this->getHeader('doctrine')->getCell()->addDecorator('closure', array(
+            'closure' => function($context, $record){
+                return $record->name . ' ' . $record->surname;
+            }
+        ));
+        </strong>
+        
+        
+        $this->getHeader('product')->getCell()->addDecorator('closure', array(
+            'closure' => function($context, $record){
+            
+                if(is_object($record->product)){
+                    return $record->product->product;
+                }else{
+                    return '';
+                }
+            }
+        ));
+    }
+
+    protected function initFilters($query)
+    {
+        if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
+            $query->where("q.name like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
+            $query->where("q.surname like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('doctrine')) {
+            $query->where("q.name like '%".$value."%' OR q.surname like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
+            $query->where("q.street like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('city')) {
+            $query->where("q.city like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('product')) {
+            $query->where("p.product like '%".$value."%' ");
+        }
+       
+    }
+}
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-doctrine');
+</script>

@@ -11,15 +11,18 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class Mapper extends AbstractTable
+class AdditionalParams extends AbstractTable
 {
-
+    
     protected $config = array(
-        'name' => 'Mapper decorator',
+        'name' => 'Additional Params',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
         'itemCountPerPage' => 10,
+        'showColumnFilters' => false,
+        'showExportToCSV ' => false,
+        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
     );
     
      //Definition of headers
@@ -34,12 +37,17 @@ class Mapper extends AbstractTable
 
     public function init()
     {
-        $this->getHeader('active')->getCell()->addDecorator('mapper', array(
-            '0' => 'NO',
-            '1' => 'YES'
-        ));
-       
+        
     }
-
-
+    
+    protected function initFilters(\Zend\Db\Sql\Select $query)
+    {
+        if ($value = $this->getParamAdapter()->getPureValueOfFilter('name')) {
+            $query->where("name like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getPureValueOfFilter('surname')) {
+            $query->where("surname like '%".$value."%' ");
+        }
+    }
+    
 }

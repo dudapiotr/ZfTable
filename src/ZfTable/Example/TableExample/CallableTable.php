@@ -11,11 +11,11 @@ namespace ZfTable\Example\TableExample;
 
 use ZfTable\AbstractTable;
 
-class Link extends AbstractTable
+class CallableTable extends AbstractTable
 {
 
     protected $config = array(
-        'name' => 'Link decorator',
+        'name' => 'Callable',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -24,6 +24,7 @@ class Link extends AbstractTable
     //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'callableColumn' => array('title' => 'Closure' ,'sortable' => false),
         'name' => array('title' => 'Name' , 'separatable' => true),
         'surname' => array('title' => 'Surname' ),
         'street' => array('title' => 'Street'),
@@ -31,15 +32,12 @@ class Link extends AbstractTable
         'active' => array('title' => 'Active' , 'width' => 100 ),
     );
 
-    
     public function init()
     {
-        $this->getHeader('name')->getCell()->addDecorator('link', array(
-            'url' => '/table/link/id/%s',
-            'vars' => array('idcustomer')
+        $this->getHeader('callableColumn')->getCell()->addDecorator('callable', array(
+            'callable' => function($context, $record){
+                return ' Imię : ' . $record['name'] . ', Nazwisko: '. $record['surname'];
+            }
         ));
-
     }
-
-
 }

@@ -35,7 +35,7 @@ class Customer implements InputFilterAwareInterface
     {
         throw new \Exception("Not used");
     }
-
+    
     public function getInputFilter()
     {
         if (!$this->inputFilter) {

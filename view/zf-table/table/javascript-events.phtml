@@ -1,0 +1,132 @@
+<hr />
+<div id="tableContainer">
+
+</div>
+
+<hr />
+<h4>Code/Information</h4>
+In Version 3.0 added Jquery Ajax anonymous events and special ZfTable anonymous events. Look below
+
+<pre>
+$("#tableContainer").zfTable('/table/ajax-javascript-events', {
+
+        beforeSend: function() {
+            console.log('beforeSend');
+        },
+        success: function() {
+            console.log('success');
+        },
+        error: function() {
+            console.log('error');
+        },
+        complete: function() {
+            console.log('complete');
+        },
+
+        onInit: function() {
+            console.log('onInit');
+        },
+    });
+</pre>
+
+<p>
+    The above calls generates the following code:
+</p>
+<pre>
+    onInit
+    beforeSend
+    success
+    complete
+</pre>
+<hr />
+<h4>ZfTable Events</h4>
+<p>
+    <ul>
+        <li>
+            <strong>onInit</strong><br/>
+            This event, which is triggered before an Ajax request is started (it's also called before 'beforeSend' jQuery event)
+        </li>
+        <li>
+            <strong>sendAdditionalParams</strong><br/>
+            This event is always triggerd by Ajax call. If you define additional params you can send this one to Your backand.
+            More info you can find <a href='http://zf2-table-working/table/additional-params'>Here</a>
+        </li>
+    </ul>
+</p>
+<hr/>
+<h4>JQuery events (specification copied from http://api.jquery.com/Ajax_Events/)</h4>
+<p>
+    <ul>
+        <li>
+            <strong>beforeSend (Local Event)</strong><br/>
+            This event, which is triggered before an Ajax request is started, allows you to modify the XMLHttpRequest object (setting additional headers, if need be.)
+        </li>
+        <li>
+            <strong>success (Local Event)</strong><br/>
+            This event is only called if the request was successful (no errors from the server, no errors with the data).
+        </li>
+        <li>
+            <strong>error (Local Event)</strong><br/>
+            This event is only called if an error occurred with the request (you can never have both an error and a success callback with a request).
+        </li>
+        <li>
+            <strong>complete (Local Event)</strong><br/>
+            This event is called regardless of if the request was successful, or not. You will always receive a complete callback, even for synchronous requests.
+        </li>
+    </ul>
+</p>
+<pre>
+    
+class JavascriptEvents extends AbstractTable
+{
+    
+    protected $config = array(
+        'name' => 'Table',
+        'showPagination' => true,
+        'showQuickSearch' => false,
+        'showItemPerPage' => true,
+        'itemCountPerPage' => 10,
+        'showColumnFilters' => false,
+        'showExportToCSV ' => false,
+        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
+    );
+    
+     //Definition of headers
+    protected $headers = array(
+        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
+        'name' => array('title' => 'Name' ),
+        'surname' => array('title' => 'Surname' ),
+        'street' => array('title' => 'Street'),
+        'city' => array('title' => 'City' ),
+        'active' => array('title' => 'Active' , 'width' => 100 ),
+    );
+
+    public function init()
+    {
+    }
+    
+}
+</pre>
+
+<script>
+    $("#tableContainer").zfTable('/table/ajax-javascript-events', {
+        beforeSend: function() {
+            console.log('beforeSend');
+        },
+        success: function() {
+            console.log('success');
+        },
+        error: function() {
+            console.log('error');
+        },
+        complete: function() {
+            console.log('complete');
+        },
+        onComplete: function() {
+            console.log('onComplete');
+        }, 
+        onInit: function() {
+            console.log('onInit');
+        },
+    });
+</script>

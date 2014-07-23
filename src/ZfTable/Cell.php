@@ -80,9 +80,13 @@ class Cell extends AbstractElement
     public function render($type = 'html')
     {
         $row = $this->getTable()->getRow()->getActualRow();
-        $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
-
         
+        if(is_array($row) || $row instanceof ArrayAccess){
+            $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
+        }elseif(is_object($row)){
+            $headerName = $this->getHeader()->getName();
+            $value = (property_exists($row, $headerName)) ? $row->$headerName : '';
+        }
         
         foreach ($this->decorators as $decorator) {
             if ($decorator->validConditions()) {

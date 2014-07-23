@@ -100,7 +100,13 @@ AdapterInterface,
         }
     }
     
-    public function getValueOfFilter($key , $prefix = 'zff_'){
+    public function getPureValueOfFilter($key)
+    {
+        return $this->object[$key];
+    }
+    
+    public function getValueOfFilter($key, $prefix = 'zff_')
+    {
         return $this->filters[$prefix . $key];
     }
     

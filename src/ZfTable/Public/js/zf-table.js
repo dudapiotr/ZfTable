@@ -14,9 +14,25 @@
             });
     };
     
-    jQuery.fn.zfTable = function(url) {
+    jQuery.fn.zfTable = function(url , options) {
         
         var initialized = false;
+        
+        var defaults = {
+            
+    
+            beforeSend: function(){},
+            success: function(){},
+            error: function(){},
+            complete: function(){},
+            
+            onInit: function(){},
+            sendAdditionalParams: function(){ return '';}
+            
+            
+        };
+        
+        var options = $.extend(defaults, options);
         
         function strip(html){
             var tmp = document.createElement("DIV");
@@ -25,22 +41,33 @@
         }
         
         function init($obj) {
+            options.onInit();
             ajax($obj);
         }
         function ajax($obj) {
             $obj.prepend('<div class="processing" style=""></div>');
             jQuery.ajax({
                 url: url,
-                data: $obj.find(':input').serialize(),
+                data: $obj.find(':input').serialize() + options.sendAdditionalParams(),
                 type: 'POST',
+                
+                beforeSend: function( e ){ options.beforeSend( e ) },
                 success: function(data) {
                     $obj.html('');
                     $obj.html(data);
                     initNavigation($obj);
                     $obj.find('.processing').hide();
+                    
+                    
+                    options.success();
                 },
+                        
+                error : function(e){ options.error( e )},
+                complete : function(e){ options.complete( e )},
+                
                 dataType: 'html'
             });
+            
         }
         function initNavigation($obj){
             var _this = this;
