@@ -1,9 +1,6 @@
-ZfTable 2.0 [See on live (new site)](http://dudapiotr.eu)
+ZfTable 3.0 [See on live (new site)](http://dudapiotr.eu)
 =======
-Version 2.0 Created by Piotr Duda
-
-2014-07-18 Start work on version 3.0
-------------
+Version 3.0 Created by Piotr Duda
 
 Download
 -----------
