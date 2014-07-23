@@ -41,12 +41,6 @@ class Closure extends AbstractTable
         ));
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
+   
 
 }

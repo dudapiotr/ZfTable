@@ -14,7 +14,7 @@ interface SourceInterface
 
     public function getData();
     
+    public function getPaginator();
     
-    public function setQuickSearchQuery(\Zend\Db\Sql\Select $quickSearchQuery);
-    
+    public function getSource();
 }

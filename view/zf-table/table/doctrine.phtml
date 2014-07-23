@@ -7,41 +7,89 @@
 <h4>Code/Information</h4>
 
 <p>
-    Base table without any decorations
+    Table based on Doctrine Query Builder. Look below at closure decorator. Previous, we always use table context, but now
+    we have object in clouse call: $record->name . ' ' . $record->surname;. 
 </p>
+<p>
+    Furthermore, Please be careful during define your query and aliases for tables. You have to connect all headers column to your alias table ("p" and "q" in below exapmle).
+</p>
+
+<h4>Query</h4>
 <pre>
-    
-class Base extends AbstractTable
+$queryBuilder->add('select', 'p , q')
+              ->add('from', '\ZfTable\Entity\Customer q')
+              ->leftJoin('q.product', 'p')
+;
+</pre>
+
+<pre>
+<h4>Class definition</h4>    
+class Doctrine extends AbstractTable
 {
-    
+
     protected $config = array(
-        'name' => 'Base table',
+        'name' => 'Doctrine',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
-        'itemCountPerPage' => 20,
-        'showColumnFilters' => false,
-        'showExportToCSV ' => false,
-        'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
-        'rowAction' => ''
+        'showColumnFilters' => true,
     );
     
     //Definition of headers
     protected $headers = array(
-        'idcustomer' => array('title' => 'Id', 'width' => '50') ,
-        'name' => array('title' => 'Name' ),
-        'surname' => array('title' => 'Surname' ),
-        'street' => array('title' => 'Street'),
-        'city' => array('title' => 'City' ),
-        'active' => array('title' => 'Active' , 'width' => 100 ),
+        'idcustomer' =>     array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Id', 'width' => '50') ,
+        'doctrine' =>       array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Doctrine closure' , 'filters' => 'text'),
+        'product' =>        array(<strong>'tableAlias' => 'p'</strong>, 'title' => 'Product' , 'filters' => 'text'),
+        'name' =>           array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Name' , 'filters' => 'text' ,'separatable' => true),
+        'surname' =>        array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Surname' , 'filters' => 'text'),
+        'street' =>         array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Street' , 'filters' => 'text'),
+        'city' =>           array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'City' , 'filters' => 'text' , 'separatable' => true),
+        'active' =>         array(<strong>'tableAlias' => 'q'</strong>, 'title' => 'Active' , 'width' => 100 ),
     );
 
     public function init()
-    {
+    {   
+        <strong>
+        $this->getHeader('doctrine')->getCell()->addDecorator('closure', array(
+            'closure' => function($context, $record){
+                return $record->name . ' ' . $record->surname;
+            }
+        ));
+        </strong>
+        
+        
+        $this->getHeader('product')->getCell()->addDecorator('closure', array(
+            'closure' => function($context, $record){
+            
+                if(is_object($record->product)){
+                    return $record->product->product;
+                }else{
+                    return '';
+                }
+            }
+        ));
     }
-    
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+
+    protected function initFilters($query)
     {
+        if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
+            $query->where("q.name like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
+            $query->where("q.surname like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('doctrine')) {
+            $query->where("q.name like '%".$value."%' OR q.surname like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
+            $query->where("q.street like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('city')) {
+            $query->where("q.city like '%".$value."%' ");
+        }
+        if ($value = $this->getParamAdapter()->getValueOfFilter('product')) {
+            $query->where("p.product like '%".$value."%' ");
+        }
        
     }
 }

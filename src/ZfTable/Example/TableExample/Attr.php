@@ -51,12 +51,5 @@ class Attr extends AbstractTable
 
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
-
+    
 }

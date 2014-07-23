@@ -41,12 +41,4 @@ class Template extends AbstractTable
 
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
-
 }

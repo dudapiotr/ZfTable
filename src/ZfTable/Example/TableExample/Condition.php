@@ -46,12 +46,5 @@ class Condition extends AbstractTable
 
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
 
 }

@@ -4,18 +4,15 @@ namespace ZfTable\Source;
 use ZfTable\Source\AbstractSource;
 use Zend\Paginator\Paginator;
 
- use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
- use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
-
-class DoctrineQueryBuilder extends AbstractSource
+class ArrayAdapter extends AbstractSource
 {
     
     /**
      *
-     * @var \Doctrine\ORM\QueryBuilder 
+     * @var ArrayObject
      */
-    protected $query;
+    protected $arraySource;
     
     
     /**
@@ -26,13 +23,12 @@ class DoctrineQueryBuilder extends AbstractSource
     
     /**
      * 
-     * @param \Doctrine\ORM\QueryBuilder $query
+     * @param ArrayObject $arraySource
      */
-    public function __construct($query)
+    public function __construct($arraySource)
     {
-        $this->query = $query;
+        $this->arraySource = new \ArrayObject($arraySource)   ;
     }
-    
     
     
     /**
@@ -43,10 +39,10 @@ class DoctrineQueryBuilder extends AbstractSource
     {
         if (!$this->paginator) {
              
-            
+            $this->arraySource  = (array)$this->arraySource;
             $this->order();
              
-             $adapter = new DoctrineAdapter(new ORMPaginator($this->query));
+             $adapter = new \Zend\Paginator\Adapter\ArrayAdapter((array)$this->arraySource);
              $this->paginator = new Paginator($adapter);
              $this->initPaginator();
            
@@ -58,6 +54,7 @@ class DoctrineQueryBuilder extends AbstractSource
     
     protected function order()
     {
+        
         $column = $this->getParamAdapter()->getColumn();
         $order = $this->getParamAdapter()->getOrder();
         
@@ -65,23 +62,29 @@ class DoctrineQueryBuilder extends AbstractSource
             return;
         }
         
-        $header = $this->getTable()->getHeader($column);
-        $tableAlias = ($header) ? $header->getTableAlias() : 'q';
+        uasort($this->arraySource , function ($i, $j) use ($column , $order) {
+            
+            $a = $i[$column];
+            $b = $j[$column];
+            
+            $condition = ($order == 'asc') ? $a > $b : $a < $b;
+            
+            if ($a == $b){
+                return 0;
+            } elseif ($condition){
+                return 1;
+            } else{
+                return -1;
+            } 
+        });
         
-        if ($column) {
-            $this->query->orderBy($tableAlias.'.'.$column , $order);
-        }
+        
     }
     
-    
-    public function getQuery()
-    {
-        return $this->query;
-    }
 
     public function getSource()
     {
-        return $this->query;
+        return $this->arraySource;
     }
 
 

@@ -21,12 +21,8 @@ abstract class AbstractSource extends AbstractCommon implements SourceInterface
      */
     protected $paramAdapter;
     
-    
-    abstract protected function limit();
 
     abstract protected function order();
-    
-    abstract protected function quickSearch();
     
     /**
      *
@@ -39,4 +35,56 @@ abstract class AbstractSource extends AbstractCommon implements SourceInterface
         }
         return $this->paramAdapter;
     }
+    
+    /**
+     * 
+     * @return \Zend\Paginator\Paginator
+     */
+    public function getData()
+    {
+
+        $paginator = $this->getPaginator();
+        return $paginator;
+    }
+    
+    
+    /**
+     * Init query like ordering and quicksearching
+     */
+    protected function initQuery()
+    {
+        $this->order();
+        $this->quickSearch();
+    }
+    
+    /**
+     * Init paginator
+     */
+    protected function initPaginator()
+    {
+        $this->paginator->setItemCountPerPage($this->getParamAdapter()->getItemCountPerPage());
+        $this->paginator->setCurrentPageNumber($this->getParamAdapter()->getPage());
+    }
+    
+    /**
+     * 
+     * @param \ZfTable\Source\Zend\Paginator\Paginator $paginator
+     */
+    public function setPaginator(Zend\Paginator\Paginator $paginator)
+    {
+        $this->paginator = $paginator;
+    }
+
+    
+
+    /**
+     * 
+     * @param \ZfTable\Params\AdapterInterface $paramAdapter
+     */
+    public function setParamAdapter(\ZfTable\Params\AdapterInterface $paramAdapter)
+    {
+        $this->paramAdapter = $paramAdapter;
+    }
+    
+    
 }

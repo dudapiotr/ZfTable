@@ -74,7 +74,40 @@ class TableController extends AbstractActionController
     }
     
     /**
-     * ********* Doctrine *******************
+     * ********* Array Adapter *******************
+     * *****************************************
+     */
+    public function arrayAction()
+    {
+        
+        
+        
+        
+    }
+    public function ajaxArrayAction()
+    {   
+        $table = new TableExample\ArrayAdapter();
+        
+        $sql = new \Zend\Db\Sql\Sql($this->getDbAdapter());
+        
+        $stmt = $sql->prepareStatementForSqlObject($this->getSource());
+        $res = $stmt->execute();
+        
+        $resultSet = new \Zend\Db\ResultSet\ResultSet();
+        $resultSet->initialize($res);
+        
+        $source = $resultSet->toArray();
+        
+        $table->setAdapter($this->getDbAdapter())
+                ->setSource($source)
+                ->setParamAdapter($this->getRequest()->getPost())
+        ;
+        return $this->htmlResponse($table->render());
+    }
+    
+    
+    /**
+     * ********* Doctrine Adapter *******************
      * *****************************************
      */
     public function doctrineAction()
@@ -505,11 +538,13 @@ class TableController extends AbstractActionController
 
     /**
      * 
-     * @return type
+     * @return \Zend\Db\Sql\Select
      */
     private function getSource()
     {
         return $this->getCustomerTable()->fetchAllSelect();
     }
+    
+    
 
 }

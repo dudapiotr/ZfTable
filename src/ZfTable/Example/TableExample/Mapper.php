@@ -41,12 +41,5 @@ class Mapper extends AbstractTable
        
     }
 
-    /**
-     * Initializable where quick search
-     */
-    public function initQuickSearch()
-    {
-       
-    }
 
 }
