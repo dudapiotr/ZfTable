@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -21,7 +21,7 @@ class Doctrine extends AbstractTable
         'showItemPerPage' => true,
         'showColumnFilters' => true,
     );
-    
+
     //Definition of headers
     protected $headers = array(
         'idcustomer' =>     array('tableAlias' => 'q', 'title' => 'Id', 'width' => '50') ,
@@ -41,11 +41,11 @@ class Doctrine extends AbstractTable
                 return $record->name . ' ' . $record->surname;
             }
         ));
-        
-        
+
+
         $this->getHeader('product')->getCell()->addDecorator('callable', array(
             'callable' => function($context, $record){
-            
+
                 if(is_object($record->product)){
                     return $record->product->product;
                 }else{
@@ -55,26 +55,30 @@ class Doctrine extends AbstractTable
         ));
     }
 
+    //The filters could also be done with a parametrised query
     protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
-            $query->where("q.name like '%".$value."%' ");
+            $query->where($query->expr()->like('q.oid', '?1'))->setParameter('1','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
-            $query->where("q.surname like '%".$value."%' ");
+            $query->where($query->expr()->like('q.surname', '?1'))->setParameter('1','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('doctrine')) {
             $query->where("q.name like '%".$value."%' OR q.surname like '%".$value."%' ");
+            $query->where($query->expr()->orX($query->expr()->like('q.name', '?1'), $query->expr()->like('q.surname', '?2')))
+                ->setParameter('1','%' . $value . '%')
+                ->setParameter('2','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
-            $query->where("q.street like '%".$value."%' ");
+            $query->where($query->expr()->like('q.street', '?1'))->setParameter('1','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('city')) {
-            $query->where("q.city like '%".$value."%' ");
+            $query->where($query->expr()->like('q.city', '?1'))->setParameter('1','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('product')) {
-            $query->where("p.product like '%".$value."%' ");
+            $query->where($query->expr()->like('q.product', '?1'))->setParameter('1','%' . $value . '%');
         }
-       
+
     }
 }

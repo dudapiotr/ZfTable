@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -14,6 +14,9 @@ use ZfTable\Params\AdapterInterface as ParamAdapterInterface;
 use ZfTable\Params\AdapterArrayObject;
 use ZfTable\Table\Exception;
 use ZfTable\Options\ModuleOptions;
+
+use ZfTable\Form\TableForm;
+use ZfTable\Form\TableFilter;
 
 use ZfTable\Config;
 
@@ -34,7 +37,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Datbase adapter
-     * @var Zend\Db\Adapter\Adapter 
+     * @var Zend\Db\Adapter\Adapter
      */
     protected $adapter;
 
@@ -46,12 +49,12 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      *
-     * @var Row 
+     * @var Row
      */
     protected $row;
 
     /**
-     * Data after execute of query 
+     * Data after execute of query
      * @var array | \Zend\Paginator\Paginator
      */
     protected $data;
@@ -63,9 +66,9 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     protected $render;
 
     /**
-     * Params adapter which responsible for universal mapping parameters from diffrent 
+     * Params adapter which responsible for universal mapping parameters from diffrent
      * source (default params, Data Table params, JGrid params)
-     * @var ParamAdapterInterface 
+     * @var ParamAdapterInterface
      */
     protected $paramAdapter;
 
@@ -81,21 +84,21 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      * @var array
      */
     protected $class = array('table', 'table-bordered', 'table-condensed', 'table-hover', 'table-striped', 'dataTable');
-    
+
     /**
      * Array configuration of table
-     * @var array 
+     * @var array
      */
     protected $config;
-    
-    
+
+
     /**
      * Options base ond ModuleOptions and config array
-     * @var \ZfTable\Options\ModuleOptions 
+     * @var \ZfTable\Options\ModuleOptions
      */
     protected $options = null;
-    
-    
+
+
     /**
      * Check if table has benn initializable
      * @return boolean
@@ -122,7 +125,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Return Params adapter which responsible for universal mapping parameters from diffrent 
+     * Return Params adapter which responsible for universal mapping parameters from diffrent
      * source (default params, Data Table params, JGrid params)
      * @return ParamAdapterInterface
      */
@@ -130,11 +133,11 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->paramAdapter;
     }
-    
-    
-    
+
+
+
     /**
-     * 
+     *
      * @param \ZfTable\Params\AdapterInterface $paramAdapter
      * @throws \InvalidArgumentException
      */
@@ -152,7 +155,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * 
+     *
      * @return array | \Zend\Paginator\Paginator
      * @throws \LogicException
      */
@@ -168,7 +171,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * 
+     *
      * @return \ZfTable\Source\SourceInterface
      */
     public function getSource()
@@ -177,7 +180,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * 
+     *
      * @param \Zend\Db\Sql\Select |  $source
      * @return \ZfTable\AbstractTable
      * @throws \LogicException
@@ -202,7 +205,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Get database adapter
-     * @return Zend\Db\Adapter\Adapter 
+     * @return Zend\Db\Adapter\Adapter
      */
     public function getAdapter()
     {
@@ -221,7 +224,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Rendering table 
+     * Rendering table
      * @return string
      * @param string (html | dataTableAjaxInit | dataTableJson)
      */
@@ -239,11 +242,11 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         } elseif ($type == 'custom') {
             return $this->getRender()->renderCustom($template);
         }
-        
+
     }
 
     /**
-     * Init configuration like setting header, decorators, filters and others 
+     * Init configuration like setting header, decorators, filters and others
      * (call in render method as well)
      */
     protected function initializable()
@@ -254,37 +257,37 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         if(!$this->getSource()){
             throw new Exception\LogicException('Source data is required');
         }
-        
+
         $this->init = true;
         if (count($this->headers)) {
             $this->setHeaders($this->headers);
         }
         $this->init();
-        
+
         $this->initFilters($this->getSource()->getSource());
     }
-    
-    
+
+
     /**
      * @deprecated since version 2.0
-     * Function replace by initFilters 
+     * Function replace by initFilters
      */
     protected function initQuickSearch()
     {
-        
+
     }
-    
+
     /**
      * Init filters for quick serach or filters for each column
      * @param \Zend\Db\Sql\Select $query
      */
     protected function initFilters($query)
     {
-        
+
     }
-    
+
     /**
-     * 
+     *
      * @param array $headers
      * @return \ZfTable\AbstractTable
      */
@@ -308,7 +311,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * 
+     *
      * @param type $name
      * @return Header | boolean
      * @throws LogicException
@@ -388,21 +391,39 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     {
         return $this->render();
     }
-    
+
     /**
-     * 
+     *
      * @return ModuleOptions
      * @throws Zend_Exception
      */
     public function getOptions()
     {
         if(is_array($this->config)){
-            $this->config = new ModuleOptions($this->config); 
+            $this->config = new ModuleOptions($this->config);
         } else if(!$this->config instanceof  ModuleOptions){
             throw new Zend_Exception('Config class problem');
-        } 
+        }
         return $this->config;
-        
+
     }
-    
+
+    /**
+     *
+     * @return TableForm
+     */
+    public function getForm()
+    {
+        return new TableForm(array_keys($header));
+    }
+
+    /**
+     *
+     * @return TableFilter
+     */
+    public function getFilter()
+    {
+        return new TableFilter(array_keys($header));
+    }
 }
+
