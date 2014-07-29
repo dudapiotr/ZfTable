@@ -74,3 +74,22 @@ INSERT INTO `customer` (`idcustomer`, `name`, `surname`, `age`, `city`, `street`
 (34, 'Wojciech', 'Wojciechowski', 0, 'Gdansk', 'Belgijska', 1, 'edit1', 'edit2'),
 (35, 'Wojciech', 'Zenkowski4', 0, 'Bialystok', 'Bartoka', 0, 'edit1', 'edit2'),
 (36, 'Zenek', 'Zenkowski2', 0, 'Bialystok', 'Andersa', 0, 'edit1', 'edit2');
+
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `customer_id` int(11) DEFAULT NULL,
+  `product` varchar(100) COLLATE utf8_polish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `product`
+--
+
+INSERT INTO `product` (`id`, `customer_id`, `product`) VALUES
+(1, 1, 'test'),
+(2, 2, 'test2'),
+(3, 3, 'atest3'),
+(4, 4, 'test4'),
+(5, 5, 'btest5');
