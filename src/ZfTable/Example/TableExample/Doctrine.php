@@ -59,7 +59,7 @@ class Doctrine extends AbstractTable
     protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
-            $query->where($query->expr()->like('q.oid', '?1'))->setParameter('1','%' . $value . '%');
+            $query->where($query->expr()->like('q.name', '?1'))->setParameter('1','%' . $value . '%');
         }
         if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
             $query->where($query->expr()->like('q.surname', '?1'))->setParameter('1','%' . $value . '%');
