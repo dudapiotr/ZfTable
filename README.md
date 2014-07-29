@@ -4,13 +4,7 @@ Version 3.0 Created by Piotr Duda
 
 Download
 -----------
-[Complete site : dudapiotr.eu](https://drive.google.com/file/d/0B4WJ3MxrRUAENF9haVlxZEZ4eURwRU12WXBWUDVraXU0bFFZ/edit?usp=sharing)
-
-2014-07-18 Start work on version 3.0
-------------
-- Closure decorator
-- Doctinre 2 Integration
-- JavaScript Events
+[Complete site : dudapiotr.eu](https://drive.google.com/file/d/0B4WJ3MxrRUAEOWp5emFaNlpBNGM/edit?usp=sharing)
 
 
 Introduction
@@ -81,47 +75,8 @@ In next verions
 Installation
 ------------
 
-### Main Setup
-
-#### By cloning project
-
-Clone this project into your `./vendor/` directory.
-
-#### With composer
-
-1. Add this project in your composer.json:
-
-    ```json
-    "require": {
-        "dudapiotr/zftable": "dev-master"
-    }
-    ```
-
-2. Now tell composer to download ZfTable by running the command:
-
-    ```bash
-    $ php composer.phar update
-    ```
-
-#### Post installation
-
-1. Enabling it in your `application.config.php`file.
-
-    ```php
-    <?php
-    return array(
-        'modules' => array(
-            // ...
-           'ZfTable',
-        ),
-        // ...
-    );
-    ```
-
-2. From public directory (in sources) copy optional files (js, css and images) to your public.
-All files are optional (zf-table.js is need to use own engine, but also can use dataTables engine)
-
-
+Installation description has been moved to wiki
+https://github.com/dudapiotr/ZfTable/wiki/Installation-and-Configuration
 
 
 Examples [See on live](http://dudapiotr.eu)
