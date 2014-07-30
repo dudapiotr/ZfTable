@@ -36,7 +36,7 @@ class Separatable extends AbstractTable
         $this->getRow()->addDecorator('separatable', array('defaultColumn' => 'city'));
     }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
     }
 }

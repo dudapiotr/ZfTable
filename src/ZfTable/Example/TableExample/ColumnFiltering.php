@@ -39,7 +39,7 @@ class ColumnFiltering extends AbstractTable
         
     }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
             $query->where("name like '%".$value."%' ");

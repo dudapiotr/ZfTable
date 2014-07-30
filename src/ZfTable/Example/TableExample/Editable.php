@@ -40,7 +40,7 @@ class Editable extends AbstractTable
         $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));
     }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
             $query->where("name like '%" . $value . "%' ");

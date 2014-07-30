@@ -37,7 +37,7 @@ class CsvExport extends AbstractTable
     {
     }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
     }
 }

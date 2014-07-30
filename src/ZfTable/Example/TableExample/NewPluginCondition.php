@@ -43,7 +43,7 @@ class NewPluginCondition extends AbstractTable
         $this->getHeader('age')->getCell()->addDecorator('varattr', array('style' => 'color: red'))
                 ->addCondition('greaterthan', array('column' => 'age' , 'value' => 30));
     }
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
     }
 }

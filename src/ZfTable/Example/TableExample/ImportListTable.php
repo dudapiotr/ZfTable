@@ -57,7 +57,7 @@ class ImportListTable extends AbstractTable
     }
 
     
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('zff_category_title')) {
             $query->where("c.title like '%".$value."%' ");

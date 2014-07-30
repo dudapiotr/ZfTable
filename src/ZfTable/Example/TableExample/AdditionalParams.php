@@ -40,7 +40,7 @@ class AdditionalParams extends AbstractTable
         
     }
     
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getPureValueOfFilter('name')) {
             $query->where("name like '%".$value."%' ");

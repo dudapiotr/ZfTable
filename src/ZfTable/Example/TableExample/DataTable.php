@@ -35,7 +35,7 @@ class DataTable extends AbstractTable
         $this->addClass('display');
     }
     
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
        
     }

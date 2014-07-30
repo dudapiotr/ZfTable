@@ -37,7 +37,7 @@ class InstitutionRequests extends AbstractTable
 
     }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
+    protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getValueOfFilter('address')) {
             $query->where("address like '%".$value."%' ");
