@@ -85,7 +85,12 @@ class Cell extends AbstractElement
             $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
         }elseif(is_object($row)){
             $headerName = $this->getHeader()->getName();
-            $value = (property_exists($row, $headerName)) ? $row->$headerName : '';
+            $methodName = 'get' . ucfirst($headerName);
+			if (method_exists($row, $methodName)) {
+				$value = $row->$methodName();
+			} else {
+				$value = (property_exists($row, $headerName)) ? $row->$headerName : '';
+			}
         }
         
         foreach ($this->decorators as $decorator) {
