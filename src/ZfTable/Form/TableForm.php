@@ -5,7 +5,7 @@ use Zend\Form\Form;
 
 class TableForm extends Form
 {
-    public function __construct($column_fields = null)
+    public function __construct($columnFields = null)
     {
     	//Create the generic fields for the table
         parent::__construct('ZFTable');
@@ -36,9 +36,9 @@ class TableForm extends Form
         ));
 
 		//Creates a field for each of the columns in the table
-		foreach ($column_fields as $field_name) {
+		foreach ($columnFields as $fieldName) {
 	        $this->add(array(
-	            'name' => 'zff_' . $field_name,
+	            'name' => 'zff_' . $fieldName,
 	            'attributes' => array(
 	                'type'  => 'text',
 	            ),

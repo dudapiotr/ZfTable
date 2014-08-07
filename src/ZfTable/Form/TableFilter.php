@@ -2,16 +2,12 @@
 
 namespace ZfTable\Form;
  
-use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
- 
  
 class TableFilter extends InputFilter
 {
  
-	public function __construct($column_fields = null)
+	public function __construct($columnFields = null)
 	{
 		//Create an input to filter the items of a generic table
 		$this->add(array(
@@ -91,9 +87,9 @@ class TableFilter extends InputFilter
 			),
 		));
 		//Creates a filter for each of the input fields
-		foreach ($column_fields as $field_name) {
+		foreach ($columnFields as $fieldName) {
 			$this->add(array(
-				'name'     => 'zff_' . $field_name,
+				'name'     => 'zff_' . $fieldName,
 				'allowEmpty' => true,
 				'required' => false,
             	'filters'  => array(

@@ -152,39 +152,31 @@ class TableController extends AbstractActionController
 
         //I don't know if it necesary to validate that request is POST
         $request = $this->getRequest();
-        if ($request->isPost())
+        
+        $filter = $table->getFilter();
+        $form->setInputFilter($filter);
+        $form->setData($request->getPost());
+
+        //Optional 
+        if ($form->isValid())
         {
-            $filter = $table->getFilter();
-            $form->setInputFilter($filter);
-            $form->setData($request->getPost());
+            $em = $this->getEntityManager();
+            $queryBuilder = $em->createQueryBuilder();
+            $queryBuilder->add('select', 'p , q')
+                ->add('from', '\ZfTable\Entity\Customer q')
+                ->leftJoin('q.product', 'p')
+            ;
 
-            //Validate that data is accepted
-            if ($form->isValid())
-            {
-                $em = $this->getEntityManager();
-                $queryBuilder = $em->createQueryBuilder();
-                $queryBuilder->add('select', 'p , q')
-                    ->add('from', '\ZfTable\Entity\Customer q')
-                    ->leftJoin('q.product', 'p')
-                ;
+            $table->setAdapter($this->getDbAdapter())
+                ->setSource($queryBuilder)
+                ->setParamAdapter($this->getRequest()->getPost())
+            ;
 
-                $table->setAdapter($this->getDbAdapter())
-                    ->setSource($queryBuilder)
-                    ->setParamAdapter($this->getRequest()->getPost())
-                ;
-
-                return $this->htmlResponse($table->render());
-            }
-            else
-            {
-                //It is necesary to render a correct message to the user
-                //indicating that the data is not valid
-            }
+            return $this->htmlResponse($table->render());
         }
         else
         {
-            //Render a message in case that is not necesary to indicate that it
-            //is not POST.
+            //Indication the wrong data currently not supported
         }
 
     }

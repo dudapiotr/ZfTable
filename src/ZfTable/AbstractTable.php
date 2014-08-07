@@ -414,7 +414,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      */
     public function getForm()
     {
-        return new TableForm(array_keys($header));
+        return new TableForm(array_keys($this->headers));
     }
 
     /**
@@ -423,7 +423,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
      */
     public function getFilter()
     {
-        return new TableFilter(array_keys($header));
+        return new TableFilter(array_keys($this->headers));
     }
 }
 
