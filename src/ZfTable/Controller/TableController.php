@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 namespace ZfTable\Controller;
@@ -15,7 +15,7 @@ use Zend\Db\ResultSet\ResultSet;
 use ZfTable\Params\AdapterDataTables;
 use ZfTable\Options\ModuleOptions;
 use ZfTable\AbstractTable;
-use Doctrine\ORM\EntityManager; 
+use Doctrine\ORM\EntityManager;
 
 class TableController extends AbstractActionController
 {
@@ -28,12 +28,12 @@ class TableController extends AbstractActionController
 
     /**
      *
-     * @var 
+     * @var
      */
     protected $customerTable;
 
     /**
-     *  
+     *
      * @var Zend\Db\Adapter\Adapter
      */
     protected $dbAdapter;
@@ -43,17 +43,17 @@ class TableController extends AbstractActionController
      * @var ModuleOptions
      */
     protected $moduleOptions;
-    
-    
-    
-    
+
+
+
+
      /**
      * @var Doctrine\ORM\EntityManager
      */
     protected $em;
-    
+
     /**
-     * 
+     *
      * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
@@ -63,16 +63,16 @@ class TableController extends AbstractActionController
         }
         return $this->em;
     }
-    
+
     public function changesAction()
     {
-        
+
     }
-     
+
     public function bootstrapAction()
     {
     }
-    
+
     /**
      * ********* Additional Params *******************
      * ***********************************
@@ -89,7 +89,7 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
+
     /**
      * ********* Javascript Events *******************
      * ***********************************
@@ -106,8 +106,8 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
     /**
      * ********* Array Adapter *******************
      * *****************************************
@@ -115,29 +115,29 @@ class TableController extends AbstractActionController
     public function arrayAction()
     {
     }
-    
+
     public function ajaxArrayAction()
-    {   
+    {
         $table = new TableExample\ArrayAdapter();
-        
+
         $sql = new \Zend\Db\Sql\Sql($this->getDbAdapter());
-        
+
         $stmt = $sql->prepareStatementForSqlObject($this->getSource());
         $res = $stmt->execute();
-        
+
         $resultSet = new \Zend\Db\ResultSet\ResultSet();
         $resultSet->initialize($res);
-        
+
         $source = $resultSet->toArray();
-        
+
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
     /**
      * ********* Doctrine Adapter *******************
      * *****************************************
@@ -147,25 +147,49 @@ class TableController extends AbstractActionController
     }
     public function ajaxDoctrineAction()
     {
-        $em = $this->getEntityManager();
-        $queryBuilder = $em->createQueryBuilder();
-        
-        $queryBuilder->add('select', 'p , q')
-              ->add('from', '\ZfTable\Entity\Customer q')
-              ->leftJoin('q.product', 'p')
-                
-        ;
-        
         $table = new TableExample\Doctrine();
-        $table->setAdapter($this->getDbAdapter())
-                ->setSource($queryBuilder)
-                ->setParamAdapter($this->getRequest()->getPost())
-        ;
-        
-        return $this->htmlResponse($table->render());
+        $form = $table->getForm();
+
+        //I don't know if it necesary to validate that request is POST
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+            $filter = $table->getFilter();
+            $form->setInputFilter($filter);
+            $form->setData($request->getPost());
+
+            //Validate that data is accepted
+            if ($form->isValid())
+            {
+                $em = $this->getEntityManager();
+                $queryBuilder = $em->createQueryBuilder();
+                $queryBuilder->add('select', 'p , q')
+                    ->add('from', '\ZfTable\Entity\Customer q')
+                    ->leftJoin('q.product', 'p')
+                ;
+
+                $table->setAdapter($this->getDbAdapter())
+                    ->setSource($queryBuilder)
+                    ->setParamAdapter($this->getRequest()->getPost())
+                ;
+
+                return $this->htmlResponse($table->render());
+            }
+            else
+            {
+                //It is necesary to render a correct message to the user
+                //indicating that the data is not valid
+            }
+        }
+        else
+        {
+            //Render a message in case that is not necesary to indicate that it
+            //is not POST.
+        }
+
     }
-    
-    
+
+
     /**
      * ********* Callable *******************
      * *****************************************
@@ -182,9 +206,9 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
-    
+
+
+
     /**
      * ********* Column filtering *******************
      * ***********************************
@@ -200,9 +224,9 @@ class TableController extends AbstractActionController
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
-    }    
-       
-    
+    }
+
+
     /**
      * ********* Editable tabble *******************
      * ***********************************
@@ -218,16 +242,16 @@ class TableController extends AbstractActionController
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
-    } 
-    
+    }
+
     public function updateRowAction()
     {
         $param = $this->getRequest()->getPost();
         $this->getCustomerTable()->update(array($param['column'] => $param['value']) ,array('idcustomer' => $param['row']));
         return $this->jsonResponse(array('succes' => 1));
     }
-       
-    
+
+
     /**
      * ********* Export To CSV *******************
      * *****************************************
@@ -244,7 +268,7 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
+
     /**
      * ********* SEPARATABLE *******************
      * *****************************************
@@ -256,7 +280,7 @@ class TableController extends AbstractActionController
     {
         $source = $this->getSource();
         $source->order('city ASC');
-        
+
         $table = new TableExample\Separatable();
         $table->setAdapter($this->getDbAdapter())
                 ->setSource($source)
@@ -264,23 +288,23 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
+
     /**
      * ********* Variable Row Attr *******************
      * *****************************************
      */
     public function variableAttrRowAction()
     {
-        
+
     }
-    
+
     /**
      * ********* New plugin condition *******************
      * *****************************************
      */
     public function newPluginConditionAction()
     {
-        
+
     }
     public function ajaxNewPluginConditionAction()
     {
@@ -291,9 +315,9 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
-    
+
+
+
     /**
      * ********* Base *******************
      * ***********************************
@@ -310,15 +334,15 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
     /**
      * ********* Mapper *******************
      * ***********************************
      */
     public function mapperAction()
     {
-        
+
     }
 
     public function ajaxMapperAction()
@@ -329,16 +353,16 @@ class TableController extends AbstractActionController
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render());
-        
+
     }
-    
+
     /**
      * ********* Link *******************
      * ***********************************
      */
     public function linkAction()
     {
-        
+
     }
 
     public function ajaxLinkAction()
@@ -350,15 +374,15 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
      /**
      * ********* Template *******************
      * ***********************************
      */
     public function templateAction()
     {
-        
+
     }
 
     public function ajaxTemplateAction()
@@ -370,15 +394,15 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
      /**
      * ********* Attr *******************
      * ***********************************
      */
     public function attrAction()
     {
-        
+
     }
 
     public function ajaxAttrAction()
@@ -390,15 +414,15 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
     /**
      * ********* Condition *******************
      * ***********************************
      */
     public function conditionAction()
     {
-        
+
     }
 
     public function ajaxConditionAction()
@@ -410,15 +434,15 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
-    
+
+
     /**
      * ********* Mix *******************
      * ***********************************
      */
     public function mixAction()
     {
-        
+
     }
 
     public function ajaxMixAction()
@@ -430,14 +454,14 @@ class TableController extends AbstractActionController
         ;
         return $this->htmlResponse($table->render());
     }
-    
+
      /**
      * ********* Advance *******************
      * ***********************************
      */
     public function advanceAction()
     {
-        
+
     }
 
     public function ajaxAdvanceAction()
@@ -448,15 +472,15 @@ class TableController extends AbstractActionController
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
         return $this->htmlResponse($table->render('custom' , 'custom-b3'));
-        
+
     }
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     /************************************************ */
     /*************** EXAMPLE DATA TABLE ************* */
 
@@ -488,8 +512,8 @@ class TableController extends AbstractActionController
         $response->setContent($table->render('dataTableJson'));
         return $response;
     }
-    
-    
+
+
     public function htmlResponse($html)
     {
         $response = $this->getResponse();
@@ -497,24 +521,24 @@ class TableController extends AbstractActionController
         $response->setContent($html);
         return $response;
     }
-    
+
     public function jsonResponse($data)
     {
         if(!is_array($data)){
             throw new Exception('$data param must be array');
         }
-        
+
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($data));
         return $response;
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @return \ZfTable\Example\Model\CustomerTable
-     * 
+     *
      */
     public function getCustomerTable()
     {
@@ -524,15 +548,15 @@ class TableController extends AbstractActionController
         }
         return $this->customerTable;
     }
-    
+
     /**********************My codes*********************/
-    
-    
-    
+
+
+
     public function institutionRequestsAction()
     {
     }
-    
+
     public function ajaxInstitutionRequestsAction()
     {
         $table = new TableExample\InstitutionRequests();
@@ -541,20 +565,20 @@ class TableController extends AbstractActionController
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($table->render());
     }
- 
+
     /**
-     * 
+     *
      * @return type
      */
     private function getInstitutionRequests()
     {
         return $this->getCustomerTable()->fetchAllInstitutionRequests();
     }
-    
-           
+
+
 
     /**
-     * 
+     *
      * @return Zend\Db\Adapter\Adapter
      */
     public function getDbAdapter()
@@ -567,14 +591,14 @@ class TableController extends AbstractActionController
     }
 
     /**
-     * 
+     *
      * @return \Zend\Db\Sql\Select
      */
     private function getSource()
     {
         return $this->getCustomerTable()->fetchAllSelect();
     }
-    
-    
+
+
 
 }
