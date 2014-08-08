@@ -16,7 +16,10 @@ Integrated with DataTables, Doctrine 2, Bootstrap 2.0 and 3.0.
 Contributors
 ------------
 If you want to help develop this module please don't hesitate. 
+Thanks for cooperation:
 
+- alejandro-fiore (https://github.com/alejandro-fiore)
+- julillosamaral (https://github.com/julillosamaral)
 
 Requirements
 ------------
