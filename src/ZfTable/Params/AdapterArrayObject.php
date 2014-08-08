@@ -83,7 +83,8 @@ AdapterInterface,
      */
     public function init()
     {
-        $array = $this->object->toArray();
+        $array = (method_exists($this->object , 'toArray'))  ? $this->object->toArray() : $this->object->getArrayCopy();
+        
         $this->page = (isset($array['zfTablePage'])) ? $array['zfTablePage'] : self::DEFAULT_PAGE;
         $this->column = (isset($array['zfTableColumn'])) ? $array['zfTableColumn'] : null;
         $this->order = (isset($array['zfTableOrder'])) ? $array['zfTableOrder'] : self::DEFAULT_ORDER;
