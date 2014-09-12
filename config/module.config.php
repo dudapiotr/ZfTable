@@ -33,6 +33,10 @@ return array(
                 /*BOOTSTRAP*/
                 'css/bootstrap-3.0.0/bootstrap.min.css' => __DIR__ . '/../src/ZfTable/Public/css/bootstrap-3.0.0/bootstrap.min.css',
                 
+                'css/bootstrap-2.2.2/bootstrap.min.css' => __DIR__ . '/../src/ZfTable/Public/css/bootstrap-2.2.2/bootstrap.min.css',
+                'css/bootstrap-2.2.2/bootstrap-responsive.min.css' => __DIR__ . '/../src/ZfTable/Public/css/bootstrap-2.2.2/bootstrap-responsive.min.css',
+                'css/bootstrap-2.2.2/DT_bootstrap.css' => __DIR__ . '/../src/ZfTable/Public/css/bootstrap-2.2.2/DT_bootstrap.css',
+                
             ),
             
             
