@@ -48,6 +48,7 @@ Features
 -  Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
 
 Changes in Version 3.1
+----------------
 - Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
 
 Changes in Version 3.0
