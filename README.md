@@ -1,6 +1,6 @@
-ZfTable 3.0 [See on live (new site)](http://dudapiotr.eu)
+ZfTable 3.1 [See on live (new site)](http://dudapiotr.eu)
 =======
-Version 3.0 Created by Piotr Duda
+Version 3.1 Created by Piotr Duda
 
 Download
 -----------
@@ -45,6 +45,10 @@ Features
 -  Array Adaper  (Source)
 -  JavaScript Events (Callable Events)
 -  Possibility to send additional params
+-  Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
+
+Changes in Version 3.1
+- Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
 
 Changes in Version 3.0
 ----------------
