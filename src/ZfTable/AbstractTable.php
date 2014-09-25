@@ -241,6 +241,8 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             return $this->getRender()->renderDataTableJson();
         } elseif ($type == 'custom') {
             return $this->getRender()->renderCustom($template);
+        } elseif ($type == 'newDataTableJson'){
+	        return $this->getRender()->renderNewDataTableJson();
         }
 
     }
