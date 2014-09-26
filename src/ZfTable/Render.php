@@ -68,6 +68,22 @@ class Render extends AbstractCommon
     }
     
     
+    public function renderNewDataTableJson()
+    {
+
+        $render = $this->getTable
+        ()->getRow()->renderRows('array');
+        
+        $res = array(
+          	'draw' => $render,
+            'recordsFiltered' => $this->getTable()->getSource()->getPaginator()->getTotalItemCount();
+            'data' => $render;
+        );
+            
+        
+        return json_encode($res);
+    }
+    
     /**
      * Rentering init view for dataTable
      * @return string 
