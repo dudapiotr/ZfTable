@@ -22,7 +22,7 @@ Thanks for cooperation:
 
 - alejandro-fiore (https://github.com/alejandro-fiore)
 - julillosamaral (https://github.com/julillosamaral)
-- drchav (https://github.com/drchav)
+- drchav (https://github.com/drchav)  (DataTable 1.10 Changes)
 
 Requirements
 ------------
