@@ -22,6 +22,7 @@ Thanks for cooperation:
 
 - alejandro-fiore (https://github.com/alejandro-fiore)
 - julillosamaral (https://github.com/julillosamaral)
+- drchav (https://github.com/drchav)
 
 Requirements
 ------------
