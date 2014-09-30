@@ -76,8 +76,8 @@ class Render extends AbstractCommon
         
         $res = array(
           	'draw' => $render,
-            'recordsFiltered' => $this->getTable()->getSource()->getPaginator()->getTotalItemCount();
-            'data' => $render;
+            'recordsFiltered' => $this->getTable()->getSource()->getPaginator()->getTotalItemCount(),
+            'data' => $render,
         );
             
         
