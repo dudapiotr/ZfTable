@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Cell;
 
@@ -15,7 +14,7 @@ class Link extends AbstractCellDecorator
 {
 
     /**
-     * Array of variable attibute for link
+     * Array of variable attribute for link
      * @var array
      */
     protected $vars;
@@ -26,9 +25,10 @@ class Link extends AbstractCellDecorator
      */
     protected $url;
 
-    
+
     /**
      * Constructor
+     *
      * @param array $options
      * @throws Exception\InvalidArgumentException
      */
@@ -62,5 +62,4 @@ class Link extends AbstractCellDecorator
         $url = vsprintf($this->url, $values);
         return sprintf('<a  href="%s">%s</a>', $url, $context);
     }
-
 }

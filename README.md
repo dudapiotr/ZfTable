@@ -41,11 +41,11 @@ Features
 -  Simple customization (show in example -  we can change table view to any view eq list of articles with all features like pagination, quicksearch, sorint and item per page)
 -  Editable decorator -> the ability to edit data from the table level
 -  Filtering for each column
--  Row decorator for separeting row by ordering column (dividing the same data)
+-  Row decorator for separating row by ordering column (dividing the same data)
 -  Exporter data to CVS
 -  Callable decorator
 -  Doctrine 2 Adapter (Source)
--  Array Adaper  (Source)
+-  Array Adapter  (Source)
 -  JavaScript Events (Callable Events)
 -  Possibility to send additional params
 -  Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
@@ -58,7 +58,7 @@ Changes in Version 3.0
 ----------------
 - Callable decorator
 - Doctrine 2 Adapter (Source)
-- Array Adaper  (Source)
+- Array Adapter  (Source)
 - JavaScript Events (Callable Events)
 - Possibility to send additional params
 
@@ -67,17 +67,17 @@ Changes in Version 2.0
 ----------------
 -  Editable decorator -> the ability to edit data from the table level
 -  Filtering for each column
--  Row decorator for separeting row by ordering column (dividing the same data)
+-  Row decorator for separating row by ordering column (dividing the same data)
 -  New conditions
 -  Exporter data to CVS
 -  Support for Bootstrap 3.0
 
 
-In next verions
+In next versions
 ----------------
 - MongoDB adapter
 - Export only selected data
-- Add dynamicly (by ajax) new row
+- Add dynamically (by ajax) new row
 - More decorators and conditions
 - Adapter for JGrid
 - Exporter (PDFV)
@@ -93,4 +93,4 @@ https://github.com/dudapiotr/ZfTable/wiki/Installation-and-Configuration
 Examples [See on live](http://dudapiotr.eu)
 -------
 In Example directory there is a couple of examples how use decorators and generate table. After added js and css file
-to your layout view, in controller there are a table calls(based on datas from ZF2 tutorial - album ).
+to your layout view, in controller there are a table calls(based on data from ZF2 tutorial - album).

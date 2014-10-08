@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -20,8 +19,10 @@ class CallableTable extends AbstractTable
         'showQuickSearch' => false,
         'showItemPerPage' => true,
     );
-    
-    //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'callableColumn' => array('title' => 'Closure' ,'sortable' => false),
@@ -35,7 +36,7 @@ class CallableTable extends AbstractTable
     public function init()
     {
         $this->getHeader('callableColumn')->getCell()->addDecorator('callable', array(
-            'callable' => function($context, $record){
+            'callable' => function ($context, $record) {
                 return ' Imię : ' . $record['name'] . ', Nazwisko: '. $record['surname'];
             }
         ));

@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable;
 
@@ -18,21 +17,18 @@ class Render extends AbstractCommon
 
     /**
      * PhpRenderer object
-     * @var PhpRenderer 
+     * @var PhpRenderer
      */
     protected $renderer;
 
-    
     /**
      *
      * @var ModuleOptions
      */
     protected $options;
-    
-    
-    
+
     /**
-     * 
+     *
      * @param AbstractTable $table
      */
     public function __construct($table)
@@ -42,6 +38,7 @@ class Render extends AbstractCommon
 
     /**
      * Rendering paginator
+     *
      * @return string
      */
     public function renderPaginator()
@@ -51,10 +48,11 @@ class Render extends AbstractCommon
         $res = $this->getRenderer()->paginationControl($paginator, 'Sliding', 'paginator-slide');
         return $res;
     }
-    
+
      /**
-     * Rentering json for dataTable
-     * @return string 
+     * Rendering json for dataTable
+      *
+     * @return string
      */
     public function renderDataTableJson()
     {
@@ -63,55 +61,55 @@ class Render extends AbstractCommon
         $res['sEcho'] = $render;
         $res['iTotalDisplayRecords'] = $this->getTable()->getSource()->getPaginator()->getTotalItemCount();
         $res['aaData'] = $render;
-        
+
         return json_encode($res);
     }
-    
-    
+
+
     public function renderNewDataTableJson()
     {
 
-        $render = $this->getTable
-        ()->getRow()->renderRows('array');
-        
+        $render = $this->getTable()->getRow()->renderRows('array');
+
         $res = array(
-          	'draw' => $render,
+            'draw' => $render,
             'recordsFiltered' => $this->getTable()->getSource()->getPaginator()->getTotalItemCount(),
             'data' => $render,
         );
-            
-        
+
         return json_encode($res);
     }
-    
+
     /**
-     * Rentering init view for dataTable
-     * @return string 
+     * Rendering init view for dataTable
+     *
+     * @return string
      */
     public function renderDataTableAjaxInit()
     {
         $renderedHeads = $this->renderHead();
-        
+
         $view = new \Zend\View\Model\ViewModel();
         $view->setTemplate('data-table-init');
         $view->setVariable('headers', $renderedHeads);
         $view->setVariable('attributes', $this->getTable()->getAttributes());
-        
+
         return $this->getRenderer()->render($view);
-        
+
     }
-    
-    
-    public function renderCustom($template){
-        
+
+
+    public function renderCustom($template)
+    {
+
         $tableConfig = $this->getTable()->getOptions();
         $rowsArray = $this->getTable()->getRow()->renderRows('array_assc');
-        
+
         $view = new \Zend\View\Model\ViewModel();
         $view->setTemplate($template);
 
         $view->setVariable('rows', $rowsArray);
-        
+
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
@@ -125,22 +123,23 @@ class Render extends AbstractCommon
 
         return $this->getRenderer()->render($view);
     }
-    
+
     /**
-     * Rentering table
-     * @return string 
+     * Rendering table
+     *
+     * @return string
      */
     public function renderTableAsHtml()
     {
         $render = '';
         $tableConfig = $this->getTable()->getOptions();
-        
-        if($tableConfig->getShowColumnFilters()){
+
+        if ($tableConfig->getShowColumnFilters()) {
             $render .= $this->renderFilters();
         }
-        
+
         $render .= $this->renderHead();
-        $render  = sprintf('<thead>%s</thead>',$render);
+        $render = sprintf('<thead>%s</thead>', $render);
         $render .= $this->getTable()->getRow()->renderRows();
         $table = sprintf('<table %s>%s</table>', $this->getTable()->getAttributes(), $render);
 
@@ -148,7 +147,7 @@ class Render extends AbstractCommon
         $view->setTemplate('container');
 
         $view->setVariable('table', $table);
-        
+
         $view->setVariable('paginator', $this->renderPaginator());
         $view->setVariable('paramsWrap', $this->renderParamsWrap());
         $view->setVariable('itemCountPerPage', $this->getTable()->getParamAdapter()->getItemCountPerPage());
@@ -162,21 +161,24 @@ class Render extends AbstractCommon
 
         return $this->getRenderer()->render($view);
     }
-    
-    
+
+
     /**
      * Rendering filters
+     *
      * @return string
      */
     public function renderFilters()
     {
         $headers = $this->getTable()->getHeaders();
         $render = '';
-        
+
         foreach ($headers as $name => $params) {
+
             if (isset($params['filters'])) {
                 $value = $this->getTable()->getParamAdapter()->getValueOfFilter($name);
                 $id = 'zff_'.$name;
+
                 if (is_string($params['filters'])) {
                     $element = new \Zend\Form\Element\Text($id);
                 } else {
@@ -185,7 +187,7 @@ class Render extends AbstractCommon
                 }
                 $element->setAttribute('class', 'filter form-control');
                 $element->setValue($value);
-                
+
                 $render .= sprintf('<td>%s</td>', $this->getRenderer()->formRow($element));
             } else {
                 $render .= '<td></td>';
@@ -193,11 +195,12 @@ class Render extends AbstractCommon
         }
         return sprintf('<tr>%s</tr>', $render);
     }
-    
-    
-    
+
+
+
     /**
      * Rendering head
+     *
      * @return string
      */
     public function renderHead()
@@ -212,7 +215,8 @@ class Render extends AbstractCommon
     }
 
     /**
-     * Rendering params wrap to ajax comunication
+     * Rendering params wrap to ajax communication
+     *
      * @return string
      */
     public function renderParamsWrap()
@@ -236,11 +240,11 @@ class Render extends AbstractCommon
     protected function initRenderer()
     {
         $renderer = new PhpRenderer();
-        
+
         $plugins = $renderer->getHelperPluginManager();
         $config  = new \Zend\Form\View\HelperConfig;
         $config->configureServiceManager($plugins);
-        
+
         $resolver = new Resolver\AggregateResolver();
         $map = new Resolver\TemplateMapResolver($this->getTable()->getOptions()->getTemplateMap());
         $resolver->attach($map);
@@ -250,7 +254,7 @@ class Render extends AbstractCommon
     }
 
     /**
-     * Get PHPRenderer 
+     * Get PHPRenderer
      * @return PhpRenderer
      */
     public function getRenderer()
@@ -269,7 +273,4 @@ class Render extends AbstractCommon
     {
         $this->renderer = $renderer;
     }
-
-    
 }
-

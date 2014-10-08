@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -21,8 +21,10 @@ class Mapper extends AbstractTable
         'showItemPerPage' => true,
         'itemCountPerPage' => 10,
     );
-    
-     //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' ),
@@ -38,8 +40,5 @@ class Mapper extends AbstractTable
             '0' => 'NO',
             '1' => 'YES'
         ));
-       
     }
-
-
 }

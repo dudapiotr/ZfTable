@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -17,12 +17,12 @@ abstract class AbstractRowDecorator extends AbstractDecorator implements DataAcc
 
     /**
      * Row object
-     * @var ZfTable\Row
+     * @var \ZfTable\Row
      */
     protected $row;
 
     /**
-     * 
+     *
      * @return \ZfTable\Row
      */
     public function getRow()
@@ -31,17 +31,16 @@ abstract class AbstractRowDecorator extends AbstractDecorator implements DataAcc
     }
 
     /**
-     * 
+     *
      * @param \ZfTable\Row $row
-     * @return \ZfTable\Decorator\Row\AbstractRow
+     * @return $this
      */
     public function setRow($row)
     {
         $this->row = $row;
         return $this;
     }
-    
-    
+
     /**
      * Get actual row
      * @return array
@@ -50,7 +49,4 @@ abstract class AbstractRowDecorator extends AbstractDecorator implements DataAcc
     {
         return $this->getRow()->getActualRow();
     }
-
-
 }
-

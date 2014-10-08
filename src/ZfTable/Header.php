@@ -3,84 +3,94 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable;
 
 use ZfTable\AbstractElement;
 use ZfTable\Cell;
+use ZfTable\Decorator\DecoratorFactory;
 
 class Header extends AbstractElement
 {
     /**
      * Name of header (should be the same like name in database)
+     *
      * @var string
      */
     protected $name;
-    
+
     /**
      * Title of header
+     *
      * @var string
      */
     protected $title;
-    
+
     /**
      * Width of the column
+     *
      * @var int
      */
     protected $width;
-    
-    
+
+
     /**
      * Name of table alias for defined column
+     *
      * @var string
      */
     protected $tableAlias;
-    
+
     /**
      * Cell object
      * @var Cell
      */
     protected $cell;
-    
+
     /**
      * Flag to inform if column should be sortable
-     * @var boolean 
+     *
+     * @var boolean
      */
     protected $sortable = true;
-    
+
     /**
      * Check if column is separatable
+     *
      * @var boolean
      */
     protected $separatable = false;
-    
+
     /**
      * Check if column is editable
+     *
      * @var boolean
      */
     protected $editable = false;
-    
-    
+
+
     /**
      * Table of options
+     *
      * @var array
      */
     protected $options = array();
-    
+
     /**
      * Static array exchanging ordering (when column is ascending, in data-ordering should be desc)
+     *
      * @var array
      */
     protected static $orderReverse = array(
         'asc' => 'desc',
         'desc' => 'asc'
     );
-    
+
     /**
      * Array of options
+     *
      * @param string $name
      * @param array $options
      */
@@ -93,9 +103,10 @@ class Header extends AbstractElement
 
     /**
      * Set options like title, width, order, sortable
+     *
      * @param string $name
      * @param array $options
-     * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
+     * @return Decorator\Header\AbstractHeaderDecorator
      */
     public function addDecorator($name, $options = array())
     {
@@ -107,8 +118,9 @@ class Header extends AbstractElement
 
     /**
      * Set options like title, width, order
+     *
      * @param array $options
-     * @return \ZfTable\Header
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -118,18 +130,19 @@ class Header extends AbstractElement
         $this->sortable = (isset($options['sortable'])) ? $options['sortable'] : true;
         $this->separatable = (isset($options['separatable'])) ? $options['separatable'] : $this->getSeparatable();
         $this->tableAlias = (isset($options['tableAlias'])) ? $options['tableAlias'] : '';
-        
-        if(isset($options['editable']) && $options['editable'] == true){
+
+        if (isset($options['editable']) && $options['editable'] == true) {
             $this->editable = $options['editable'];
-            $this->getCell()->addDecorator('editable',array());
+            $this->getCell()->addDecorator('editable', array());
         }
-        
-        
+
+
         return $this;
     }
 
     /**
      * Get width of column
+     *
      * @return int
      */
     public function getWidth()
@@ -139,6 +152,7 @@ class Header extends AbstractElement
 
     /**
      * Set width of column
+     *
      * @param int $width
      */
     public function setWidth($width)
@@ -147,7 +161,8 @@ class Header extends AbstractElement
     }
 
     /**
-     * Retrun cell object
+     * Return cell object
+     *
      * @return Cell
      */
     public function getCell()
@@ -157,6 +172,7 @@ class Header extends AbstractElement
 
     /**
      * Set cell object
+     *
      * @param Cell $cell
      */
     public function setCell($cell)
@@ -165,9 +181,10 @@ class Header extends AbstractElement
     }
 
     /**
-     * Set name of header 
+     * Set name of header
+     *
      * @param string $name
-     * @return \ZfTable\Header
+     * @return $this
      */
     public function setName($name)
     {
@@ -177,6 +194,7 @@ class Header extends AbstractElement
 
     /**
      * Get name of header
+     *
      * @return string
      */
     public function getName()
@@ -186,8 +204,9 @@ class Header extends AbstractElement
 
     /**
      * Set header title
+     *
      * @param string $title
-     * @return \ZfTable\Header
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -197,15 +216,17 @@ class Header extends AbstractElement
 
     /**
      * Get header title
+     *
      * @return string
      */
     public function getTitle()
     {
         return $this->title;
     }
-    
+
     /**
      * Get sortable flag
+     *
      * @return boolean
      */
     public function getSortable()
@@ -215,15 +236,17 @@ class Header extends AbstractElement
 
     /**
      * Set flat to inform about sortable
+     *
      * @param boolean $sortable
      */
     public function setSortable($sortable)
     {
         $this->sortable = $sortable;
     }
-    
+
     /**
      * Get flat to inform about separable
+     *
      * @return boolean
      */
     public function getSeparatable()
@@ -233,24 +256,26 @@ class Header extends AbstractElement
 
     /**
      * Flag to inform about for all cell in header
+     *
      * @param boolean $separatable
      */
     public function setSeparatable($separatable)
     {
         $this->separatable = $separatable;
     }
-    
+
     /**
-     * 
+     *
      * @return boolean
      */
     public function getEditable()
     {
         return $this->editable;
     }
-    
+
     /**
      * Flag to inform about for all cell in header
+     *
      * @param boolean $editable
      */
     public function setEditable($editable)
@@ -260,7 +285,8 @@ class Header extends AbstractElement
 
     /**
      * Get list of options
-     * @return options
+     *
+     * @return array
      */
     public function getOptions()
     {
@@ -269,16 +295,19 @@ class Header extends AbstractElement
 
     /**
      * Get header title
+     *
      * @return string
      */
     public function getTableAlias()
     {
         return $this->tableAlias;
     }
-    
+
     /**
      * Set reference to table
-     * @param AbstractTable $table
+     *
+     * @param $table
+     * @return void|\ZfTable\AbstractCommon
      */
     public function setTable($table)
     {
@@ -294,37 +323,35 @@ class Header extends AbstractElement
         $paramColumn = $this->getTable()->getParamAdapter()->getColumn();
         $paramOrder = $this->getTable()->getParamAdapter()->getOrder();
         $order = ($paramColumn == $this->getName()) ? self::$orderReverse[$paramOrder] : 'asc';
-        
-        if($this->getSortable()){
-            $classSorting = ($paramColumn == $this->getName()) ? 'sorting_' . self::$orderReverse[$paramOrder] : 'sorting';
+
+        if ($this->getSortable()) {
+            $classSorting = ($paramColumn == $this->getName())
+                ? 'sorting_' . self::$orderReverse[$paramOrder] : 'sorting';
             $this->addClass($classSorting);
             $this->addClass('sortable');
             $this->addAttr('data-order', $order);
             $this->addAttr('data-column', $this->getName());
         }
-        
-        
-        if($this->width){
+
+
+        if ($this->width) {
             $this->addAttr('width', $this->width);
         }
     }
-    
-    
+
     /**
      * Rendering header element
+     *
      * @return string
      */
     public function render()
     {
         $this->initRendering();
         $render = $this->getTitle();
-        
+
         foreach ($this->decorators as $decorator) {
             $render = $decorator->render($render);
         }
         return sprintf('<th %s >%s</th>', $this->getAttributes(), $render);
     }
-    
-    
-
 }

@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_script:
+  # update composer and fetch dependencies
+  - composer self-update
+  - composer install --prefer-source --dev
+
+script:
+  - sh -c "find ./ ! -path '*vendor*' ! -path '*data*' -name '*.php' -o -name '*.phtml' | xargs -r -L 1 -P 1 -I F php -r 'exec("\""php -l F"\"");'"
+  - sh -c "./vendor/bin/phpcs --standard=PSR2 --encoding=UTF-8 --extensions=php ./src/ZfTable"

@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -17,8 +16,10 @@ class DataTable extends AbstractTable
     protected $config = array(
         'name' => 'Data table integration',
     );
-    
-     //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' ),
@@ -34,9 +35,9 @@ class DataTable extends AbstractTable
         $this->addAttr('id', 'zfDataTableExample');
         $this->addClass('display');
     }
-    
+
     protected function initFilters($query)
     {
-       
+
     }
 }

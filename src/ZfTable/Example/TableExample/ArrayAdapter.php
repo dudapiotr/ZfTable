@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -21,8 +20,10 @@ class ArrayAdapter extends AbstractTable
         'showItemPerPage' => true,
         'showColumnFilters' => true,
     );
-    
-    //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' , 'separatable' => true , 'filters' => 'text'),
@@ -34,39 +35,38 @@ class ArrayAdapter extends AbstractTable
 
     public function init()
     {
+
     }
-        
+
     protected function initFilters($arrayData)
     {
         $keys = array();
-        
-        foreach($arrayData as $key => $row){
+
+        foreach ($arrayData as $key => $row) {
             if ($value = $this->getParamAdapter()->getValueOfFilter('name')) {
-                if(strpos($row['name'], $value) === false && !isset($keys[$key]) ){
+                if (strpos($row['name'], $value) === false && !isset($keys[$key])) {
                     $keys[] = $key;
                 }
             }
             if ($value = $this->getParamAdapter()->getValueOfFilter('surname')) {
-                if(strpos($row['surname'], $value) === false && !isset($keys[$key]) ){
+                if (strpos($row['surname'], $value) === false && !isset($keys[$key])) {
                     $keys[] = $key;
                 }
             }
             if ($value = $this->getParamAdapter()->getValueOfFilter('street')) {
-                if(strpos($row['street'], $value) === false && !isset($keys[$key]) ){
+                if (strpos($row['street'], $value) === false && !isset($keys[$key])) {
                     $keys[] = $key;
                 }
             }
             if ($value = $this->getParamAdapter()->getValueOfFilter('city')) {
-                if(strpos($row['city'], $value) === false && !isset($keys[$key]) ){
+                if (strpos($row['city'], $value) === false && !isset($keys[$key])) {
                     $keys[] = $key;
                 }
             }
         }
-        
-        foreach($keys as $key){
+
+        foreach ($keys as $key) {
             unset($arrayData[$key]);
         }
-        
     }
-
 }

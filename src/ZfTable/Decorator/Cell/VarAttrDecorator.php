@@ -3,30 +3,32 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
-
 namespace ZfTable\Decorator\Cell;
+
+use ZfTable\Decorator\Exception;
 
 class VarAttrDecorator extends AbstractCellDecorator
 {
 
     protected $attr;
-    
-    
+
+
     /**
      * Constructor
+     *
      * @param array $options
-     * @throws Exception\InvalidArgumentException
      */
-    public function __construct($attributes)
+    public function __construct($options)
     {
-        $this->setAttr($attributes);
+        $this->setAttr($options);
     }
 
     /**
      * Rendering decorator
+     *
      * @param string $context
      * @return string
      */
@@ -39,7 +41,7 @@ class VarAttrDecorator extends AbstractCellDecorator
         }
         return $context;
     }
-    
+
     public function getAttr()
     {
         return $this->attr;
@@ -49,7 +51,4 @@ class VarAttrDecorator extends AbstractCellDecorator
     {
         $this->attr = $attr;
     }
-
-
-    
 }

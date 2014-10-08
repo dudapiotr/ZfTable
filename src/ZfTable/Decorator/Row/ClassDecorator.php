@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Row;
 
@@ -14,7 +13,7 @@ class ClassDecorator extends AbstractRowDecorator
 
     /**
      * Class
-     * @var string
+     * @var array
      */
     protected $class;
 
@@ -39,9 +38,9 @@ class ClassDecorator extends AbstractRowDecorator
     }
 
     /**
-     * 
-     * @param string $class
-     * @return \ZfTable\Decorator\Row\ClassDecorator
+     *
+     * @param string|array $class
+     * @return $this
      */
     public function setClass($class)
     {
@@ -50,12 +49,11 @@ class ClassDecorator extends AbstractRowDecorator
     }
 
     /**
-     * 
-     * @return string
+     *
+     * @return null|array
      */
     public function getClass()
     {
         return $this->class;
     }
-
 }
