@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Condition\Plugin;
 
@@ -19,21 +18,21 @@ class Between extends AbstractCondition
      * @var string
      */
     protected $column;
-    
+
     /**
-     * 
-     * @var float | int 
+     *
+     * @var float | int
      */
     protected $min;
-    
+
     /**
-     * 
-     * @var float | int 
+     *
+     * @var float | int
      */
     protected $max;
 
     /**
-     * 
+     *
      * @param array $options
      */
     public function __construct($options)
@@ -44,21 +43,24 @@ class Between extends AbstractCondition
     }
 
     /**
-     * Check if the condition is valid 
-     * (if arrays given as values it's enought to find only one elements equal to pattern )
+     * Check if the condition is valid
+     *
+     * (if arrays given as values it's enough to find only one elements equal to pattern)
+     *
      * @return boolean
      */
     public function isValid()
     {
         $row = $this->getActulRow();
+
         if ($row[$this->column] >= $this->min  && $row[$this->column] <= $this->max) {
             return true;
         }
         return false;
     }
-    
+
     /**
-     * 
+     *
      * @return float | int
      */
     public function getMin()
@@ -67,7 +69,7 @@ class Between extends AbstractCondition
     }
 
     /**
-     * 
+     *
      * @return float | int
      */
     public function setMin($min)
@@ -76,7 +78,7 @@ class Between extends AbstractCondition
     }
 
     /**
-     * 
+     *
      * @return float | int
      */
     public function getMax()
@@ -85,12 +87,11 @@ class Between extends AbstractCondition
     }
 
     /**
-     * 
+     *
      * @return float | int
      */
     public function setMax($max)
     {
         $this->max = $max;
     }
-
 }

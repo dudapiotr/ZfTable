@@ -1,23 +1,23 @@
 <?php if ($this->pageCount): ?>
-        <ul class="pagination">
-            <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
-                <a data-page="<?php echo $this->first?>" href="">&laquo;</a></li>
-            <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
-                <a data-page="<?php echo $this->previous?>" href="">&lsaquo;</a></li>
+    <ul class="pagination">
+        <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
+            <a data-page="<?php echo $this->first?>" href="">&laquo;</a></li>
+        <li <?php echo!isset($this->previous) ? 'class="disabled"' : ''; ?>>
+            <a data-page="<?php echo $this->previous?>" href="">&lsaquo;</a></li>
 
-            <!-- Numbered page links -->
-            <?php foreach ($this->pagesInRange as $page): ?>
-                <li <?php echo $page == $this->current ? 'class="active"' : ''; ?>>
-                    <a data-page="<?php echo $page?>" href="">
-                        <?php echo $page; ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-            <!-- Next page link -->
-            <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
-                <a data-page="<?php echo $this->next?>" href="">&rsaquo;</a></li>
-            <!-- Last page link -->
-            <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
-                <a data-page="<?php echo $this->last?>" href="">&raquo;</a></li>
-        </ul>
+        <!-- Numbered page links -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <li <?php echo $page == $this->current ? 'class="active"' : ''; ?>>
+                <a data-page="<?php echo $page?>" href="">
+                    <?php echo $page; ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+        <!-- Next page link -->
+        <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+            <a data-page="<?php echo $this->next?>" href="">&rsaquo;</a></li>
+        <!-- Last page link -->
+        <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+            <a data-page="<?php echo $this->last?>" href="">&raquo;</a></li>
+    </ul>
 <?php endif; ?>

@@ -45,7 +45,7 @@ Features
 -  Exporter data to CVS
 -  Callable decorator
 -  Doctrine 2 Adapter (Source)
--  Array Adaper  (Source)
+-  Array Adapter  (Source)
 -  JavaScript Events (Callable Events)
 -  Possibility to send additional params
 -  Asset manager functionality (https://github.com/RWOverdijk/AssetManager)

@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -14,7 +14,9 @@ use ZfTable\AbstractTable;
 class LinkDecorator extends AbstractTable
 {
 
-    //Definition of headers
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'artist' => array('title' => 'Artist'),
         'title' => array('title' => 'Title')
@@ -28,6 +30,4 @@ class LinkDecorator extends AbstractTable
         ))->addCondition('equal', array('column' => 'artist', 'values' => 'Adele'));
 
     }
-
-
 }

@@ -6,14 +6,13 @@
  * @license   MIT License
  */
 
-
 namespace ZfTable\Params;
 
 use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class  AdapterNewDatatables extends AbstractAdapter implements
+class AdapterNewDatatables extends AbstractAdapter implements
     AdapterInterface,
     \Zend\Stdlib\InitializableInterface
 {
@@ -62,7 +61,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
     {
         if ($object instanceof \ArrayObject) {
             $this->object = $object;
-        } else if ($object instanceof \Zend\Stdlib\ArrayObject) {
+        } elseif ($object instanceof \Zend\Stdlib\ArrayObject) {
             $this->object = $object;
         } else {
             throw new Exception\InvalidArgumentException('parameter must be instance of ArrayObject');
@@ -79,7 +78,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
         $this->page = (isset($array['start'])) ? ($array['start'] / $array['length'] + 1) : self::DEFAULT_PAGE;
 
 
-        if(isset($array['order'][0]['column'])){
+        if (isset($array['order'][0]['column'])) {
             $headers = $this->getTable()->getHeaders();
             $slice = array_slice($headers, $array['order'][0]['column'], 1);
             $this->column = key($slice);
@@ -91,6 +90,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Get page
+     *
      * @return int
      */
     public function getPage()
@@ -100,7 +100,9 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Set page
-     * @param string $page
+     *
+     * @param int $page
+     * @return $this
      */
     public function setPage($page)
     {
@@ -110,6 +112,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Get order
+     *
      * @return string
      */
     public function getOrder()
@@ -119,7 +122,8 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Set asc or desc ordering
-     * @param order $order
+     *
+     * @param string $order
      */
     public function setOrder($order)
     {
@@ -128,6 +132,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Get column
+     *
      * @return string
      */
     public function getColumn()
@@ -138,7 +143,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
     /**
      *
      * @param string $column
-     * @return \ZfTable\Params\AdapterArrayObject
+     * @return $this
      */
     public function setColumn($column)
     {
@@ -148,6 +153,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Get item count per page
+     *
      * @return int
      */
     public function getItemCountPerPage()
@@ -157,7 +163,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      *
-     * @param type $itemCountPerPage
+     * @param int $itemCountPerPage
      */
     public function setItemCountPerPage($itemCountPerPage)
     {
@@ -166,6 +172,7 @@ class  AdapterNewDatatables extends AbstractAdapter implements
 
     /**
      * Return offset
+     *
      * @return int
      */
     public function getOffset()
@@ -174,7 +181,8 @@ class  AdapterNewDatatables extends AbstractAdapter implements
     }
 
     /**
-     * Get quickserach string
+     * Get quick search string
+     *
      * @return string
      */
     public function getQuickSearch()
@@ -186,5 +194,4 @@ class  AdapterNewDatatables extends AbstractAdapter implements
     {
         return $this->object[$key];
     }
-
 }

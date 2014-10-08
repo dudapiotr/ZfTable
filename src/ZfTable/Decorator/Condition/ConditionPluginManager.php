@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Condition;
 
@@ -25,8 +24,8 @@ class ConditionPluginManager extends AbstractPluginManager
         'between' => '\ZfTable\Decorator\Condition\Plugin\Between',
         'greaterthan' => '\ZfTable\Decorator\Condition\Plugin\GreaterThan',
         'lesserthan' => '\ZfTable\Decorator\Condition\Plugin\LesserThan',
-        
-        
+
+
     );
 
     /**
@@ -35,13 +34,13 @@ class ConditionPluginManager extends AbstractPluginManager
      * @var bool
      */
     protected $shareByDefault = false;
-    
-    
+
+
     /**
      * See AbstractPluginManager
-     * @param \ZfTable\Decorator\Condition\AbstractCondition $plugin
-     * @return  
+     *
      * @throws \DomainException
+     * @param mixed $plugin
      */
     public function validatePlugin($plugin)
     {
@@ -50,5 +49,4 @@ class ConditionPluginManager extends AbstractPluginManager
         }
         throw new \DomainException('Invalid Condition Implementation');
     }
-
 }

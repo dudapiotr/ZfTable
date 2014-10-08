@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -19,11 +19,11 @@ interface PaginatorInterface
     public function getValuesOfItemPerPage();
 
     /**
-     * 
+     *
      * Set Array of values to set items per page
-     * 
+     *
      * @param array $valuesOfItemPerPage
-     * @return \ZfTable\Options\ModuleOptions
+     * @return self
      */
     public function setValuesOfItemPerPage($valuesOfItemPerPage);
 }

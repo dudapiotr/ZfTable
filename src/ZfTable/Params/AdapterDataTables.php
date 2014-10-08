@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Params;
 
@@ -13,9 +12,7 @@ use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class AdapterDataTables extends AbstractAdapter implements 
-AdapterInterface,
-\Zend\Stdlib\InitializableInterface
+class AdapterDataTables extends AbstractAdapter implements AdapterInterface, \Zend\Stdlib\InitializableInterface
 {
 
     /**
@@ -38,12 +35,12 @@ AdapterInterface,
 
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $column;
 
     /**
-     * 
+     *
      * @var int
      */
     protected $itemCountPerPage;
@@ -62,7 +59,7 @@ AdapterInterface,
     {
         if ($object instanceof \ArrayObject) {
             $this->object = $object;
-        } else if ($object instanceof \Zend\Stdlib\ArrayObject) {
+        } elseif ($object instanceof \Zend\Stdlib\ArrayObject) {
             $this->object = $object;
         } else {
             throw new Exception\InvalidArgumentException('parameter must be instance of ArrayObject');
@@ -75,13 +72,15 @@ AdapterInterface,
     public function init()
     {
         $array = $this->object->toArray();
-        $this->page = (isset($array['iDisplayStart'])) ? ($array['iDisplayStart'] / $array['iDisplayLength'] + 1) : self::DEFAULT_PAGE;
-        
-        if(isset($array['iSortCol_0'])){
+        $this->page = (isset($array['iDisplayStart']))
+            ? ($array['iDisplayStart'] / $array['iDisplayLength'] + 1) : self::DEFAULT_PAGE;
+
+        if (isset($array['iSortCol_0'])) {
             $headers = $this->getTable()->getHeaders();
             $slice = array_slice($headers, $array['iSortCol_0'], 1);
             $this->column = key($slice);
         }
+
         $this->order = (isset($array['sSortDir_0'])) ? $array['sSortDir_0'] : self::DEFAULT_ORDER;
         $this->itemCountPerPage = (isset($array['iDisplayLength'])) ? $array['iDisplayLength'] : 999;
         $this->quickSearch = (isset($array['sSearch'])) ? $array['sSearch'] : '';
@@ -89,6 +88,7 @@ AdapterInterface,
 
     /**
      * Get page
+     *
      * @return int
      */
     public function getPage()
@@ -98,7 +98,9 @@ AdapterInterface,
 
     /**
      * Set page
-     * @param string $page
+     *
+     * @param int $page
+     * @return $this
      */
     public function setPage($page)
     {
@@ -108,6 +110,7 @@ AdapterInterface,
 
     /**
      * Get order
+     *
      * @return string
      */
     public function getOrder()
@@ -117,7 +120,8 @@ AdapterInterface,
 
     /**
      * Set asc or desc ordering
-     * @param order $order
+     *
+     * @param string $order
      */
     public function setOrder($order)
     {
@@ -126,6 +130,7 @@ AdapterInterface,
 
     /**
      * Get column
+     *
      * @return string
      */
     public function getColumn()
@@ -134,9 +139,9 @@ AdapterInterface,
     }
 
     /**
-     * 
+     *
      * @param string $column
-     * @return \ZfTable\Params\AdapterArrayObject
+     * @return $this
      */
     public function setColumn($column)
     {
@@ -146,6 +151,7 @@ AdapterInterface,
 
     /**
      * Get item count per page
+     *
      * @return int
      */
     public function getItemCountPerPage()
@@ -154,8 +160,8 @@ AdapterInterface,
     }
 
     /**
-     * 
-     * @param type $itemCountPerPage
+     *
+     * @param int $itemCountPerPage
      */
     public function setItemCountPerPage($itemCountPerPage)
     {
@@ -164,6 +170,7 @@ AdapterInterface,
 
     /**
      * Return offset
+     *
      * @return int
      */
     public function getOffset()
@@ -172,12 +179,12 @@ AdapterInterface,
     }
 
     /**
-     * Get quickserach string
+     * Get quick search string
+     *
      * @return string
      */
     public function getQuickSearch()
     {
         return $this->quickSearch;
     }
-
 }

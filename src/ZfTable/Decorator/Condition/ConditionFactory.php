@@ -3,15 +3,13 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Condition;
 
 class ConditionFactory
 {
-
     /**
      * The decorator manger
      *
@@ -19,23 +17,21 @@ class ConditionFactory
      */
     protected static $conditionManager = null;
 
-    
     /**
-     * 
+     *
      * @param string $name
      * @param array $options
-     * @return \ZfTable\Decorator\Condition\AbstractCondition
+     * @return AbstractCondition
      */
     public static function factory($name, $options)
     {
         $condition = static::getPluginManager()->get($name, $options);
         return $condition;
     }
-    
-    
+
     /**
      * Get the condition plugin manager
-     *  
+     *
      * @return ConditionPluginManager
      */
     public static function getPluginManager()
@@ -45,5 +41,4 @@ class ConditionFactory
         }
         return static::$conditionManager;
     }
-
 }

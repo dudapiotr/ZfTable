@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -21,8 +20,7 @@ class Editable extends AbstractTable
         'showColumnFilters' => true,
         'rowAction' => '/table/updateRow',
     );
-    
-    
+
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50'),
         'name' => array('title' => 'Name', 'filters' => 'text'),
@@ -37,7 +35,10 @@ class Editable extends AbstractTable
     public function init()
     {
         $this->getHeader('edit2')->getCell()->addDecorator('editable');
-        $this->getRow()->addDecorator('varattr', array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer')));
+        $this->getRow()->addDecorator(
+            'varattr',
+            array('name' => 'data-row' , 'value' => '%s' , 'vars' => array('idcustomer'))
+        );
     }
 
     protected function initFilters($query)
@@ -52,5 +53,4 @@ class Editable extends AbstractTable
             $query->where("street like '%" . $value . "%' ");
         }
     }
-
 }

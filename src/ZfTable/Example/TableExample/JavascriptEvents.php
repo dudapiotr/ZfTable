@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -13,7 +13,7 @@ use ZfTable\AbstractTable;
 
 class JavascriptEvents extends AbstractTable
 {
-    
+
     protected $config = array(
         'name' => 'Table',
         'showPagination' => true,
@@ -24,8 +24,10 @@ class JavascriptEvents extends AbstractTable
         'showExportToCSV ' => false,
         'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
     );
-    
-     //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' ),
@@ -37,7 +39,6 @@ class JavascriptEvents extends AbstractTable
 
     public function init()
     {
-        
+
     }
-    
 }

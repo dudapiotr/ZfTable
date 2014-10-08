@@ -34,7 +34,7 @@ class TableController extends AbstractActionController
 
     /**
      *
-     * @var Zend\Db\Adapter\Adapter
+     * @var \Zend\Db\Adapter\Adapter
      */
     protected $dbAdapter;
 
@@ -48,7 +48,7 @@ class TableController extends AbstractActionController
 
 
      /**
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
 
@@ -152,14 +152,13 @@ class TableController extends AbstractActionController
 
         //I don't know if it necesary to validate that request is POST
         $request = $this->getRequest();
-        
+
         $filter = $table->getFilter();
         $form->setInputFilter($filter);
         $form->setData($request->getPost());
 
-        //Optional 
-        if ($form->isValid())
-        {
+        //Optional
+        if ($form->isValid()) {
             $em = $this->getEntityManager();
             $queryBuilder = $em->createQueryBuilder();
             $queryBuilder->add('select', 'p , q')
@@ -173,9 +172,7 @@ class TableController extends AbstractActionController
             ;
 
             return $this->htmlResponse($table->render());
-        }
-        else
-        {
+        } else {
             //Indication the wrong data currently not supported
         }
 
@@ -239,8 +236,11 @@ class TableController extends AbstractActionController
     public function updateRowAction()
     {
         $param = $this->getRequest()->getPost();
-        $this->getCustomerTable()->update(array($param['column'] => $param['value']) ,array('idcustomer' => $param['row']));
-        return $this->jsonResponse(array('succes' => 1));
+        $this->getCustomerTable()->update(
+            array($param['column'] => $param['value']),
+            array('idcustomer' => $param['row'])
+        );
+        return $this->jsonResponse(array('success' => 1));
     }
 
 
@@ -463,7 +463,7 @@ class TableController extends AbstractActionController
                 ->setSource($this->getSource())
                 ->setParamAdapter($this->getRequest()->getPost())
         ;
-        return $this->htmlResponse($table->render('custom' , 'custom-b3'));
+        return $this->htmlResponse($table->render('custom', 'custom-b3'));
 
     }
 
@@ -516,8 +516,8 @@ class TableController extends AbstractActionController
 
     public function jsonResponse($data)
     {
-        if(!is_array($data)){
-            throw new Exception('$data param must be array');
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('$data param must be array');
         }
 
         $response = $this->getResponse();
@@ -559,8 +559,7 @@ class TableController extends AbstractActionController
     }
 
     /**
-     *
-     * @return type
+     * @return \Zend\Db\Sql\Select Type
      */
     private function getInstitutionRequests()
     {
@@ -571,7 +570,7 @@ class TableController extends AbstractActionController
 
     /**
      *
-     * @return Zend\Db\Adapter\Adapter
+     * @return \Zend\Db\Adapter\Adapter
      */
     public function getDbAdapter()
     {
@@ -590,7 +589,4 @@ class TableController extends AbstractActionController
     {
         return $this->getCustomerTable()->fetchAllSelect();
     }
-
-
-
 }

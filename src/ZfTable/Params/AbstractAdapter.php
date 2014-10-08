@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Params;
 
@@ -14,17 +13,14 @@ use ZfTable\Config;
 
 abstract class AbstractAdapter extends AbstractCommon
 {
-    
-    
 
     /**
      * Get configuration of table
      *
-     * @return Config
+     * @return \ZfTable\Options\ModuleOptions
      */
     public function getOptions()
     {
         return $this->getTable()->getOptions();
     }
-
 }

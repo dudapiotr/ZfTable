@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Header;
 
@@ -16,12 +15,12 @@ abstract class AbstractHeaderDecorator extends AbstractDecorator
 
     /**
      * Header object
-     * @var ZfTable\Header
+     * @var \ZfTable\Header
      */
     protected $header;
 
     /**
-     * 
+     *
      * @return \ZfTable\Header
      */
     public function getHeader()
@@ -30,15 +29,13 @@ abstract class AbstractHeaderDecorator extends AbstractDecorator
     }
 
     /**
-     * 
+     *
      * @param \ZfTable\Header $header
-     * @return \ZfTable\Decorator\Header\AbstractHeader
+     * @return \ZfTable\Decorator\Header\AbstractHeaderDecorator
      */
     public function setHeader($header)
     {
         $this->header = $header;
         return $this;
     }
-
 }
-

@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator;
 
@@ -19,15 +18,15 @@ class DecoratorFactory
      */
     protected static $decoratorManager = null;
 
-    CONST CELL_PREFIX = 'cell';
-    CONST HEADER_PREFIX = 'header';
-    CONST ROW_PREFIX = 'row';
+    const CELL_PREFIX = 'cell';
+    const HEADER_PREFIX = 'header';
+    const ROW_PREFIX = 'row';
 
     /**
-     * 
+     *
      * @param string $name
      * @param array $options
-     * @return \ZfTable\Decorator\AbstractDecorator
+     * @return AbstractDecorator
      */
     public static function factoryCell($name, $options)
     {
@@ -36,10 +35,10 @@ class DecoratorFactory
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param array $options
-     * @return \ZfTable\Decorator\AbstractDecorator
+     * @return AbstractDecorator
      */
     public static function factoryRow($name, $options)
     {
@@ -48,10 +47,10 @@ class DecoratorFactory
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param array $options
-     * @return \ZfTable\Decorator\AbstractDecorator
+     * @return AbstractDecorator
      */
     public static function factoryHeader($name, $options)
     {
@@ -61,7 +60,7 @@ class DecoratorFactory
 
     /**
      * Get the pattern plugin manager
-     *  
+     *
      * @return DecoratorPluginManager
      */
     public static function getPluginManager()
@@ -71,5 +70,4 @@ class DecoratorFactory
         }
         return static::$decoratorManager;
     }
-
 }

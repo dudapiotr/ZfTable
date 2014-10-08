@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\Model;
 
@@ -16,7 +15,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Customer implements InputFilterAwareInterface
 {
-    
+
     protected $inputFilter;
 
     /**
@@ -24,8 +23,9 @@ class Customer implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
+
     }
-    
+
     public function getArrayCopy()
     {
         return get_object_vars($this);
@@ -35,12 +35,12 @@ class Customer implements InputFilterAwareInterface
     {
         throw new \Exception("Not used");
     }
-    
+
     public function getInputFilter()
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
-            $this->inputFilter = $inputFilter;        
+            $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;

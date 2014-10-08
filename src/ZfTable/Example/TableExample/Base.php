@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -13,7 +12,7 @@ use ZfTable\AbstractTable;
 
 class Base extends AbstractTable
 {
-    
+
     protected $config = array(
         'name' => 'Base table',
         'showPagination' => true,
@@ -25,8 +24,10 @@ class Base extends AbstractTable
         'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
         'rowAction' => ''
     );
-    
-     //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' ),
@@ -38,10 +39,11 @@ class Base extends AbstractTable
 
     public function init()
     {
+
     }
-    
+
     protected function initFilters(\Zend\Db\Sql\Select $query)
     {
-       
+
     }
 }
