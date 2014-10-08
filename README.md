@@ -52,6 +52,7 @@ Features
 -  JavaScript Events (Callable Events)
 -  Possibility to send additional params
 -  Asset manager functionality (https://github.com/RWOverdijk/AssetManager)
+-  Visio Crud Module integration (https://github.com/HyPhers/visio-crud-zf2/)
 
 Changes in Version 3.1
 ----------------
