@@ -22,6 +22,7 @@ Contributors
 If you want to help develop this module please don't hesitate. 
 Thanks for cooperation:
 
+- olekhy (https://github.com/olekhy)
 - alejandro-fiore (https://github.com/alejandro-fiore)
 - julillosamaral (https://github.com/julillosamaral)
 - drchav (https://github.com/drchav)  (DataTable 1.10 Changes)
