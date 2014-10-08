@@ -12,7 +12,9 @@ use ZfTable\Params\AbstractAdapter;
 use ZfTable\Params\AdapterInterface;
 use ZfTable\Table\Exception;
 
-class AdapterDataTables extends AbstractAdapter implements AdapterInterface, \Zend\Stdlib\InitializableInterface
+class AdapterNewDatatables extends AbstractAdapter implements
+    AdapterInterface,
+    \Zend\Stdlib\InitializableInterface
 {
 
     /**
@@ -72,18 +74,18 @@ class AdapterDataTables extends AbstractAdapter implements AdapterInterface, \Ze
     public function init()
     {
         $array = $this->object->toArray();
-        $this->page = (isset($array['iDisplayStart']))
-            ? ($array['iDisplayStart'] / $array['iDisplayLength'] + 1) : self::DEFAULT_PAGE;
 
-        if (isset($array['iSortCol_0'])) {
+        $this->page = (isset($array['start'])) ? ($array['start'] / $array['length'] + 1) : self::DEFAULT_PAGE;
+
+
+        if (isset($array['order'][0]['column'])) {
             $headers = $this->getTable()->getHeaders();
-            $slice = array_slice($headers, $array['iSortCol_0'], 1);
+            $slice = array_slice($headers, $array['order'][0]['column'], 1);
             $this->column = key($slice);
         }
-
-        $this->order = (isset($array['sSortDir_0'])) ? $array['sSortDir_0'] : self::DEFAULT_ORDER;
-        $this->itemCountPerPage = (isset($array['iDisplayLength'])) ? $array['iDisplayLength'] : 999;
-        $this->quickSearch = (isset($array['sSearch'])) ? $array['sSearch'] : '';
+        $this->order = (isset($array['order'][0]['dir'])) ? $array['order'][0]['dir'] : self::DEFAULT_ORDER;
+        $this->itemCountPerPage = (isset($array['start'])) ? $array['length'] : 20;
+        $this->quickSearch = (isset($array['columns']['search']['value'])) ? $array['columns']['search']['value'] : '';
     }
 
     /**
@@ -186,5 +188,10 @@ class AdapterDataTables extends AbstractAdapter implements AdapterInterface, \Ze
     public function getQuickSearch()
     {
         return $this->quickSearch;
+    }
+
+    public function getPureValueOfFilter($key)
+    {
+        return $this->object[$key];
     }
 }

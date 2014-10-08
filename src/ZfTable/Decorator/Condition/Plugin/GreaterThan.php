@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Condition\Plugin;
 
@@ -27,7 +26,7 @@ class GreaterThan extends AbstractCondition
     protected $value;
 
     /**
-     * 
+     *
      * @param array $options
      */
     public function __construct($options)
@@ -45,5 +44,4 @@ class GreaterThan extends AbstractCondition
         $row = $this->getActulRow();
         return ($row[$this->column] > $this->value) ? true : false;
     }
-
 }

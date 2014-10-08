@@ -3,21 +3,23 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
-
 namespace ZfTable\Decorator\Cell;
+
+use ZfTable\Decorator\Exception;
 
 class AttrDecorator extends AbstractCellDecorator
 {
 
     protected $attr;
-    
-    
+
+
     /**
      * Constructor
-     * @param array $options
+     *
+     * @param array $attributes
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($attributes)
@@ -39,7 +41,7 @@ class AttrDecorator extends AbstractCellDecorator
         }
         return $context;
     }
-    
+
     public function getAttr()
     {
         return $this->attr;
@@ -49,7 +51,4 @@ class AttrDecorator extends AbstractCellDecorator
     {
         $this->attr = $attr;
     }
-
-
-    
 }

@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable;
 
@@ -22,7 +21,7 @@ class Cell extends AbstractElement
     protected $header;
 
     /**
-     * 
+     *
      * @param Header $header
      */
     public function __construct($header)
@@ -31,10 +30,10 @@ class Cell extends AbstractElement
     }
 
     /**
-     * 
-     * @param type $name
-     * @param type $options
-     * @return \ZfTable\Decorator\AbstractDecorator
+     *
+     * @param string $name type
+     * @param array  $options type
+     * @return Decorator\AbstractDecorator
      */
     public function addDecorator($name, $options = array())
     {
@@ -55,8 +54,9 @@ class Cell extends AbstractElement
 
     /**
      * Set header object
+     *
      * @param Header $header
-     * @return \ZfTable\Cell
+     * @return $this
      */
     public function setHeader($header)
     {
@@ -65,7 +65,8 @@ class Cell extends AbstractElement
     }
 
     /**
-     * Get actual row 
+     * Get actual row
+     *
      * @return array
      */
     public function getActualRow()
@@ -75,39 +76,40 @@ class Cell extends AbstractElement
 
     /**
      * Rendering single cell
+     *
      * @return string
      */
     public function render($type = 'html')
     {
         $row = $this->getTable()->getRow()->getActualRow();
-        
-        if(is_array($row) || $row instanceof ArrayAccess){
+
+        $value = '';
+
+        if (is_array($row) || $row instanceof \ArrayAccess) {
             $value = (isset($row[$this->getHeader()->getName()])) ? $row[$this->getHeader()->getName()] : '';
-        }elseif(is_object($row)){
+        } elseif (is_object($row)) {
             $headerName = $this->getHeader()->getName();
             $methodName = 'get' . ucfirst($headerName);
-			if (method_exists($row, $methodName)) {
-				$value = $row->$methodName();
-			} else {
-				$value = (property_exists($row, $headerName)) ? $row->$headerName : '';
-			}
+            if (method_exists($row, $methodName)) {
+                $value = $row->$methodName();
+            } else {
+                $value = (property_exists($row, $headerName)) ? $row->$headerName : '';
+            }
         }
-        
+
         foreach ($this->decorators as $decorator) {
             if ($decorator->validConditions()) {
                 $value = $decorator->render($value);
             }
         }
-        if($type == 'html'){
+
+        if ($type == 'html') {
             $ret = sprintf("<td %s>%s</td>", $this->getAttributes(), $value);
             $this->clearVar();
             return $ret;
-            
-        }
-        else{
+
+        } else {
             return $value;
         }
-        
     }
-
 }

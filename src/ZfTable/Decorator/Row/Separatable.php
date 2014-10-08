@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Row;
 
@@ -16,20 +15,20 @@ class Separatable extends AbstractRowDecorator
      * @var boolean
      */
     protected $isStarted = true;
-    
+
     /**
      *
-     * @var Value of previous iterated
+     * @var mixed Value of previous iterated
      */
     protected $previousColumnValue = null;
-    
+
     /**
      * Default column value
      * @var string
      */
     protected $defaultColumn = null;
-    
-    
+
+
     public function getIsStarted()
     {
         return $this->isStarted;
@@ -57,15 +56,17 @@ class Separatable extends AbstractRowDecorator
 
     /**
      * Rendering decorator
+     *
      * @param string $context
      * @return string
      */
     public function render($context)
     {
         $column = $this->getRow()->getTable()->getParamAdapter()->getColumn();
+
         if (!$column && !$this->getDefaultColumn()) {
             return $context;
-        }elseif(!$column && $this->getDefaultColumn()){
+        } elseif (!$column && $this->getDefaultColumn()) {
             $column = $this->getDefaultColumn();
         }
         $actualRow = $this->getRow()->getActualRow();
@@ -76,17 +77,17 @@ class Separatable extends AbstractRowDecorator
             $this->setPreviousColumnValue($valueOfColumn);
             return $context;
         }
-        if ($valueOfColumn !== $this->getPreviousColumnValue() && $this->getRow()->getTable()->getHeader($column)->getSeparatable() ) {
+
+        if ($valueOfColumn !== $this->getPreviousColumnValue()
+            && $this->getRow()->getTable()->getHeader($column)->getSeparatable()
+        ) {
             $this->getRow()->addVarClass('separatable');
         }
         $this->setPreviousColumnValue($valueOfColumn);
     }
-    
+
     public function getDefaultColumn()
     {
         return $this->defaultColumn;
     }
-
-
-
 }

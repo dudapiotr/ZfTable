@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -27,28 +27,29 @@ abstract class AbstractElement extends AbstractCommon
     protected $class = array();
 
     /**
-     * Colestions of decorators 
+     * Collections of decorators
      * @var array
      */
     protected $decorators = array();
-    
-    
+
+
     /**
      * Array of vars class
      * @var array
      */
     protected $varClass = array();
-    
+
     /**
      * Array of vars attr
      * @var array
      */
     protected $varAttr= array();
-    
+
     /**
      * Add new class to element
+     *
      * @param string $class
-     * @return \ZfTable\AbstractElement
+     * @return $this
      */
     public function addClass($class)
     {
@@ -60,8 +61,9 @@ abstract class AbstractElement extends AbstractCommon
 
     /**
      * Remove class from element
+     *
      * @param string $class
-     @ return \ZfTable\AbstractElement
+     * @return $this
      */
     public function removeClass($class)
     {
@@ -70,11 +72,12 @@ abstract class AbstractElement extends AbstractCommon
         }
         return $this;
     }
-    
+
      /**
      * Add new var class to element
+      *
      * @param string $class
-     * @return \ZfTable\AbstractElement
+     * @return $this
      */
     public function addVarClass($class)
     {
@@ -83,11 +86,13 @@ abstract class AbstractElement extends AbstractCommon
         }
         return $this;
     }
-    
+
     /**
      * Add new var class to element
-     * @param string $class
-     * @return \ZfTable\AbstractElement
+     *
+     * @param $name
+     * @param $value
+     * @return $this
      */
     public function addVarAttr($name, $value)
     {
@@ -96,9 +101,10 @@ abstract class AbstractElement extends AbstractCommon
         }
         return $this;
     }
-    
+
     /**
      * Add new attribute to table, header, column or rowset
+     *
      * @param string $name
      * @param string $value
      * @return mixed
@@ -118,9 +124,11 @@ abstract class AbstractElement extends AbstractCommon
     public function getClassName()
     {
         $className = '';
+
         if (count($this->class)) {
             $className = implode(' ', array_values($this->class));
         }
+
         if (count($this->varClass)) {
             $className .= ' ';
             $className .= implode(' ', array_values($this->varClass));
@@ -130,21 +138,25 @@ abstract class AbstractElement extends AbstractCommon
 
     /**
      * Get attributes as a string
-     * @return NULL|string
+     *
+     * @return null|string
      */
     public function getAttributes()
     {
         $ret = array();
+
         if (count($this->attributes)) {
             foreach ($this->attributes as $name => $value) {
                 $ret[] = sprintf($name . '="%s"', $value);
             }
         }
-         if (count($this->varAttr)) {
+
+        if (count($this->varAttr)) {
             foreach ($this->varAttr as $name => $value) {
                 $ret[] = sprintf($name . '="%s"', $value);
             }
         }
+
         if (strlen($className = $this->getClassName())) {
             $ret[] = sprintf('class="%s"', $className);
         }
@@ -159,7 +171,7 @@ abstract class AbstractElement extends AbstractCommon
         $this->varClass = array();
         $this->varAttr = array();
     }
-    
+
     /**
      * Get collestions of decoratos
      * @return array
@@ -170,9 +182,9 @@ abstract class AbstractElement extends AbstractCommon
     }
 
     /**
-     * 
-     * @param type $decorators
-     * @return \ZfTable\AbstractElement
+     *
+     * @param $decorators
+     * @return $this
      */
     public function setDecorators($decorators)
     {
@@ -181,12 +193,11 @@ abstract class AbstractElement extends AbstractCommon
     }
 
     /**
-     * 
-     * @param \ZfTable\Decorator\AbstractDecorator $options
+     *
+     * @param $decorator
      */
     protected function attachDecorator($decorator)
     {
         $this->decorators[] = $decorator;
     }
-
 }

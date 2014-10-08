@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -19,7 +19,7 @@ abstract class AbstractCommon
     protected $table;
 
     /**
-     * 
+     *
      * @return AbstractTable
      */
     public function getTable()
@@ -27,9 +27,9 @@ abstract class AbstractCommon
         return $this->table;
     }
 
-    
+
     /**
-     * 
+     *
      * @param AbstractTable $table
      * @return \ZfTable\AbstractCommon
      */
@@ -38,5 +38,4 @@ abstract class AbstractCommon
         $this->table = $table;
         return $this;
     }
-
 }

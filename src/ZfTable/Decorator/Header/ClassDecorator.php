@@ -3,18 +3,17 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator\Cell;
 
 class ClassDecorator extends AbstractCellDecorator
 {
-    
+
     /**
      * Class
-     * @var string
+     * @var array
      */
     protected $class;
 
@@ -25,12 +24,13 @@ class ClassDecorator extends AbstractCellDecorator
 
     /**
      * Rendering decorator
+     *
      * @param string $context
      * @return string
      */
     public function render($context)
     {
-        if (count($this->class) > 0) {
+        if (count($this->class) > 0 && is_array($this->class)) {
             foreach ($this->class as $class) {
                 $this->getCell()->addClass($class);
             }
@@ -40,8 +40,9 @@ class ClassDecorator extends AbstractCellDecorator
 
     /**
      * Set class
+     *
      * @param string $class
-     * @return \ZfTable\Decorator\Cell\ClassDecorator
+     * @return $this
      */
     public function setClass($class)
     {
@@ -51,11 +52,11 @@ class ClassDecorator extends AbstractCellDecorator
 
     /**
      * Get class
-     * @return string
+     *
+     * @return null|array
      */
     public function getClass()
     {
         return $this->class;
     }
-
 }

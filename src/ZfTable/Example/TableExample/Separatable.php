@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -13,15 +13,17 @@ use ZfTable\AbstractTable;
 
 class Separatable extends AbstractTable
 {
-    
+
     protected $config = array(
         'name' => 'Separatable decorator',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
     );
-    
-    //Definition of headers
+
+    /**
+     * @var array Definition of headers
+     */
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
         'name' => array('title' => 'Name' , 'separatable' => true),
@@ -38,5 +40,6 @@ class Separatable extends AbstractTable
 
     protected function initFilters($query)
     {
+
     }
 }

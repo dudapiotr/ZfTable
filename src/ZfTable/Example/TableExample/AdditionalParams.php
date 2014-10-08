@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Example\TableExample;
 
@@ -13,7 +12,7 @@ use ZfTable\AbstractTable;
 
 class AdditionalParams extends AbstractTable
 {
-    
+
     protected $config = array(
         'name' => 'Additional Params',
         'showPagination' => true,
@@ -24,7 +23,7 @@ class AdditionalParams extends AbstractTable
         'showExportToCSV ' => false,
         'valuesOfItemPerPage' => array(5, 10, 20, 50 , 100 , 200),
     );
-    
+
      //Definition of headers
     protected $headers = array(
         'idcustomer' => array('title' => 'Id', 'width' => '50') ,
@@ -37,9 +36,9 @@ class AdditionalParams extends AbstractTable
 
     public function init()
     {
-        
+
     }
-    
+
     protected function initFilters($query)
     {
         if ($value = $this->getParamAdapter()->getPureValueOfFilter('name')) {
@@ -49,5 +48,4 @@ class AdditionalParams extends AbstractTable
             $query->where("surname like '%".$value."%' ");
         }
     }
-    
 }

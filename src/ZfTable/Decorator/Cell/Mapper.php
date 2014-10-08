@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 
@@ -15,12 +15,12 @@ class Mapper extends AbstractCellDecorator
 {
 
     /**
-     * Array of options mapping 
+     * Array of options mapping
      * @var array
      */
     protected $options;
-    
-    
+
+
     /**
      * Constructor
      * @param array $options
@@ -28,13 +28,13 @@ class Mapper extends AbstractCellDecorator
      */
     public function __construct(array $options = array())
     {
-        if(count($options) == 0){
+        if (count($options) == 0) {
             throw new Exception\InvalidArgumentException('Array is empty');
         }
+
         $this->options = $options;
-        
     }
-    
+
     /**
      * Rendering decorator
      * @param string $context
@@ -44,5 +44,4 @@ class Mapper extends AbstractCellDecorator
     {
         return (isset($this->options[$context])) ? $this->options[$context] :    $context;
     }
-
 }

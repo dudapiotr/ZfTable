@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Decorator;
 
@@ -14,76 +13,74 @@ use ZfTable\Decorator\Condition\ConditionFactory;
 
 abstract class AbstractDecorator extends AbstractCommon implements DecoratorInterface
 {
-    
-    
+
     /**
      * Decorator is adding before cotext
      */
-    CONST PRE_CONTEXT   = 'pre';
-    
-    
+    const PRE_CONTEXT   = 'pre';
+
+
     /**
      * Decorator is adding after context
      */
-    CONST POST_CONTEXT  = 'post';
-    
-    
+    const POST_CONTEXT  = 'post';
+
+
     /**
-     * Decorator reset cotext and return only new cotext
+     * Decorator reset context and return only new context
      */
-    CONST RESET_CONTEXT = 'reset';
-    
-    
+    const RESET_CONTEXT = 'reset';
+
      /**
-     * Colestions of conditions objects 
+     * Collections of conditions objects
      * @var array
      */
     protected $conditions = array();
-    
-    
+
     /**
      * Add new condition to decorator
+     *
      * @param string $name
      * @param array $options
-     * @return AbstractDecorator
+     * @return $this|null
      */
     public function addCondition($name, $options)
     {
-        if($this instanceof \ZfTable\Decorator\DataAccessInterface){
+        if ($this instanceof DataAccessInterface) {
             $condition = ConditionFactory::factory($name, $options);
             $condition->setDecorator($this);
             $this->attachCondition($condition);
-            return $this; 
+            return $this;
         }
-        
     }
-    
+
     /**
      * Attach new condition
-     * @param ZfTable\Decorator\Condition\AbstractCondition $condition
+     *
+     * @param Condition\AbstractCondition $condition
      */
     protected function attachCondition($condition)
     {
         $this->conditions[] = $condition;
     }
-    
-    
-    
+
     /**
      * Check if all conditions are valid
+     *
      * @return boolean
      */
     public function validConditions()
     {
-        if(!count($this->conditions)){
+        if (!count($this->conditions)) {
             return true;
         }
+
         foreach ($this->conditions as $condition) {
-            if(!$condition->isValid()){
+            if (!$condition->isValid()) {
                 return false;
             }
         }
+
         return true;
     }
-    
 }

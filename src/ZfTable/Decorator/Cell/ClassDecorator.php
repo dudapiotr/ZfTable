@@ -3,22 +3,25 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
-
 namespace ZfTable\Decorator\Cell;
+
+use ZfTable\Decorator\Exception;
 
 class ClassDecorator extends AbstractCellDecorator
 {
 
+    /**
+     * @var array
+     */
     protected $class;
 
-    
     /**
      * Constructor
-     * @param array $options
-     * @throws Exception\InvalidArgumentException
+     *
+     * @param mixed $options
      */
     public function __construct($options)
     {
@@ -32,7 +35,7 @@ class ClassDecorator extends AbstractCellDecorator
      */
     public function render($context)
     {
-        if (count($this->class) > 0) {
+        if (count($this->class) > 0 && is_array($this->class)) {
             foreach ($this->class as $class) {
                 $this->getCell()->addClass($class);
             }
@@ -50,5 +53,4 @@ class ClassDecorator extends AbstractCellDecorator
     {
         return $this->class;
     }
-
 }

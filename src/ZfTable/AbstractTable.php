@@ -6,7 +6,6 @@
  * @license   MIT License
  */
 
-
 namespace ZfTable;
 
 use ZfTable\Table\TableInterface;
@@ -17,8 +16,6 @@ use ZfTable\Options\ModuleOptions;
 
 use ZfTable\Form\TableForm;
 use ZfTable\Form\TableFilter;
-
-use ZfTable\Config;
 
 abstract class AbstractTable extends AbstractElement implements TableInterface
 {
@@ -36,14 +33,14 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     protected $headers;
 
     /**
-     * Datbase adapter
-     * @var Zend\Db\Adapter\Adapter
+     * Database adapter
+     * @var \Zend\Db\Adapter\Adapter
      */
     protected $adapter;
 
     /**
      *
-     * @var \ZfTable\Source\SourceInterface
+     * @var Source\SourceInterface
      */
     protected $source;
 
@@ -94,7 +91,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Options base ond ModuleOptions and config array
-     * @var \ZfTable\Options\ModuleOptions
+     * @var Options\ModuleOptions
      */
     protected $options = null;
 
@@ -111,10 +108,10 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      * Set module options
      *
-     * @param  array|Traversable|ModuleOptions $options
+     * @param  array|\Traversable|ModuleOptions $options
      * @return AbstractTable
      */
-    public function setOptions(ModuleOptions $options)
+    public function setOptions($options)
     {
         if (!$options instanceof ModuleOptions) {
             $options = new ModuleOptions($options);
@@ -125,8 +122,11 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Return Params adapter which responsible for universal mapping parameters from diffrent
+     * Return Params adapter
+     *
+     * which responsible for universal mapping parameters from different
      * source (default params, Data Table params, JGrid params)
+     *
      * @return ParamAdapterInterface
      */
     public function getParamAdapter()
@@ -138,17 +138,19 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      *
-     * @param \ZfTable\Params\AdapterInterface $paramAdapter
-     * @throws \InvalidArgumentException
+     * @param $params
+     * @throws Exception\InvalidArgumentException
      */
     public function setParamAdapter($params)
     {
-        if ($params instanceof \ZfTable\Params\AdapterInterface) {
+        if ($params instanceof Params\AdapterInterface) {
             $this->paramAdapter = $params;
         } elseif ($params instanceof \Zend\Stdlib\Parameters) {
             $this->paramAdapter = new AdapterArrayObject($params);
         } else {
-            throw new Excpetion\InvalidArgumentException('Parameter must be isntance of AdapterInterface or \Zend\Stdlib\Parameters');
+            throw new Exception\InvalidArgumentException(
+                'Parameter must be instance of AdapterInterface or \Zend\Stdlib\Parameters'
+            );
         }
         $this->paramAdapter->setTable($this);
         $this->paramAdapter->init();
@@ -157,7 +159,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      *
      * @return array | \Zend\Paginator\Paginator
-     * @throws \LogicException
+     * @throws Exception\LogicException
      */
     public function getData()
     {
@@ -168,11 +170,12 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             }
             return $source->getData();
         }
+        return array();
     }
 
     /**
      *
-     * @return \ZfTable\Source\SourceInterface
+     * @return Source\SourceInterface
      */
     public function getSource()
     {
@@ -182,20 +185,20 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      *
      * @param \Zend\Db\Sql\Select |  $source
-     * @return \ZfTable\AbstractTable
-     * @throws \LogicException
+     * @return AbstractTable
+     * @throws Exception\LogicException
      */
     public function setSource($source)
     {
 
         if ($source instanceof \Zend\Db\Sql\Select) {
-            $source = new \ZfTable\Source\SqlSelect($source);
+            $source = new Source\SqlSelect($source);
         } elseif ($source instanceof \Doctrine\ORM\QueryBuilder) {
-            $source = new \ZfTable\Source\DoctrineQueryBuilder($source);
-        } elseif(is_array($source)) {
-            $source = new \ZfTable\Source\ArrayAdapter($source);
+            $source = new Source\DoctrineQueryBuilder($source);
+        } elseif (is_array($source)) {
+            $source = new Source\ArrayAdapter($source);
         } else {
-            throw new \LogicException('This type of source is undefined');
+            throw new Exception\LogicException('This type of source is undefined');
         }
 
         $source->setTable($this);
@@ -205,7 +208,8 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Get database adapter
-     * @return Zend\Db\Adapter\Adapter
+     *
+     * @return \Zend\Db\Adapter\Adapter
      */
     public function getAdapter()
     {
@@ -214,8 +218,9 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Set database adapter
-     * @param Zend\Db\Adapter\Adapter $adapter
-     * @return \ZfTable\AbstractTable
+     *
+     * @param \Zend\Db\Adapter\Adapter $adapter
+     * @return $this
      */
     public function setAdapter($adapter)
     {
@@ -225,14 +230,18 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Rendering table
+     *
+     * @param string $type (html | dataTableAjaxInit | dataTableJson)
+     * @param null $template
+     * @throws Exception\InvalidArgumentException
      * @return string
-     * @param string (html | dataTableAjaxInit | dataTableJson)
      */
     public function render($type = 'html', $template = null)
     {
         if (!$this->isTableInit()) {
             $this->initializable();
         }
+
         if ($type == 'html') {
             return $this->getRender()->renderTableAsHtml();
         } elseif ($type == 'dataTableAjaxInit') {
@@ -241,27 +250,35 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
             return $this->getRender()->renderDataTableJson();
         } elseif ($type == 'custom') {
             return $this->getRender()->renderCustom($template);
+        } elseif ($type == 'newDataTableJson') {
+            return $this->getRender()->renderNewDataTableJson();
+        } else {
+            throw new Exception\InvalidArgumentException(sprintf('Invalid type %s', $type));
         }
 
     }
 
     /**
      * Init configuration like setting header, decorators, filters and others
+     *
      * (call in render method as well)
      */
     protected function initializable()
     {
-        if(!$this->getParamAdapter()){
+        if (!$this->getParamAdapter()) {
             throw new Exception\LogicException('Param Adapter is required');
         }
-        if(!$this->getSource()){
+
+        if (!$this->getSource()) {
             throw new Exception\LogicException('Source data is required');
         }
 
         $this->init = true;
+
         if (count($this->headers)) {
             $this->setHeaders($this->headers);
         }
+
         $this->init();
 
         $this->initFilters($this->getSource()->getSource());
@@ -270,6 +287,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * @deprecated since version 2.0
+     *
      * Function replace by initFilters
      */
     protected function initQuickSearch()
@@ -278,7 +296,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Init filters for quick serach or filters for each column
+     * Init filters for quick search or filters for each column
      * @param \Zend\Db\Sql\Select $query
      */
     protected function initFilters($query)
@@ -289,7 +307,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      *
      * @param array $headers
-     * @return \ZfTable\AbstractTable
+     * @return $this
      */
     public function setHeaders(array $headers)
     {
@@ -303,6 +321,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Return array of headers
+     *
      * @return array
      */
     public function getHeaders()
@@ -312,15 +331,16 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      *
-     * @param type $name
+     * @param string $name type
      * @return Header | boolean
-     * @throws LogicException
+     * @throws Exception\LogicException
      */
     public function getHeader($name)
     {
         if (!count($this->headersObjects)) {
-            throw new LogicException('Table hasnt got defined headers');
+            throw new Exception\LogicException('Table hasn\'t got defined headers');
         }
+
         if (!isset($this->headersObjects[$name])) {
             throw new \RuntimeException('Header name doesnt exist');
         }
@@ -329,12 +349,12 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Add new header
+     *
      * @param string $name
      * @param array $options
      */
     public function addHeader($name, $options)
     {
-
         $header = new Header($name, $options);
         $header->setTable($this);
         $this->headersObjects[$name] = $header;
@@ -342,20 +362,22 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Get Row object
+     *
      * @return Row
      */
     public function getRow()
     {
         if (!$this->row) {
-            $this->row = new \ZfTable\Row($this);
+            $this->row = new Row($this);
         }
         return $this->row;
     }
 
     /**
      * Set row object
-     * @param Row $row
-     * @return \ZfTable\AbstractTable
+     *
+     * @param $row Row
+     * @return $this
      */
     public function setRow($row)
     {
@@ -365,6 +387,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
 
     /**
      * Get Render object
+     *
      * @return Render
      */
     public function getRender()
@@ -385,7 +408,7 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     }
 
     /**
-     * Rendering tablae
+     * Rendering table
      */
     public function __toString()
     {
@@ -395,17 +418,16 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
     /**
      *
      * @return ModuleOptions
-     * @throws Zend_Exception
+     * @throws \Exception
      */
     public function getOptions()
     {
-        if(is_array($this->config)){
+        if (is_array($this->config)) {
             $this->config = new ModuleOptions($this->config);
-        } else if(!$this->config instanceof  ModuleOptions){
-            throw new Zend_Exception('Config class problem');
+        } elseif (!$this->config instanceof  ModuleOptions) {
+            throw new \Exception('Config class problem');
         }
         return $this->config;
-
     }
 
     /**
@@ -426,4 +448,3 @@ abstract class AbstractTable extends AbstractElement implements TableInterface
         return new TableFilter(array_keys($this->headers));
     }
 }
-

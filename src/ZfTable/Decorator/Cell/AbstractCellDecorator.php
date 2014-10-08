@@ -3,7 +3,7 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
 
 namespace ZfTable\Decorator\Cell;
@@ -12,17 +12,16 @@ use ZfTable\Decorator\AbstractDecorator;
 use ZfTable\Decorator\DataAccessInterface;
 
 abstract class AbstractCellDecorator extends AbstractDecorator implements DataAccessInterface
-
 {
 
     /**
      * Get cell object
-     * @var ZfTable\Cell
+     * @var \ZfTable\Cell
      */
     protected $cell;
 
     /**
-     * 
+     *
      * @return \ZfTable\Cell
      */
     public function getCell()
@@ -31,9 +30,9 @@ abstract class AbstractCellDecorator extends AbstractDecorator implements DataAc
     }
 
     /**
-     * 
+     *
      * @param \ZfTable\Cell $cell
-     * @return \ZfTable\Decorator\Cell\AbstractCell
+     * @return $this
      */
     public function setCell($cell)
     {
@@ -41,9 +40,10 @@ abstract class AbstractCellDecorator extends AbstractDecorator implements DataAc
         return $this;
     }
 
-    
+
     /**
      * Actual row data
+     *
      * @return array
      */
     public function getActualRow()
@@ -51,4 +51,3 @@ abstract class AbstractCellDecorator extends AbstractDecorator implements DataAc
         return $this->getCell()->getActualRow();
     }
 }
-

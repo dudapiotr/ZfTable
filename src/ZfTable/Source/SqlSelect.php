@@ -3,9 +3,8 @@
  * ZfTable ( Module for Zend Framework 2)
  *
  * @copyright Copyright (c) 2013 Piotr Duda dudapiotrek@gmail.com
- * @license   MIT License 
+ * @license   MIT License
  */
-
 
 namespace ZfTable\Source;
 
@@ -13,20 +12,18 @@ use ZfTable\Source\AbstractSource;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
-;
-
 class SqlSelect extends AbstractSource
 {
 
     /**
      *
-     * @var \Zend\Db\Sql\Select 
+     * @var \Zend\Db\Sql\Select
      */
     protected $quickSearchQuery;
 
     /**
      *
-     * @var \Zend\Db\Sql\Select 
+     * @var \Zend\Db\Sql\Select
      */
     protected $select;
 
@@ -36,10 +33,8 @@ class SqlSelect extends AbstractSource
      */
     protected $paginator;
 
-    
-
     /**
-     * 
+     *
      * @param \Zend\Db\Sql\Select $select
      */
     public function __construct($select)
@@ -48,25 +43,26 @@ class SqlSelect extends AbstractSource
     }
 
     /**
-     * 
+     *
      * @return \Zend\Db\Sql\Select
      */
     public function getSelect()
     {
         return $this->select;
     }
-    
+
     /**
-     * 
+     *
      * @return \Zend\Db\Sql\Select
      */
     public function getSource()
     {
         return $this->select;
     }
-    
+
     /**
-     * Return data as PDO statemant
+     * Return data as PDO statement
+     *
      * not-used
      * @return type
      */
@@ -77,7 +73,7 @@ class SqlSelect extends AbstractSource
     }
 
     /**
-     *  
+     *
      * @return \Zend\Paginator\Paginator
      */
     public function getPaginator()
@@ -85,16 +81,16 @@ class SqlSelect extends AbstractSource
         if (!$this->paginator) {
             $adapter = new DbSelect($this->getSelect(), $this->getTable()->getAdapter());
             $this->paginator = new Paginator($adapter);
-            
+
             $this->order();
-            
+
             $this->initPaginator();
         }
         return $this->paginator;
     }
 
     /**
-     * Setting orderding
+     * Setting ordering
      */
     protected function order()
     {
@@ -105,9 +101,9 @@ class SqlSelect extends AbstractSource
             $this->select->order($column . ' ' . $order);
         }
     }
-    
+
     /*
-     * Init quicksearch
+     * Init quick search
      */
     protected function quickSearch()
     {
@@ -116,9 +112,4 @@ class SqlSelect extends AbstractSource
             $this->select->where($where);
         }
     }
-
-    
-
-    
-
 }
