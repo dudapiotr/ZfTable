@@ -85,7 +85,7 @@ return array(
                 'cache' => 'array',
                 'paths' => array(__DIR__ . '/../src/ZfTable/Entity')
               ),
-            'orm_default' => array(
+            'zftable_default' => array(
                 'drivers' => array(
                   'ZfTable\Entity' => 'application_entities'
                 )
