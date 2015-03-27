@@ -11,7 +11,7 @@ use Zend\InputFilter\InputFilterInterface;
 /**
  *
  * @ORM\Entity
- * @ORM\Table(name="customer")
+ * @ORM\Table(name="zftable_customer")
  * @property string $name
  * @property int $idcustomer
  */
