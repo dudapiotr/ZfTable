@@ -11,7 +11,7 @@ use Zend\InputFilter\InputFilterInterface;
 /**
  *
  * @ORM\Entity
- * @ORM\Table(name="product")
+ * @ORM\Table(name="zftable_product")
  */
 class Product implements InputFilterAwareInterface
 {
