@@ -55,6 +55,9 @@ class Template extends AbstractCellDecorator
 
         foreach ($this->vars as $var) {
             $actualRow = $this->getCell()->getActualRow();
+            if (is_object($actualRow)) {
+                $actualRow = $actualRow->getArrayCopy();
+            }
             $values[] = $actualRow[$var];
         }
 
