@@ -2,7 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dudapiotr/ZfTable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dudapiotr/ZfTable/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/dudapiotr/zftable/v/stable.svg)](https://packagist.org/packages/dudapiotr/zftable) [![Total Downloads](https://poser.pugx.org/dudapiotr/zftable/downloads.svg)](https://packagist.org/packages/dudapiotr/zftable) [![License](https://poser.pugx.org/dudapiotr/zftable/license.svg)](https://packagist.org/packages/dudapiotr/zftable)
 
-ZfTable 3.1 [See on live (new site)](http://dudapiotr.eu)
+ZfTable 3.1 [See on live (new site)](http://dudapiotrek.laohost.net/)
 =======
 Version 3.1 Created by Piotr Duda
 
@@ -94,7 +94,7 @@ Installation description has been moved to wiki
 https://github.com/dudapiotr/ZfTable/wiki/Installation-and-Configuration
 
 
-Examples [See on live](http://dudapiotr.eu)
+Examples [See on live](http://dudapiotrek.laohost.net/)
 -------
 In Example directory there is a couple of examples how use decorators and generate table. After added js and css file
 to your layout view, in controller there are a table calls(based on data from ZF2 tutorial - album).
